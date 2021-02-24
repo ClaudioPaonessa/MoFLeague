@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="mfoApp">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -129,8 +129,8 @@
                 </div>
             </nav>
 
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div ng-view></div>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" ng-app="mfoApp">
+                <ng-view></ng-view>
             </main>
         </div>
     </div>
