@@ -1,6 +1,6 @@
 var URL = "https://mof-league.com"
 
-app.controller('PostController', function($scope, $http){
+app.controller('AccountController', function($scope, $http){
  
     $scope.result = [];
     
