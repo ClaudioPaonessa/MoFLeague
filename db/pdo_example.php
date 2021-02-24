@@ -1,3 +1,4 @@
+<?php
 /* Host name of the MySQL server. */
 $host = 'localhost';
 
@@ -31,3 +32,4 @@ catch (PDOException $e)
    echo 'Database connection failed.';
    die();
 }
+?>
