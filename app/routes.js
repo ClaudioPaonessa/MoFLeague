@@ -1,4 +1,4 @@
-var app =  angular.module('mfoApp',['ngRoute']);
+var app =  angular.module('mfoApp', ['ngRoute']);
 app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
