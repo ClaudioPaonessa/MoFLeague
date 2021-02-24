@@ -6,7 +6,7 @@ app.controller('AccountController', function($scope, $http){
     
     $scope.register = function(){
         $http({
-            url: URL + '/api/register.php',
+            url: URL + '/api/account/register.php',
             method: 'POST',
             data: $scope.form
         }).then(function(data){
