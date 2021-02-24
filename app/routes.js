@@ -9,5 +9,9 @@ app.config(['$routeProvider',
             .when('/register', {
 	            templateUrl: 'templates/register.html',
 	            controller: 'AccountController'
+	        })
+            .when('/login', {
+	            templateUrl: 'templates/login.html',
+	            controller: 'AccountController'
 	        });
 }]);
