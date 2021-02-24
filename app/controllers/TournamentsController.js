@@ -13,5 +13,5 @@ app.controller('TournamentsController', function($scope, $http){
             $scope.result.push(data.data);
         });
     }
-     
+    
   });

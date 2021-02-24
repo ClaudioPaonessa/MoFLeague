@@ -4,7 +4,7 @@ session_start();
 
 // Check if the user is logged in, if not then redirect him to login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: login.php");
+    header("location: /auth/login.php");
     exit;
 }
 ?>
@@ -154,7 +154,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     <script src="app/routes.js"></script>
     <script src="app/helper/angularHelper.js"></script>
-    <script src="app/controllers/AccountController.js"></script>
+    <script src="app/controllers/TournamentsController.js"></script>
 </body>
 
 </html>
