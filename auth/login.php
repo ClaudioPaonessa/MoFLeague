@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = 'SELECT * FROM accounts WHERE (account_name = :name)';
+        $query = 'SELECT * FROM accounts WHERE (account_name = :name)';
         $values = [':name' => $username];
 
         try
