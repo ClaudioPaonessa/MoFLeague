@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="demoApp">
+<head>
+<meta charset="UTF-8">
+<title>Angular</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="cardTest.js"></script>
+</head>
+<body>
+    <div ng-controller="demoController">
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Question</th>
+            </tr>
+            <tr ng-repeat="row in result">
+                <td>{{row.id}}</td> 
+                <td>{{row.question}}</td> 
+             </tr>
+        </table>
+        <h1>{{result}}</h1> <!-- gets all the json data -->
+    </div>
+</body>
+</html>
