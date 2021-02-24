@@ -15,7 +15,7 @@
 
     try
     {
-        $res = $pdo->prepare($query);
+        $res = $pdo->prepare($sql);
         $res->execute($values);
     }
     catch (PDOException $e)
