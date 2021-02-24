@@ -1,10 +1,10 @@
 var URL = "https://mof-league.com"
 
-app.controller('AccountController', function($scope, $http){
+app.controller('TournamentsController', function($scope, $http){
  
     $scope.result = [];
     
-    $scope.register = function(){
+    $scope.init = function(){
         $http({
             url: URL + '/api/account/register.php',
             method: 'POST',

@@ -3,15 +3,11 @@ app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
 	        when('/', {
-	            templateUrl: 'templates/login.html',
-	            controller: 'AccountController'
+	            templateUrl: 'templates/home.html',
+	            controller: 'TournamentsController'
 	        })
-            .when('/register', {
-	            templateUrl: 'templates/register.html',
-	            controller: 'AccountController'
-	        })
-            .when('/login', {
-	            templateUrl: 'templates/login.html',
-	            controller: 'AccountController'
+            .when('/pool', {
+	            templateUrl: 'templates/pool.html',
+	            controller: 'PoolController'
 	        });
 }]);
