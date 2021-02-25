@@ -95,12 +95,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </style>
 </head>
 <body>
-    <div id="login">
+<div id="login">
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="" method="post">
+                        <form form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                             <h3 class="text-center text-info">Login</h3>
                             <div class="form-group" <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                                 <label for="username" class="text-info">Username:</label><br>
@@ -116,7 +116,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Login">
                             </div>
                             <div id="register-link" class="text-right">
-                                <p>Don't have an account? <a href="/auth/register">Sign up now</a>.</p>
+                                <a href="/auth/register">Sign up now</a>
                             </div>
                         </form>
                     </div>
