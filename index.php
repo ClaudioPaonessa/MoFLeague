@@ -53,7 +53,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Sign out</a>
+                <?php echo $_SESSION["username"]; ?><a class="nav-link" href="/auth/logout">Sign out</a>
             </li>
         </ul>
     </header>
