@@ -74,52 +74,92 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 }
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MoF - Login</title>
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
-    <!-- Custom styles for this template -->
-    <link href="../custom.css" rel="stylesheet" />
-    
-    <style type="text/css">
-        body {
-            background-color: #4D4D4D;
-        }
-    </style>
-</head>
-<body>
-    <div id="login">
-        <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                        <form id="login-form" form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                            <h3 class="text-center text-info">Login</h3>
-                            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                                <label for="username" class="text-info">Username:</label><br>
-                                <input type="text" name="username" id="username" class="form-control" value="<?php echo $username; ?>">
-                                <span class="help-block"><?php echo $username_err; ?></span>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Page Title - SB Admin</title>
+        <link href="../css/styles.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="bg-primary">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <div class="card-body">
+                                    <form id="login-form" form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                                        <h3 class="text-center text-info">Login</h3>
+                                        <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                                            <label for="username" class="text-info">Username:</label><br>
+                                            <input type="text" name="username" id="username" class="form-control" value="<?php echo $username; ?>">
+                                            <span class="help-block"><?php echo $username_err; ?></span>
+                                        </div>
+                                        <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                                            <label for="password" class="text-info">Password:</label><br>
+                                            <input type="password" name="password" id="password" class="form-control">
+                                            <span class="help-block"><?php echo $password_err; ?></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Login">
+                                        </div>
+                                        <div id="register-link" class="text-right">
+                                            <span>Don't have an account? <a href="/auth/register" class="text-info">Sign up now</a>.</span>
+                                        </div>
+                                    </form>
+                                    
+                                        <form form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                                            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                                                <label class="small mb-1" for="username">Username</label>
+                                                <input class="form-control py-4" id="username" type="text" placeholder="Enter username" />
+                                                <span class="help-block"><?php echo $username_err; ?></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="password">Password</label>
+                                                <input class="form-control py-4" id="password" type="password" placeholder="Enter password" />
+                                                <span class="help-block"><?php echo $password_err; ?></span>
+                                            </div>
+                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                                <a class="small" href="#">Forgot Password?</a>
+                                                <input type="submit" name="submit" class="btn btn-primary" value="Login">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <div class="small"><a href="/auth/register">Need an account? Sign up!</a></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                                <label for="password" class="text-info">Password:</label><br>
-                                <input type="password" name="password" id="password" class="form-control">
-                                <span class="help-block"><?php echo $password_err; ?></span>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Login">
-                            </div>
-                            <div id="register-link" class="text-right">
-                                <span>Don't have an account? <a href="/auth/register" class="text-info">Sign up now</a>.</span>
-                            </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </main>
+            </div>
+            <div id="layoutAuthentication_footer">
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
-    </div>
-</body>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="../js/scripts.js"></script>
+    </body>
 </html>
