@@ -53,7 +53,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <?php echo $_SESSION["username"]; ?><a class="nav-link" href="/auth/logout">Sign out</a>
+                <span><?php echo $_SESSION["username"]; ?> <a class="nav-link" href="/auth/logout">Sign out</a></span>
             </li>
         </ul>
     </header>
@@ -66,46 +66,25 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">
                                 <span data-feather="home"></span>
-                                Dashboard
+                                Tournaments
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <span data-feather="file"></span>
-                                Orders
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="shopping-cart"></span>
-                                Products
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="users"></span>
-                                Customers
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="bar-chart-2"></span>
-                                Reports
+                                <span data-feather="bar-chart"></span>
+                                My Stats
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <span data-feather="layers"></span>
-                                Integrations
+                                Cards
                             </a>
                         </li>
                     </ul>
 
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span>Saved reports</span>
-                        <a class="link-secondary" href="#" aria-label="Add a new report">
-                            <span data-feather="plus-circle"></span>
-                        </a>
+                        <span>Running Tournaments</span>
                     </h6>
                     <ul class="nav flex-column mb-2">
                         <li class="nav-item">
