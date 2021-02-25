@@ -94,14 +94,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                                 <div class="col-md-6">
                                                     <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                                                         <label class="small mb-1" for="username">Username</label>
-                                                        <input class="form-control py-4" name="username" id="username" type="text" placeholder="Enter username" />
+                                                        <input class="form-control py-4" name="username" id="username" type="text" value="<?php echo $username; ?>" placeholder="Enter username" />
                                                         <span class="help-block"><?php echo $username_err; ?></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group <?php echo (!empty($display_name_err)) ? 'has-error' : ''; ?>">
                                                         <label class="small mb-1" for="display_name">Display Name</label>
-                                                        <input class="form-control py-4" name="display_name" id="display_name" type="text" placeholder="Enter display name" />
+                                                        <input class="form-control py-4" name="display_name" id="display_name" type="text" value="<?php echo $display_name; ?>" placeholder="Enter display name" />
                                                         <span class="help-block"><?php echo $display_name_err; ?></span>
                                                     </div>
                                                 </div>

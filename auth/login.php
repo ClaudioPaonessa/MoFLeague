@@ -101,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                         <form form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                                                 <label class="small mb-1" for="username">Username</label>
-                                                <input class="form-control py-4" name="username" id="username" type="text" placeholder="Enter username" />
+                                                <input class="form-control py-4" name="username" id="username" type="text" value="<?php echo $username; ?>" placeholder="Enter username" />
                                                 <span class="help-block"><?php echo $username_err; ?></span>
                                             </div>
                                             <div class="form-group">
