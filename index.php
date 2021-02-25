@@ -77,7 +77,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        <?php echo $_SESSION["username"] ?>
+                        <?php echo $_SESSION["username"] ?> (<?php echo $_SESSION["display_name"] ?>)
                     </div>
                 </nav>
             </div>

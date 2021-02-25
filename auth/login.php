@@ -61,7 +61,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Store data in session variables
                 $_SESSION["loggedin"] = true;
                 $_SESSION["id"] = $id;
-                $_SESSION["username"] = $username;                            
+                $_SESSION["username"] = $username;
+                $_SESSION["display_name"] = $row['account_passwd'];                          
                 
                 // Redirect user to main page
                 header("location: /");
