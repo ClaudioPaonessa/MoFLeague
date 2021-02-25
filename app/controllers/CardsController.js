@@ -13,5 +13,7 @@ app.controller('CardsController', function($scope, $http){
             $scope.result.push(data.data);
         });
     }
+
+    $scope.init();
     
-  });
+});

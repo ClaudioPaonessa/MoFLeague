@@ -74,7 +74,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 Trades
                             </a>
                             <div class="sb-sidenav-menu-heading">General</div>
-                            <a class="nav-link" href="#/cards">
+                            <a class="nav-link" href="#!cards">
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Cards Explorer
                             </a>
