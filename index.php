@@ -53,7 +53,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <span><?php echo $_SESSION["username"]; ?> <a class="nav-link" href="/auth/logout">Sign out</a></span>
+                <div class="dropdown nav-link">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php echo $_SESSION["username"]; ?>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Account Settings</a>
+                        <a class="dropdown-item" href="/auth/logout">Sign out</a>
+                    </div>
+                </div>
+
             </li>
         </ul>
     </header>
@@ -64,7 +73,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
+                            <a class="nav-link" aria-current="page" href="#">
                                 <span data-feather="home"></span>
                                 Tournaments
                             </a>
