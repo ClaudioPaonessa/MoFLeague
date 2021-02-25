@@ -6,8 +6,8 @@ app.config(['$routeProvider',
 	            templateUrl: 'templates/home.html',
 	            controller: 'TournamentsController'
 	        })
-            .when('/pool', {
-	            templateUrl: 'templates/pool.html',
-	            controller: 'PoolController'
+            .when('/cards', {
+	            templateUrl: 'templates/cards.html',
+	            controller: 'CardsController'
 	        });
 }]);

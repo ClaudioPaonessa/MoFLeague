@@ -59,7 +59,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
         catch (PDOException $e)
         {
-            $username_err = "Username" . $username . "already taken";
+            $username_err = "Username " . $username . " already taken";
             $username = "";
         }
     }

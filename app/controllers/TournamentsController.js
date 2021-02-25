@@ -1,17 +1,13 @@
-var URL = "https://mof-league.com"
+app.controller("TournamentsController", function($scope, $http) {
+    
+    $scope.result = []
 
-app.controller('TournamentsController', function($scope, $http){
- 
-    $scope.result = [];
+    $scope.init();
     
     $scope.init = function(){
-        $http({
-            url: URL + '/api/account/register.php',
-            method: 'POST',
-            data: $scope.form
-        }).then(function(data){
-            $scope.result.push(data.data);
+        $http.get("https://api.magicthegathering.io/v1/cards")
+        .then(function(response) {
+            $scope.result = response.data.cards;
         });
     }
-    
-  });
+});

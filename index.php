@@ -73,6 +73,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Trades
                             </a>
+                            <div class="sb-sidenav-menu-heading">General</div>
+                            <a class="nav-link" href="#/cards">
+                                <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                Cards Explorer
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
