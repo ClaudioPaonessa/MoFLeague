@@ -12,8 +12,8 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 require '../db/pdo.php';
  
 // Define variables and initialize with empty values
-$username = $password = $display_name = "";
-$username_err = $password_err = $display_name_err = "";
+$username = $password = $confirm_password = $display_name = "";
+$username_err = $password_err = $confirm_password_err = $display_name_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -30,6 +30,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password_err = "Please enter your password.";
     } else{
         $password = trim($_POST["password"]);
+
+        if($password !== trim($_POST["confirm_password"])){
+            $confirm_password_err = "Confirmation password does not match.";
+        }
     }
 
     // Check if password is empty
@@ -40,7 +44,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Validate credentials
-    if(empty($username_err) && empty($password_err) && empty($display_name_err)){
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($display_name_err)){
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = 'INSERT INTO accounts (account_name, display_name, account_passwd) VALUES (:username, :display_name, :passwd)';
@@ -101,10 +105,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                                         <span class="help-block"><?php echo $display_name_err; ?></span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                                <input class="form-control py-4" id="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="Enter email address" />
                                             </div>
                                             <div class="form-row">
                                                 <div class="col-md-6">
