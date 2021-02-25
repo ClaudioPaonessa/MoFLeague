@@ -41,7 +41,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </style>
 
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet" />
+    <link href="custom.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -150,7 +150,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.2/angular-route.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-cookies/1.8.2/angular-cookies.min.js"></script>
 
-    <script src="dashboard.js"></script>
+    <script src="custom.js"></script>
 
     <script src="app/routes.js"></script>
     <script src="app/helper/angularHelper.js"></script>
