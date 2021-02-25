@@ -97,35 +97,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
-                                    <form id="login-form" form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                                        <h3 class="text-center text-info">Login</h3>
-                                        <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                                            <label for="username" class="text-info">Username:</label><br>
-                                            <input type="text" name="username" id="username" class="form-control" value="<?php echo $username; ?>">
-                                            <span class="help-block"><?php echo $username_err; ?></span>
-                                        </div>
-                                        <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-                                            <label for="password" class="text-info">Password:</label><br>
-                                            <input type="password" name="password" id="password" class="form-control">
-                                            <span class="help-block"><?php echo $password_err; ?></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Login">
-                                        </div>
-                                        <div id="register-link" class="text-right">
-                                            <span>Don't have an account? <a href="/auth/register" class="text-info">Sign up now</a>.</span>
-                                        </div>
-                                    </form>
-                                    
                                         <form form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                                                 <label class="small mb-1" for="username">Username</label>
-                                                <input class="form-control py-4" id="username" type="text" placeholder="Enter username" />
+                                                <input class="form-control py-4" name="username" id="username" type="text" placeholder="Enter username" />
                                                 <span class="help-block"><?php echo $username_err; ?></span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="small mb-1" for="password">Password</label>
-                                                <input class="form-control py-4" id="password" type="password" placeholder="Enter password" />
+                                                <input class="form-control py-4" name="password" id="password" type="password" placeholder="Enter password" />
                                                 <span class="help-block"><?php echo $password_err; ?></span>
                                             </div>
                                             <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
