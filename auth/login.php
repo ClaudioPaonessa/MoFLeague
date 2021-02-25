@@ -100,7 +100,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                        <form id="login-form" form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                             <h3 class="text-center text-info">Login</h3>
                             <div class="form-group" <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                                 <label for="username" class="text-info">Username:</label><br>
