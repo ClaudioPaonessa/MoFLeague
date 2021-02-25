@@ -92,13 +92,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <span class="help-block"><?php echo $username_err; ?></span>
                             </div>
                             <div class="form-group <?php echo (!empty($display_name_err)) ? 'has-error' : ''; ?>">
-                                <label for="display_name" class="text-info">Username:</label><br>
+                                <label for="display_name" class="text-info">Display name:</label><br>
                                 <input type="text" name="display_name" id="display_name" class="form-control" value="<?php echo $display_name; ?>">
                                 <span class="help-block"><?php echo $display_name_err; ?></span>
                             </div>
                             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                                 <label for="password" class="text-info">Password:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
+                                <input type="password" name="password" id="password" class="form-control">
                                 <span class="help-block"><?php echo $password_err; ?></span>
                             </div>
                             <div class="form-group">

@@ -106,14 +106,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>
                             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                                 <label for="password" class="text-info">Password:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
+                                <input type="password" name="password" id="password" class="form-control">
                                 <span class="help-block"><?php echo $password_err; ?></span>
                             </div>
                             <div class="form-group">
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Login">
                             </div>
                             <div id="register-link" class="text-right">
-                                <a href="/auth/register" class="text-info">Sign up now</a>
                                 <span>Don't have an account? <a href="/auth/register" class="text-info">Sign up now</a>.</span>
                             </div>
                         </form>
