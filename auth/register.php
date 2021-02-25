@@ -61,7 +61,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         {
             $username_err = "Username" . $username . "already taken";
             $username = "";
-            die();
         }
     }
 }
