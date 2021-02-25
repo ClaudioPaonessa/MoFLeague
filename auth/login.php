@@ -63,8 +63,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION["id"] = $id;
                 $_SESSION["username"] = $username;                            
                 
-                // Redirect user to welcome page
-                header("location: welcome.php");
+                // Redirect user to main page
+                header("location: /");
                 exit;
             }
         }
@@ -79,35 +79,32 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>MoF - Login</title>
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
     <!-- Custom styles for this template -->
     <link href="../custom.css" rel="stylesheet" />
     
     <style type="text/css">
-        body { 
-            margin: 0;
-            padding: 0;
+        body {
             background-color: #4D4D4D;
-            height: 100vh; 
         }
     </style>
 </head>
 <body>
-<div id="login">
+    <div id="login">
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
                         <form id="login-form" form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                             <h3 class="text-center text-info">Login</h3>
-                            <div class="form-group" <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+                            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                                 <label for="username" class="text-info">Username:</label><br>
                                 <input type="text" name="username" id="username" class="form-control" value="<?php echo $username; ?>">
                                 <span class="help-block"><?php echo $username_err; ?></span>
                             </div>
-                            <div class="form-group" <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
+                            <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                                 <label for="password" class="text-info">Password:</label><br>
                                 <input type="text" name="password" id="password" class="form-control">
                                 <span class="help-block"><?php echo $password_err; ?></span>
@@ -117,6 +114,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>
                             <div id="register-link" class="text-right">
                                 <a href="/auth/register" class="text-info">Sign up now</a>
+                                <span>Don't have an account? <a href="/auth/register" class="text-info">Sign up now</a>.</span>
                             </div>
                         </form>
                     </div>
