@@ -89,7 +89,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         body { 
             margin: 0;
             padding: 0;
-            background-color: #17a2b8;
+            background-color: #4D4D4D;
             height: 100vh; 
         }
     </style>
@@ -116,7 +116,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Login">
                             </div>
                             <div id="register-link" class="text-right">
-                                <a href="/auth/register">Sign up now</a>
+                                <a href="/auth/register" class="text-info">Sign up now</a>
                             </div>
                         </form>
                     </div>
