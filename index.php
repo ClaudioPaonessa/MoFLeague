@@ -23,7 +23,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <title>MoF - Mansion of Fire</title>
         <link href="css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -81,6 +80,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Cards Explorer
                             </a>
+                            <a class="nav-link" href="#!admin">
+                                <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                Admin
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -91,48 +94,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid">
-                        <h1 class="mt-4">Tournaments</h1>
-
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card text-white bg-info mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-dice-d20 mr-1"></i>
-                                        Currently Running Tournaments
-                                    </div>
-                                    <div class="card-body">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-dice-d20 mr-1"></i>
-                                        Future Tournaments
-                                    </div>
-                                    <div class="card-body">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-dice-d20 mr-1"></i>
-                                        Previous Tournaments
-                                    </div>
-                                    <div class="card-body">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <ng-view></ng-view>
-                        </div>
+                    <div class="container-fluid" ng-view>
+                        
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
@@ -155,9 +118,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-    
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.4/angular-datatables.js"></script>
+
         <script src="app/routes.js"></script>
         <script src="app/helper/angularHelper.js"></script>
         <script src="app/controllers/TournamentsController.js"></script>

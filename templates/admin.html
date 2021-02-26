@@ -1,16 +1,48 @@
+<h1 class="mt-4">Admin</h1>
+
 <div class="spinner-border" ng-show="loading" role="status">
     <span class="sr-only">Loading...</span>
 </div>
 
-<table>
-    <tr>
-        <th>Icon</th>
-        <th>Code</th>
-        <th>Name</th>
-    </tr>
-    <tr ng-repeat="row in result">
-        <td><img width="20" src="{{row.set_icon_svg_uri}}"></td> 
-        <td>{{row.set_code}}</td> 
-        <td>{{row.set_name}}</td> 
-     </tr>
-</table>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        DataTable Example
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table datatable="ng" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Release date</th>
+                        <th>Cards in DB</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Icon</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Release date</th>
+                        <th>Cards in DB</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr ng-repeat="row in result">
+                        <td><img width="20" src="{{row.set_icon_svg_uri}}"></td> 
+                        <td>{{row.set_code}}</td> 
+                        <td>{{row.set_name}}</td>
+                        <td>{{row.release_date}}</td>
+                        <td>{{row.cards_in_db}}</td>
+                        <td><button class="btn btn-primary" ng-show="row.cards_in_db==0">Import</button></td> 
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
