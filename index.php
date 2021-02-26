@@ -161,6 +161,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <script src="app/routes.js"></script>
         <script src="app/helper/angularHelper.js"></script>
         <script src="app/controllers/TournamentsController.js"></script>
-        <script src="app/controllers/CardsController.js"></script>
+        <script src="app/controllers/AdminController.js"></script>
     </body>
 </html>

@@ -1,0 +1,16 @@
+<div class="spinner-border" ng-show="loading" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+
+<table>
+    <tr>
+        <th>Icon</th>
+        <th>Code</th>
+        <th>Name</th>
+    </tr>
+    <tr ng-repeat="row in result">
+        <td><img width="20" src="{{row.set_icon_svg_uri}}"></td> 
+        <td>{{row.set_code}}</td> 
+        <td>{{row.set_name}}</td> 
+     </tr>
+</table>
