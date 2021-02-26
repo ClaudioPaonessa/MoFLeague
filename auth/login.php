@@ -62,7 +62,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION["loggedin"] = true;
                 $_SESSION["id"] = $id;
                 $_SESSION["username"] = $username;
-                $_SESSION["display_name"] = $row['display_name'];                          
+                $_SESSION["display_name"] = $row['display_name'];
+                $_SESSION["admin"] = $row['admin_privilege'];                       
                 
                 // Redirect user to main page
                 header("location: /");

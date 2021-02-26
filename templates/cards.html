@@ -1,10 +1,14 @@
+<div class="spinner-border" ng-show="loading" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+
 <table>
     <tr>
-        <th>Id</th>
-        <th>Question</th>
+        <th>Code</th>
+        <th>Name</th>
     </tr>
     <tr ng-repeat="row in result">
+        <td>{{row.code}}</td> 
         <td>{{row.name}}</td> 
-        <td>{{row.number}}</td> 
      </tr>
 </table>
