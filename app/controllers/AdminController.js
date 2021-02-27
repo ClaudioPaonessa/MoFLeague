@@ -1,4 +1,4 @@
-var API_URL = "" //"https://mof-league.com"
+var API_URL = "https://mof-league.com";
 
 app.controller('AdminController', function($scope, $http){
     $scope.loading_sets = false;
