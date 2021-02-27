@@ -1,6 +1,8 @@
 var API_URL = "https://mof-league.com";
 
-app.controller('AdminController', function($scope, $http){
+app.controller('AdminController', function($scope, $http, DTOptionsBuilder, DTColumnBuilder){
+    $scope.dtOptions = DTOptionsBuilder.newOptions().withDOM('Plfrtip');
+    
     $scope.loading_sets = false;
     $scope.refreshing_sets = false;
     
