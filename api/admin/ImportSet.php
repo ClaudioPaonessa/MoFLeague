@@ -14,34 +14,20 @@ if (!isset($_SESSION["admin"]) || boolval($_SESSION["admin"]) !== true) {
     exit;
 }
 
-// Include db config file
-require '../db/pdo.php';
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = explode( '/', $uri );
 
-$json_sets = file_get_contents('https://api.scryfall.com/sets');
-$sets = json_decode($json_sets);
-
-$stmt = $pdo->prepare('INSERT INTO magic_sets (set_code, set_name, scryfall_search_url, release_date, set_type, set_icon_svg_uri) VALUES(:set_code, :set_name, :scryfall_search_url, :release_date, :set_type, :set_icon_svg_uri)');
-
-foreach ($sets->data as &$set) {
-    try
-    {
-        $stmt->bindValue(':set_code', $set->code);
-        $stmt->bindValue(':set_name',$set->name);
-        $stmt->bindValue(':scryfall_search_url',$set->search_uri);
-        $stmt->bindValue(':release_date',$set->released_at);
-        $stmt->bindValue(':set_type',$set->set_type);
-        $stmt->bindValue(':set_icon_svg_uri',$set->icon_svg_uri);
-        $stmt->execute();
-    }
-    catch (PDOException $e)
-    {
-
-    }
+if (!isset($uri[4])) {
+    header("HTTP/1.1 404 Not Found");
+    exit();
 }
 
-function loadCards($pdo, $set_id, $url) {
-    //sleep(0.5);
+$setId = (int) $uri[4];
 
+// Include db config file
+require '../../db/pdo.php';
+
+function loadCards($pdo, $set_id, $url) {
     $stmt = $pdo->prepare('INSERT INTO magic_cards (card_id_scryfall, magic_set_id, card_collector_number, card_name, card_type_line, card_image_uri, card_mana_cost, card_name_back, card_type_line_back, card_image_uri_back, card_mana_cost_back) VALUES(:card_id_scryfall, :magic_set_id, :card_collector_number, :card_name, :card_type_line, :card_image_uri, :card_mana_cost, :card_name_back, :card_type_line_back, :card_image_uri_back, :card_mana_cost_back)');
 
     $json_cards = file_get_contents($url);
@@ -105,6 +91,32 @@ function loadCards($pdo, $set_id, $url) {
     }
 }
 
-loadCards($pdo, 9, "https://api.scryfall.com/cards/search?order=set&q=e%3Akhm&unique=prints");
+// Prepare a select statement
+$query = 'SELECT * FROM magic_sets WHERE (set_id = :set_id)';
+$values = [':set_id' => $setId];
+
+try
+{
+    $res = $pdo->prepare($query);
+    $res->execute($values);
+}
+catch (PDOException $e)
+{
+    header("HTTP/1.1 404 Not Found");
+    die();
+}
+
+$row = $res->fetch(PDO::FETCH_ASSOC);
+$url = "";
+
+if (is_array($row))
+{
+    $url = $row['scryfall_search_url'];
+}
+
+loadCards($pdo, $setId, $url);
+
+// set response code - 200 OK
+http_response_code(200);
 
 ?>

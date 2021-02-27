@@ -4,10 +4,17 @@
     <span class="sr-only">Loading...</span>
 </div>
 
-<div class="card mb-4">
+<div class="mb-4">
+    <button class="btn btn-primary" type="button" ng-click="refreshSets()" ng-disabled="refreshing_sets">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" ng-show="refreshing_sets"></span>
+        Refresh Sets (from API)
+      </button>
+</div>
+
+<div class="card mb-4" ng-hide="loading">
     <div class="card-header">
         <i class="fas fa-table mr-1"></i>
-        DataTable Example
+        Import Sets
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -39,7 +46,7 @@
                         <td>{{row.set_name}}</td>
                         <td>{{row.release_date}}</td>
                         <td>{{row.cards_in_db}}</td>
-                        <td><button class="btn btn-primary" ng-show="row.cards_in_db==0">Import</button></td> 
+                        <td><button class="btn btn-primary" ng-show="row.cards_in_db==0" ng-click="importSet(row)">Import</button></td> 
                     </tr>
                 </tbody>
             </table>

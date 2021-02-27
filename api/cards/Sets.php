@@ -17,7 +17,7 @@ $magic_sets_arr["records"] = array();
 
 $query = 'SELECT * FROM magic_sets';
 
-$query = 'SELECT s.set_code, s.set_name, s.release_date, s.set_type, s.set_icon_svg_uri, COUNT(c.card_id) AS cards_in_db
+$query = 'SELECT s.set_id, s.set_code, s.set_name, s.release_date, s.set_type, s.set_icon_svg_uri, COUNT(c.card_id) AS cards_in_db
 FROM magic_sets AS s
 LEFT JOIN magic_cards AS c ON s.set_id = c.magic_set_id
 GROUP BY s.set_id';
@@ -43,6 +43,7 @@ while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     extract($row);
 
     $set_item=array(
+        "set_id" => $set_id,
         "set_code" => $set_code,
         "set_name" => $set_name,
         "cards_in_db" => $cards_in_db,
@@ -56,7 +57,6 @@ while ($row = $res->fetch(PDO::FETCH_ASSOC)){
 
 // set response code - 200 OK
 http_response_code(200);
-//header('Access-Control-Allow-Origin: *');
 
 // show products data in json format
 echo json_encode($magic_sets_arr);
