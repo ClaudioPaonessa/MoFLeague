@@ -14,6 +14,15 @@ if (!isset($_SESSION["admin"]) || boolval($_SESSION["admin"]) !== true) {
     exit;
 }
 
+function get_content($URL){
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $URL);
+    $data = curl_exec($ch);
+    curl_close($ch);
+    return $data;
+}
+
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode( '/', $uri );
 
@@ -30,7 +39,7 @@ require '../../db/pdo.php';
 function loadCards($pdo, $set_id, $url) {
     $stmt = $pdo->prepare('INSERT INTO magic_cards (card_id_scryfall, magic_set_id, card_collector_number, card_name, card_type_line, card_image_uri, card_mana_cost, card_name_back, card_type_line_back, card_image_uri_back, card_mana_cost_back) VALUES(:card_id_scryfall, :magic_set_id, :card_collector_number, :card_name, :card_type_line, :card_image_uri, :card_mana_cost, :card_name_back, :card_type_line_back, :card_image_uri_back, :card_mana_cost_back)');
 
-    $json_cards = file_get_contents($url);
+    $json_cards = get_content($url);
     $cards = json_decode($json_cards);
 
     if ($cards === null) {
