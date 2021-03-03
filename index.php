@@ -37,7 +37,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto ml-md-0">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i> <?php echo $_SESSION["username"] ?></a>
+                    <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i> <?php echo $_SESSION["username"] ?></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">Account Information</a>
                         <div class="dropdown-divider"></div>
@@ -82,15 +82,25 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Cards Explorer
                             </a>
-                            <a class="nav-link" href="#!admin">
-                                <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
-                                Admin
+                            <?php if ($_SESSION["admin"]): ?>
+                            <div class="sb-sidenav-menu-heading">Admin</div>
+                            <a class="nav-link" href="#!admin_sets">
+                                <div class="sb-nav-link-icon"><i class="fas fa-shield-alt"></i></div>
+                                Import Sets
                             </a>
+                            <a class="nav-link" href="#!admin_tournaments">
+                                <div class="sb-nav-link-icon"><i class="fas fa-shield-alt"></i></div>
+                                Manage Tournaments
+                            </a>
+                            <?php endif ?>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
                         <?php echo $_SESSION["username"] ?> (<?php echo $_SESSION["display_name"] ?>)
+                        <?php if ($_SESSION["admin"]): ?>
+                            <i class="fas fa-shield-alt"></i>
+                        <?php endif ?>
                     </div>
                 </nav>
             </div>
@@ -131,6 +141,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <script src="app/routes.js"></script>
         <script src="app/helper/angularHelper.js"></script>
         <script src="app/controllers/TournamentsController.js"></script>
-        <script src="app/controllers/AdminController.js"></script>
+        <script src="app/controllers/AdminSetsController.js"></script>
+        <script src="app/controllers/AdminTournamentsController.js"></script>
     </body>
 </html>

@@ -1,4 +1,4 @@
-<h1 class="mt-4">Admin</h1>
+<h1 class="mt-4"><i class="fas fa-shield-alt"></i> Admin -  Sets</h1>
 
 <div class="spinner-border" ng-show="loading" role="status">
     <span class="sr-only">Loading...</span>
@@ -25,7 +25,7 @@
                         <th>Code</th>
                         <th>Name</th>
                         <th>Type</th>
-                        <th>Release date</th>
+                        <th>Release year</th>
                         <th>Cards in DB</th>
                         <th>Actions</th>
                     </tr>
@@ -36,7 +36,7 @@
                         <th>Code</th>
                         <th>Name</th>
                         <th>Type</th>
-                        <th>Release date</th>
+                        <th>Release year</th>
                         <th>Cards in DB</th>
                         <th>Actions</th>
                     </tr>
@@ -47,7 +47,7 @@
                         <td>{{row.set_code}}</td> 
                         <td>{{row.set_name}}</td>
                         <td>{{row.set_type}}</td>
-                        <td>{{row.release_date}}</td>
+                        <td>{{row.release_year}}</td>
                         <td>{{row.cards_in_db}}</td>
                         <td><button class="btn btn-primary" ng-show="row.cards_in_db==0" ng-click="importSet(row)">Import</button></td> 
                     </tr>

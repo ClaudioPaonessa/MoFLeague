@@ -1,0 +1,42 @@
+<h1 class="mt-4"><i class="fas fa-shield-alt"></i> Admin - Tournaments</h1>
+
+<div class="spinner-border" ng-show="loading" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+
+<div class="card mb-4" ng-hide="loading">
+    <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        Import Sets
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table datatable="ng" class="table table-bordered" id="dataTable2" dt-options="dtOptions" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Participants</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Participants</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr ng-repeat="row in result">
+                        <td>{{row.tournament_id}}</td> 
+                        <td>{{row.tournament_name}}</td> 
+                        <td>{{row.participant_count}}</td>
+                        <td></td> 
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

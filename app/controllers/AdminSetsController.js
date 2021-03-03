@@ -1,6 +1,10 @@
 var API_URL = "https://mof-league.com";
 
-app.controller('AdminController', function($scope, $http, DTOptionsBuilder, DTColumnBuilder){
+if (window.location.hostname == 'localhost') {
+    API_URL = "";
+}
+
+app.controller('AdminSetsController', function($scope, $http, DTOptionsBuilder, DTColumnBuilder){
     $scope.dtOptions = DTOptionsBuilder.newOptions().withDOM('Plfrtip');
     
     $scope.loading_sets = false;

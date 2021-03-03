@@ -12,13 +12,15 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 // Include DB config file
 require '../../db/pdo.php';
 
-$magic_sets_arr = array();
-$magic_sets_arr["records"] = array();
+$tournaments_arr = array();
+$tournaments_arr["records"] = array();
 
-$query = 'SELECT s.set_id, s.set_code, s.set_name, s.release_date, s.set_type, s.set_icon_svg_uri, COUNT(c.card_id) AS cards_in_db
-FROM magic_sets AS s
-LEFT JOIN magic_cards AS c ON s.set_id = c.magic_set_id
-GROUP BY s.set_id';
+$query = 'SELECT * FROM magic_sets';
+
+$query = 'SELECT t.tournament_id, t.tournament_name, COUNT(p.account_id) AS participant_count
+FROM tournaments AS t
+LEFT JOIN tournament_participants AS p ON t.tournament_id = p.tournament_id
+GROUP BY t.tournament_id';
 
 try
 {
@@ -37,23 +39,19 @@ while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     // just $name only
     extract($row);
 
-    $set_item=array(
-        "set_id" => $set_id,
-        "set_code" => $set_code,
-        "set_name" => $set_name,
-        "cards_in_db" => $cards_in_db,
-        "release_year" => substr($release_date, 0, 4),
-        "set_type" => $set_type,
-        "set_icon_svg_uri" => $set_icon_svg_uri
+    $tournament_item=array(
+        "tournament_id" => $tournament_id,
+        "tournament_name" => $tournament_name,
+        "participant_count" => $participant_count
     );
 
-    array_push($magic_sets_arr["records"], $set_item);
+    array_push($tournaments_arr["records"], $tournament_item);
 }
 
 // set response code - 200 OK
 http_response_code(200);
 
 // show data in json format
-echo json_encode($magic_sets_arr);
+echo json_encode($tournaments_arr);
 
 ?>
