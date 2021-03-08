@@ -76,6 +76,36 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         $("#manageParticipants").modal("show");
     }
 
+    $scope.manageRoundsModal = function(row) {
+        $scope.selected_tournament_id = row.tournament_id;
+        $scope.selectedTournamentName = row.tournament_name;
+
+        $scope.loadRounds();
+
+        $("#manageRounds").modal("show");
+    }
+
+    $scope.createRound = function() {
+        $http.post(API_URL + '/api/admin/CreateRound.php/' + $scope.selected_tournament_id, $scope.newRound).then( function ( response ) {
+            $scope.loadRounds();
+        }, function ( response ) {
+            // TODO: handle the error somehow
+        }).finally(function() {
+            
+        });
+    }
+
+    $scope.removeRound = function(round_id) {
+        $http.get(API_URL + '/api/admin/DeleteRound.php/' + round_id).then( function ( response ) {
+            $scope.loadRounds();
+            $scope.initTournaments();
+        }, function ( response ) {
+            // TODO: handle the error somehow
+        }).finally(function() {
+            
+        });
+    }
+
     $scope.loadCurrentParticipants = function() {
         $http.get(API_URL + '/api/tournament/TournamentParticipants.php/' + $scope.selected_tournament_id).then( function ( response ) {
             $scope.participants = response.data.records;
@@ -89,6 +119,16 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     $scope.loadAllAccounts = function() {
         $http.get(API_URL + '/api/tournament/TournamentAccounts.php/' + $scope.selected_tournament_id).then( function ( response ) {
             $scope.accounts = response.data.records;
+        }, function ( response ) {
+            // TODO: handle the error somehow
+        }).finally(function() {
+            
+        });
+    }
+
+    $scope.loadRounds = function() {
+        $http.get(API_URL + '/api/tournament/TournamentRounds.php/' + $scope.selected_tournament_id).then( function ( response ) {
+            $scope.rounds = response.data.records;
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
