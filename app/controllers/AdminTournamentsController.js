@@ -100,6 +100,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         $http.get(API_URL + '/api/admin/AddParticipant.php/' + $scope.selected_tournament_id + '/' + accountId).then( function ( response ) {
             $scope.loadAllAccounts();
             $scope.loadCurrentParticipants();
+            $scope.initTournaments();
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
@@ -111,6 +112,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         $http.get(API_URL + '/api/admin/RemoveParticipant.php/' + $scope.selected_tournament_id + '/' + accountId).then( function ( response ) {
             $scope.loadAllAccounts();
             $scope.loadCurrentParticipants();
+            $scope.initTournaments();
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
