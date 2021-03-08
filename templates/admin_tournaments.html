@@ -1,5 +1,23 @@
 <h1 class="mt-4"><i class="fas fa-shield-alt"></i> Admin - Tournaments</h1>
 
+<hr>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        Create tournament
+    </div>
+    <div class="card-body">
+        <form ng-submit="createTournament()" role="form">
+            <div class="form-group">
+                <label for="tournament_name">Tournament Name</label>
+                <input type="text" class="form-control" id="tournament_name" placeholder="Enter tournament name" ng-model="tournament.name">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+</div>
+
 <div class="spinner-border" ng-show="loading" role="status">
     <span class="sr-only">Loading...</span>
 </div>
@@ -11,7 +29,8 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table datatable="ng" class="table table-bordered" id="dataTable2" dt-options="dtOptions" width="100%" cellspacing="0">
+            <table datatable="ng" class="table table-bordered" id="dataTable2" dt-options="dtOptions" width="100%"
+                cellspacing="0">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -30,13 +49,33 @@
                 </tfoot>
                 <tbody>
                     <tr ng-repeat="row in result">
-                        <td>{{row.tournament_id}}</td> 
-                        <td>{{row.tournament_name}}</td> 
+                        <td>{{row.tournament_id}}</td>
+                        <td>{{row.tournament_name}}</td>
                         <td>{{row.participant_count}}</td>
-                        <td></td> 
+                        <td><button class="btn btn-danger" ng-click="deleteModalTournament(row)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModal">Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{delete_modal_text}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" ng-click="deleteSelectedTournament()">Delete</button>
+            </div>
         </div>
     </div>
 </div>

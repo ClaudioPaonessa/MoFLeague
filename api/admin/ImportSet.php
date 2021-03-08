@@ -1,40 +1,14 @@
 <?php
 
-// Initialize the session
 session_start();
 
-// Check if the user is logged in, if not then redirect him to login page
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: /auth/login.php");
-    exit;
-}
+require_once '../../auth/check_login.php';
+require_once '../../auth/check_admin.php';
+require_once '../../helper/url_id_helper.php';
+require_once '../../helper/get_content_helper.php';
+require_once '../../db/pdo.php';
 
-if (!isset($_SESSION["admin"]) || boolval($_SESSION["admin"]) !== true) {
-    header("HTTP/1.1 401 Unauthorized");
-    exit;
-}
-
-function get_content($URL){
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_URL, $URL);
-    $data = curl_exec($ch);
-    curl_close($ch);
-    return $data;
-}
-
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = explode( '/', $uri );
-
-if (!isset($uri[4])) {
-    header("HTTP/1.1 404 Not Found");
-    exit();
-}
-
-$setId = (int) $uri[4];
-
-// Include db config file
-require '../../db/pdo.php';
+$setId = get_id();
 
 function loadCards($pdo, $set_id, $url) {
     $stmt = $pdo->prepare('INSERT INTO magic_cards (card_id_scryfall, magic_set_id, card_collector_number, card_name, card_type_line, card_image_uri, card_mana_cost, card_name_back, card_type_line_back, card_image_uri_back, card_mana_cost_back) VALUES(:card_id_scryfall, :magic_set_id, :card_collector_number, :card_name, :card_type_line, :card_image_uri, :card_mana_cost, :card_name_back, :card_type_line_back, :card_image_uri_back, :card_mana_cost_back)');
@@ -100,7 +74,6 @@ function loadCards($pdo, $set_id, $url) {
     }
 }
 
-// Prepare a select statement
 $query = 'SELECT * FROM magic_sets WHERE (set_id = :set_id)';
 $values = [':set_id' => $setId];
 
