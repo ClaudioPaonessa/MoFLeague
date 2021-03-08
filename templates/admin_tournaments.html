@@ -110,7 +110,7 @@
                         <ul class="list-group">
                             <li class="list-group-item" ng-repeat="account in accounts | filter: filterAccounts">
                                 {{account.display_name}} ({{account.account_name}})
-                                <button type="button" class="btn btn-primary">Add <i class="fas fa-arrow-right mr-1"></i></button>
+                                <button type="button" class="btn btn-primary" ng-click="addParticipant(account.account_id)">Add <i class="fas fa-arrow-right mr-1"></i></button>
                             </li>
                         </ul>
                     </div>
@@ -118,7 +118,7 @@
                         <input ng-model="searchTextParticipants" class="form-control" placeholder="Search filter" ng-change="setFilterParticipants()" />
                         <ul class="list-group">
                             <li class="list-group-item" ng-repeat="participant in participants | filter: filterParticipants">
-                                <button type="button" class="btn btn-danger"><i class="fas fa-arrow-left mr-1"></i> Remove</button>
+                                <button type="button" class="btn btn-danger" ng-click="removeParticipant(participant.account_id)"><i class="fas fa-arrow-left mr-1"></i> Remove</button>
                                 {{participant.display_name}} ({{participant.account_name}})
                             </li>
                         </ul>

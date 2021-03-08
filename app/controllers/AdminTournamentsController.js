@@ -96,6 +96,28 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         });
     }
 
+    $scope.addParticipant = function(accountId) {
+        $http.get(API_URL + '/api/admin/AddParticipant.php/' + $scope.selected_tournament_id + '/' + accountId).then( function ( response ) {
+            $scope.loadAllAccounts();
+            $scope.loadCurrentParticipants();
+        }, function ( response ) {
+            // TODO: handle the error somehow
+        }).finally(function() {
+            
+        });
+    }
+
+    $scope.removeParticipant = function(accountId) {
+        $http.get(API_URL + '/api/admin/RemoveParticipant.php/' + $scope.selected_tournament_id + '/' + accountId).then( function ( response ) {
+            $scope.loadAllAccounts();
+            $scope.loadCurrentParticipants();
+        }, function ( response ) {
+            // TODO: handle the error somehow
+        }).finally(function() {
+            
+        });
+    }
+
     $scope.deleteModalTournament = function(row) {
         $scope.selected_tournament_id = row.tournament_id;
         $scope.delete_modal_text = "Do you really want to delete the tournament " + row.tournament_name + "?";
