@@ -38,8 +38,8 @@ while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     $round_item=array(
         "round_id" => $round_id,
         "name" => "Round " . $i++,
-        "date_start" => $date_start,
-        "date_end" => $date_end
+        "date_start" =>  (new DateTime($date_start, new DateTimeZone("Europe/Zurich")))->format('Y-m-d'),
+        "date_end" => (new DateTime($date_end, new DateTimeZone("Europe/Zurich")))->format('Y-m-d')
     );
 
     array_push($rounds_arr["records"], $round_item);

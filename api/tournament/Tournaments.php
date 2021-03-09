@@ -8,11 +8,13 @@ require_once '../../db/pdo.php';
 $tournaments_arr = array();
 $tournaments_arr["records"] = array();
 
-$query = 'SELECT t.tournament_id, t.tournament_name, COUNT(p.account_id) AS participant_count, s.set_name AS set_name
+$query = 'SELECT t.tournament_id, t.tournament_name, COUNT(DISTINCT p.account_id) AS participant_count, s.set_name AS set_name, COUNT(DISTINCT tr.round_id) AS round_count, MIN(tr.date_start) AS start_date, MAX(tr.date_end) AS end_date
 FROM tournaments AS t
 INNER JOIN magic_sets AS s USING(set_id)
 LEFT JOIN tournament_participants AS p ON t.tournament_id = p.tournament_id
+LEFT JOIN tournament_rounds AS tr ON t.tournament_id = tr.tournament_id
 GROUP BY t.tournament_id';
+
 
 try
 {
@@ -32,7 +34,10 @@ while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         "tournament_id" => $tournament_id,
         "tournament_name" => $tournament_name,
         "set_name" => $set_name,
-        "participant_count" => $participant_count
+        "participant_count" => $participant_count,
+        "round_count" => $round_count,
+        "start_date" => $start_date,
+        "end_date" => $end_date
     );
 
     array_push($tournaments_arr["records"], $tournament_item);

@@ -88,6 +88,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     $scope.createRound = function() {
         $http.post(API_URL + '/api/admin/CreateRound.php/' + $scope.selected_tournament_id, $scope.newRound).then( function ( response ) {
             $scope.loadRounds();
+            $scope.initTournaments();
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {

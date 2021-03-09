@@ -45,6 +45,7 @@
                         <th>Name</th>
                         <th>Set</th>
                         <th>Participants</th>
+                        <th>Duration</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -54,6 +55,7 @@
                         <th>Name</th>
                         <th>Set</th>
                         <th>Participants</th>
+                        <th>Duration</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>
@@ -63,6 +65,7 @@
                         <td>{{row.tournament_name}}</td>
                         <td>{{row.set_name}}</td>
                         <td>{{row.participant_count}}</td>
+                        <td>{{row.round_count}} rounds ({{row.start_date}} to {{row.end_date}})</td>
                         <td>
                             <button class="btn btn-primary" ng-click="manageParticipantsModal(row)">Manage participants</button>
                             <button class="btn btn-primary" ng-click="manageRoundsModal(row)">Manage rounds</button>
