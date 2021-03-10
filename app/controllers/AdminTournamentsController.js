@@ -6,7 +6,7 @@ if (window.location.hostname == 'localhost') {
 
 app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBuilder, DTColumnBuilder){
     $scope.dtOptions = DTOptionsBuilder.newOptions().withDOM('lfrtip');
-    
+
     $scope.loading_tournaments = false;
     $scope.selected_tournament_id = -1;
 
@@ -22,7 +22,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         $scope.filterParticipants = {};
         $scope.filterParticipants['$'] = $scope.searchTextParticipants;
     }
-    
+
     $scope.initTournaments = function() {
         $scope.loading_tournaments = true;
 
@@ -51,7 +51,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            
+
         });
     }
 
@@ -62,7 +62,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            
+
         });
     }
 
@@ -92,7 +92,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            
+
         });
     }
 
@@ -103,9 +103,45 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            
+
         });
     }
+
+    $scope.managePairingsModal = function(round) {
+        // $scope.selectedTournamentId = row.tournament_id;
+        // $scope.selectedTournamentName = row.tournament_name;
+        $scope.selectedRound = round;
+
+        $scope.loadPairings(round.round_id);
+        $scope.loadCurrentParticipants();
+
+        $("#managePairings").modal("show");
+    }
+
+    $scope.createPairing = function() {
+        $http.post(API_URL + '/api/admin/CreatePairing.php/' + $scope.selectedRound.round_id, $scope.newPairing).then( function ( response ) {
+            $scope.loadRounds();
+            $scope.loadPairings();
+            $scope.initTournaments();
+        }, function ( response ) {
+            // TODO: handle the error somehow
+        }).finally(function() {
+
+        });
+    }
+
+    $scope.removePairing = function(matchId) {
+        $http.get(API_URL + '/api/admin/DeletePairing.php/' + matchId).then( function ( response ) {
+            $scope.loadRounds();
+            $scope.loadPairings();
+            $scope.initTournaments();
+        }, function ( response ) {
+            // TODO: handle the error somehow
+        }).finally(function() {
+
+        });
+    }
+
 
     $scope.loadCurrentParticipants = function() {
         $http.get(API_URL + '/api/tournament/TournamentParticipants.php/' + $scope.selected_tournament_id).then( function ( response ) {
@@ -113,7 +149,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            
+
         });
     }
 
@@ -123,7 +159,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            
+
         });
     }
 
@@ -133,7 +169,17 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            
+
+        });
+    }
+
+    $scope.loadPairings = function(roundId) {
+        $http.get(API_URL + '/api/tournament/TournamentRoundPairings.php/' + roundId).then( function ( response ) {
+            $scope.pairings = response.data.records;
+        }, function ( response ) {
+            // TODO: handle the error somehow
+        }).finally(function() {
+
         });
     }
 
@@ -145,7 +191,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            
+
         });
     }
 
@@ -157,7 +203,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            
+
         });
     }
 
@@ -170,5 +216,5 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
 
     $scope.initTournaments();
     $scope.initSets();
-    
+
 });

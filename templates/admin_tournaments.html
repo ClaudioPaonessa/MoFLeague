@@ -13,7 +13,7 @@
                 <label for="tournament_name">Tournament Name</label>
                 <input type="text" class="form-control" id="tournament_name" placeholder="Enter tournament name" ng-model="tournament.name">
             </div>
-            
+
             <div class="form-group">
                 <label for="tournament_set">Set</label>
                 <select class="form-control" ng-model="tournament.set" id="tournament_set">
@@ -156,7 +156,7 @@
                         <label for="dateTo">Date End</label>
                         <input class="form-control" type="date" id="dateTo" ng-model="newRound.date_end">
                     </div>
-        
+
                     <button type="submit" class="btn btn-primary">Add</button>
                 </form>
 
@@ -165,6 +165,49 @@
                 <li class="list-group-item" ng-repeat="round in rounds">
                     <b>{{round.name}}</b>: {{round.date_start}} to {{round.date_end}}
                     <button type="button" class="btn btn-danger" ng-click="removeRound(round.round_id)">Delete</button>
+                    <button type="button" class="btn btn-primary" ng-click="managePairingsModal(round)">Pairings</button>
+                </li>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="managePairings" tabindex="-1" role="dialog" aria-labelledby="pairingsModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="roundsModal">Manage pairings for {{selectedRound.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form ng-submit="createPairing()" role="form">
+                    <div class="form-group">
+                        <label for="player1">Player 1</label>
+                        <select class="form-control" ng-model="newPairing.accountId1" id="player1">
+                            <option ng-repeat="participant in participants" value="{{participant.account_id}}">{{participant.display_name}}</option>
+                          </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="player2">Player 2</label>
+                        <select class="form-control" ng-model="newPairing.accountId2" id="player2">
+                            <option ng-repeat="participant in participants" value="{{participant.account_id}}">{{participant.display_name}}</option>
+                          </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+
+                <hr>
+
+                <li class="list-group-item" ng-repeat="pairing in pairings">
+                    <b>{{pairing.match_id}}</b>: {{pairing.display_name_1}} vs {{pairing.display_name_2}}
+                    <button type="button" class="btn btn-danger" ng-click="removePairing(pairing.match_id)">Delete</button>
                 </li>
             </div>
             <div class="modal-footer">
