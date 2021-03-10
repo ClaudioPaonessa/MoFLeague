@@ -103,7 +103,7 @@ function get_current_matches($roundId, $pdo) {
             "player_id_2" => $player_id_2,
             "p1_account_name" => $p1_account_name,
             "p1_display_name" => $p1_display_name,
-            "p2_display_name" => $p2_display_name,
+            "p2_account_name" => $p2_account_name,
             "p2_display_name" => $p2_display_name,
             "player_1_games_won" => $player_1_games_won,
             "player_2_games_won" => $player_2_games_won,
