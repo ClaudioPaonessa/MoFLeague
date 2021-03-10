@@ -56,18 +56,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Tournaments
                             </a>
-                            <div class="sb-sidenav-menu-heading">Currently Running</div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Sealed League 2021
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">Dashboard</a>
-                                    <a class="nav-link" href="#">Card Pool</a>
-                                </nav>
-                            </div>
                             <div class="sb-sidenav-menu-heading">Your stats</div>
                             <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -140,7 +128,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
         <script src="app/routes.js"></script>
         <script src="app/helper/angularHelper.js"></script>
+
         <script src="app/controllers/TournamentsController.js"></script>
+        <script src="app/controllers/TournamentController.js"></script>
         <script src="app/controllers/AdminSetsController.js"></script>
         <script src="app/controllers/AdminTournamentsController.js"></script>
     </body>

@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active" ng-repeat="row in result | filter : filterRunning">
+                    <a href="#!tournament/{{row.tournament_id}}" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterRunning">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{row.tournament_name}}</h5>
                             <small>{{row.start_date}} - {{row.end_date}}</small>
@@ -31,7 +31,7 @@
             </div>
             <div class="card-body">
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterFuture">
+                    <a href="#!tournament/{{row.tournament_id}}" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterFuture">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{row.tournament_name}}</h5>
                             <small>{{row.start_date}} - {{row.end_date}}</small>
@@ -51,7 +51,7 @@
             </div>
             <div class="card-body">
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterPast">
+                    <a href="#!tournament/{{row.tournament_id}}" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterPast">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{row.tournament_name}}</h5>
                             <small>{{row.start_date}} - {{row.end_date}}</small>

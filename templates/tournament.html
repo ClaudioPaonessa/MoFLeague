@@ -1,0 +1,60 @@
+<h1 class="mt-4">{{tournamentName}}</h1>
+
+<hr>
+
+<div class="row" ng-show="currentRound < 0">
+    <p>There is no round currently running...</p>
+</div>
+
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-circle mr-1"></i>
+                Your outstanding matches this round
+            </div>
+            <div class="card-body" >
+                <ul class="list-group list-group-flush" ng-repeat="row in matches | filter : filterNotPlayed">
+                    <li class="list-group-item">
+                        {{row.p1_account_name}} ({{row.p1_display_name}}) vs. {{row.p2_account_name}} ({{row.p2_display_name}})
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-pause-circle mr-1"></i>
+                Played but not yet confirmed matches
+            </div>
+            <div class="card-body" >
+                <ul class="list-group list-group-flush" ng-repeat="row in matches | filter : filterPlayedNotConfirmed">
+                    <li class="list-group-item">
+                        {{row.p1_account_name}} ({{row.p1_display_name}}) vs. {{row.p2_account_name}} ({{row.p2_display_name}})
+                        <span ng-show="row.reporter_you" class="badge rounded-pill bg-warning text-dark">Opponent pending</span>
+                        <span ng-hide="row.reporter_you" class="badge rounded-pill bg-danger text-light">You pending</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-check-circle mr-1"></i>
+                Played and confirmed matches
+            </div>
+            <div class="card-body" >
+                <ul class="list-group list-group-flush" ng-repeat="row in matches | filter : filterPlayedAndConfirmed">
+                    <li class="list-group-item">
+                        {{row.p1_account_name}} ({{row.p1_display_name}}) vs. {{row.p2_account_name}} ({{row.p2_display_name}})
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
