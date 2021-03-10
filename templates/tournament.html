@@ -10,7 +10,7 @@
 
 
 <div class="row" ng-hide="currentRound < 0">
-    <div class="col-xl-6">
+    <div class="col-xl-12">
         <div class="card mb-4">
             <div class="card-header">
                 <span style="color: red;">
@@ -21,7 +21,19 @@
             <div class="card-body" >
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="row in matches | filter : filterNotPlayed">
-                        {{row.p1_account_name}} ({{row.p1_display_name}}) vs. {{row.p2_account_name}} ({{row.p2_display_name}})
+                        {{row.p1_display_name}} vs. {{row.p2_display_name}}
+
+                        <form class="form-inline">
+                            <div class="form-group mb-2">
+                              <label for="resultp1" class="sr-only">Result P1</label>
+                              <input type="number" class="form-control input-sm" id="resultp1" min="0" max="2">
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                              <label for="resultp2" class="sr-only">Result P2</label>
+                              <input type="number" class="form-control input-sm" id="resultp2" min="0" max="2">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Send Request</button>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -39,7 +51,7 @@
             <div class="card-body">
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="row in matches | filter : filterPlayedNotConfirmed">
-                        {{row.p1_account_name}} ({{row.p1_display_name}}) vs. {{row.p2_account_name}} ({{row.p2_display_name}})
+                        {{row.p1_display_name}} vs. {{row.p2_display_name}}
                         <span>
                             <span class="badge bg-primary text-light">{{row.player_1_games_won}} : {{row.player_2_games_won}}</span>
                             <span ng-show="row.reporter_you" class="badge rounded-pill bg-warning text-dark">Opponent pending</span>
@@ -62,7 +74,7 @@
             <div class="card-body" >
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="row in matches | filter : filterPlayedAndConfirmed">
-                        {{row.p1_account_name}} ({{row.p1_display_name}}) vs. {{row.p2_account_name}} ({{row.p2_display_name}})
+                        {{row.p1_display_name}} vs. {{row.p2_display_name}}
                         <span class="badge bg-primary rounded-pill text-light">{{row.player_1_games_won}} : {{row.player_2_games_won}}</span>
                     </li>
                 </ul>
