@@ -121,7 +121,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     $scope.createPairing = function() {
         $http.post(API_URL + '/api/admin/CreatePairing.php/' + $scope.selectedRound.round_id, $scope.newPairing).then( function ( response ) {
             $scope.loadRounds();
-            $scope.loadPairings();
+            $scope.loadPairings($scope.selectedRound.round_id);
             $scope.initTournaments();
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -133,7 +133,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     $scope.removePairing = function(matchId) {
         $http.get(API_URL + '/api/admin/DeletePairing.php/' + matchId).then( function ( response ) {
             $scope.loadRounds();
-            $scope.loadPairings();
+            $scope.loadPairings($scope.selectedRound.round_id);
             $scope.initTournaments();
         }, function ( response ) {
             // TODO: handle the error somehow
