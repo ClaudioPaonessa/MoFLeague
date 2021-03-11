@@ -3,13 +3,14 @@
 // Initialize the session
 session_start();
 
-require_once '../../auth/check_login.php';
-require_once '../../auth/check_admin.php';
-require_once '../../helper/get_content_helper.php';
+require_once '../../auth/checkLogin.php';
+require_once '../../auth/checkAdmin.php';
+require_once '../../helper/getContentHelper.php';
+require_once '../../helper/errorHelper.php';
 require_once '../../db/pdo.php';
 
-$json_sets = get_content('https://api.scryfall.com/sets');
-$sets = json_decode($json_sets);
+$jsonSets = getContent('https://api.scryfall.com/sets');
+$sets = json_decode($jsonSets);
 
 $stmt = $pdo->prepare('INSERT INTO magic_sets (set_code, set_name, scryfall_search_url, release_date, set_type, set_icon_svg_uri) VALUES(:set_code, :set_name, :scryfall_search_url, :release_date, :set_type, :set_icon_svg_uri)');
 
@@ -26,7 +27,7 @@ foreach ($sets->data as &$set) {
     }
     catch (PDOException $e)
     {
-
+        // Skip for now...
     }
 }
 

@@ -7,14 +7,14 @@ app.config(['$routeProvider',
 	            controller: 'TournamentsController'
 	        })
 			.when('/admin_sets', {
-	            templateUrl: 'templates/admin_sets.html',
+	            templateUrl: 'templates/adminsets.html',
 	            controller: 'AdminSetsController'
 	        })
 			.when('/admin_tournaments', {
-	            templateUrl: 'templates/admin_tournaments.html',
+	            templateUrl: 'templates/admintournaments.html',
 	            controller: 'AdminTournamentsController'
 	        })
-			.when('/tournament/:tournament_id', {
+			.when('/tournament/:tournamentId', {
 				templateUrl: 'templates/tournament.html',
 				controller: 'TournamentController'
 			});

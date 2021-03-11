@@ -1,6 +1,6 @@
 <?php
 
-function get_id() {
+function getId() {
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $uri = explode( '/', $uri );
 
@@ -12,7 +12,7 @@ function get_id() {
     return (int) $uri[4];
 }
 
-function get_id2() {
+function getId2() {
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $uri = explode( '/', $uri );
 

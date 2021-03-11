@@ -7,8 +7,8 @@
 </div>
 
 <div class="mb-4">
-    <button class="btn btn-primary" type="button" ng-click="refreshSets()" ng-disabled="refreshing_sets">
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" ng-show="refreshing_sets"></span>
+    <button class="btn btn-primary" type="button" ng-click="refreshSets()" ng-disabled="refreshingSets">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" ng-show="refreshingSets"></span>
         Refresh Sets (from API)
       </button>
 </div>
@@ -45,13 +45,13 @@
                 </tfoot>
                 <tbody>
                     <tr ng-repeat="row in result">
-                        <td><img width="20" src="{{row.set_icon_svg_uri}}"></td> 
-                        <td>{{row.set_code}}</td> 
-                        <td>{{row.set_name}}</td>
-                        <td>{{row.set_type}}</td>
-                        <td>{{row.release_year}}</td>
-                        <td>{{row.cards_in_db}}</td>
-                        <td><button class="btn btn-primary" ng-show="row.cards_in_db==0" ng-click="importSet(row)">Import</button></td> 
+                        <td><img width="20" src="{{row.setIconSVGUri}}"></td> 
+                        <td>{{row.setCode}}</td> 
+                        <td>{{row.setName}}</td>
+                        <td>{{row.setType}}</td>
+                        <td>{{row.releaseYear}}</td>
+                        <td>{{row.cardsInDB}}</td>
+                        <td><button class="btn btn-primary" ng-show="row.cardsInDB==0" ng-click="importSet(row)">Import</button></td> 
                     </tr>
                 </tbody>
             </table>

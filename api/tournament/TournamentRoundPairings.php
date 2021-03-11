@@ -2,12 +2,13 @@
 
 session_start();
 
-require_once '../../auth/check_login.php';
-require_once '../../auth/check_admin.php';
-require_once '../../helper/url_id_helper.php';
+require_once '../../auth/checkLogin.php';
+require_once '../../auth/checkAdmin.php';
+require_once '../../helper/urlIdHelper.php';
+require_once '../../helper/errorHelper.php';
 require_once '../../db/pdo.php';
 
-$roundId = get_id();
+$roundId = getId();
 
 $query = 'SELECT m.match_id, m.tournament_round_id, m.player_id_1, m.player_id_2, a1.display_name AS display_name_1, a2.display_name AS display_name_2
 FROM matches AS m
@@ -28,8 +29,7 @@ try
 }
 catch (PDOException $e)
 {
-    header("HTTP/1.1 404 Not Found");
-    die();
+    returnError("Error in SQL query.");
 }
 
 $i = 1;
@@ -38,12 +38,12 @@ while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     extract($row);
 
     $match_item=array(
-        "match_id" => $match_id,
-        "tournament_round_id" =>  $tournament_round_id,
-        "player_id_1" => $player_id_1,
-        "player_id_2" => $player_id_2,
-        "display_name_1" => $display_name_1,
-        "display_name_2" => $display_name_2
+        "matchId" => $match_id,
+        "tournamentRoundId" =>  $tournament_round_id,
+        "playerId1" => $player_id_1,
+        "playerId2" => $player_id_2,
+        "displayName1" => $display_name_1,
+        "displayName2" => $display_name_2
     );
 
     array_push($matches_arr["records"], $match_item);

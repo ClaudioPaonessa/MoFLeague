@@ -85,7 +85,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        <?php echo $_SESSION["username"] ?> (<?php echo $_SESSION["display_name"] ?>)
+                        <?php echo $_SESSION["username"] ?> (<?php echo $_SESSION["displayName"] ?>)
                         <?php if ($_SESSION["admin"]): ?>
                             <i class="fas fa-shield-alt"></i>
                         <?php endif ?>
@@ -129,9 +129,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <script src="app/routes.js"></script>
         <script src="app/helper/angularHelper.js"></script>
 
-        <script src="app/controllers/TournamentsController.js"></script>
-        <script src="app/controllers/TournamentController.js"></script>
-        <script src="app/controllers/AdminSetsController.js"></script>
-        <script src="app/controllers/AdminTournamentsController.js"></script>
+        <script src="app/controllers/tournamentsController.js"></script>
+        <script src="app/controllers/tournamentController.js"></script>
+        <script src="app/controllers/adminSetsController.js"></script>
+        <script src="app/controllers/adminTournamentsController.js"></script>
     </body>
 </html>

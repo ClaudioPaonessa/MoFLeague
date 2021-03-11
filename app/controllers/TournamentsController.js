@@ -5,14 +5,14 @@ app.controller("TournamentsController", function($scope, $http) {
     $scope.result = []
     
     $scope.initTournaments = function() {
-        $scope.loading_tournaments = true;
+        $scope.loadingTournaments = true;
 
         $http.get(API_URL + '/api/tournament/Tournaments').then( function ( response ) {
             $scope.result = response.data.records;
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            $scope.loading_tournaments = false;
+            $scope.loadingTournaments = false;
         });
     }
 
@@ -34,15 +34,15 @@ app.controller("TournamentsController", function($scope, $http) {
     }
 
     $scope.filterRunning = function(tournament) {
-        return convertDate(tournament.start_date) <= now() & convertDate(tournament.end_date) >= now();
+        return convertDate(tournament.startDate) <= now() & convertDate(tournament.endDate) >= now();
     }
     
     $scope.filterFuture = function(tournament) {
-        return convertDate(tournament.start_date) > now();
+        return convertDate(tournament.startDate) > now();
     }
 
     $scope.filterPast = function(tournament) {
-        return convertDate(tournament.start_date) < now() & convertDate(tournament.end_date) < now();
+        return convertDate(tournament.startDate) < now() & convertDate(tournament.endDate) < now();
     }
 
     $scope.initTournaments();

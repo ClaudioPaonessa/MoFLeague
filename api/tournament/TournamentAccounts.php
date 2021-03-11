@@ -2,12 +2,13 @@
 
 session_start();
 
-require_once '../../auth/check_login.php';
-require_once '../../auth/check_admin.php';
-require_once '../../helper/url_id_helper.php';
+require_once '../../auth/checkLogin.php';
+require_once '../../auth/checkAdmin.php';
+require_once '../../helper/urlIdHelper.php';
+require_once '../../helper/errorHelper.php';
 require_once '../../db/pdo.php';
 
-$tournamentId = get_id();
+$tournamentId = getId();
 
 $query = 'SELECT  a.account_id AS account_id, a.account_name AS account_name, a.display_name AS display_name
 FROM accounts AS a
@@ -29,17 +30,16 @@ try
 }
 catch (PDOException $e)
 {
-    header("HTTP/1.1 404 Not Found");
-    die();
+    returnError("Error in SQL query.");
 }
 
 while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     extract($row);
 
     $participant_item=array(
-        "account_id" => $account_id,
-        "account_name" => $account_name,
-        "display_name" => $display_name
+        "accountId" => $account_id,
+        "accountName" => $account_name,
+        "displayName" => $display_name
     );
 
     array_push($participants_arr["records"], $participant_item);

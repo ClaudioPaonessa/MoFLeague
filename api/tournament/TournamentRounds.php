@@ -2,12 +2,12 @@
 
 session_start();
 
-require_once '../../auth/check_login.php';
-require_once '../../auth/check_admin.php';
-require_once '../../helper/url_id_helper.php';
+require_once '../../auth/checkLogin.php';
+require_once '../../helper/urlIdHelper.php';
+require_once '../../helper/errorHelper.php';
 require_once '../../db/pdo.php';
 
-$tournamentId = get_id();
+$tournamentId = getId();
 
 $query = 'SELECT tr.round_id, tr.date_start, tr.date_end
 FROM tournament_rounds AS tr
@@ -16,8 +16,8 @@ ORDER BY tr.date_start ASC';
 
 $values = [':tournament_id' => $tournamentId];
 
-$rounds_arr = array();
-$rounds_arr["records"] = array();
+$rounds = array();
+$rounds["records"] = array();
 
 try
 {
@@ -26,8 +26,7 @@ try
 }
 catch (PDOException $e)
 {
-    header("HTTP/1.1 404 Not Found");
-    die();
+    returnError("Error in SQL query.");
 }
 
 $i = 1;
@@ -35,18 +34,18 @@ $i = 1;
 while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     extract($row);
 
-    $round_item=array(
-        "round_id" => $round_id,
+    $roundItem=array(
+        "roundId" => $round_id,
         "name" => "Round " . $i++,
-        "date_start" =>  (new DateTime($date_start, new DateTimeZone("Europe/Zurich")))->format('Y-m-d'),
-        "date_end" => (new DateTime($date_end, new DateTimeZone("Europe/Zurich")))->format('Y-m-d')
+        "dateStart" =>  (new DateTime($date_start, new DateTimeZone("Europe/Zurich")))->format('Y-m-d'),
+        "dateEnd" => (new DateTime($date_end, new DateTimeZone("Europe/Zurich")))->format('Y-m-d')
     );
 
-    array_push($rounds_arr["records"], $round_item);
+    array_push($rounds["records"], $roundItem);
 }
 
 http_response_code(200);
 
-echo json_encode($rounds_arr);
+echo json_encode($rounds);
 
 ?>

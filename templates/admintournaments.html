@@ -10,14 +10,14 @@
     <div class="card-body">
         <form ng-submit="createTournament()" role="form">
             <div class="form-group">
-                <label for="tournament_name">Tournament Name</label>
-                <input type="text" class="form-control" id="tournament_name" placeholder="Enter tournament name" ng-model="tournament.name">
+                <label for="tournamentName">Tournament Name</label>
+                <input type="text" class="form-control" id="tournamentName" placeholder="Enter tournament name" ng-model="tournament.name">
             </div>
 
             <div class="form-group">
-                <label for="tournament_set">Set</label>
-                <select class="form-control" ng-model="tournament.set" id="tournament_set">
-                    <option ng-repeat="x in sets" ng-if="x.cards_in_db > 0" value="{{x.set_id}}">{{x.set_name}}</option>
+                <label for="tournamentSet">Set</label>
+                <select class="form-control" ng-model="tournament.set" id="tournamentSet">
+                    <option ng-repeat="x in sets" ng-if="x.cardsInDB > 0" value="{{x.setId}}">{{x.setName}}</option>
                 </select>
             </div>
 
@@ -61,11 +61,11 @@
                 </tfoot>
                 <tbody>
                     <tr ng-repeat="row in result">
-                        <td>{{row.tournament_id}}</td>
-                        <td>{{row.tournament_name}}</td>
-                        <td>{{row.set_name}}</td>
-                        <td>{{row.participant_count}}</td>
-                        <td>{{row.round_count}} rounds ({{row.start_date}} to {{row.end_date}})</td>
+                        <td>{{row.tournamentId}}</td>
+                        <td>{{row.tournamentName}}</td>
+                        <td>{{row.setName}}</td>
+                        <td>{{row.participantCount}}</td>
+                        <td>{{row.roundCount}} rounds ({{row.startDate}} to {{row.endDate}})</td>
                         <td>
                             <button class="btn btn-primary" ng-click="manageParticipantsModal(row)">Manage participants</button>
                             <button class="btn btn-primary" ng-click="manageRoundsModal(row)">Manage rounds</button>
@@ -88,7 +88,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                {{delete_modal_text}}
+                {{deleteModalText}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -113,8 +113,8 @@
                         <input ng-model="searchTextAccounts"  class="form-control" placeholder="Search filter" ng-change="setFilterAccounts()" />
                         <ul class="list-group">
                             <li class="list-group-item" ng-repeat="account in accounts | filter: filterAccounts">
-                                {{account.display_name}} ({{account.account_name}})
-                                <button type="button" class="btn btn-primary" ng-click="addParticipant(account.account_id)">Add <i class="fas fa-arrow-right mr-1"></i></button>
+                                {{account.displayName}} ({{account.accountName}})
+                                <button type="button" class="btn btn-primary" ng-click="addParticipant(account.accountId)">Add <i class="fas fa-arrow-right mr-1"></i></button>
                             </li>
                         </ul>
                     </div>
@@ -122,8 +122,8 @@
                         <input ng-model="searchTextParticipants" class="form-control" placeholder="Search filter" ng-change="setFilterParticipants()" />
                         <ul class="list-group">
                             <li class="list-group-item" ng-repeat="participant in participants | filter: filterParticipants">
-                                <button type="button" class="btn btn-danger" ng-click="removeParticipant(participant.account_id)"><i class="fas fa-arrow-left mr-1"></i> Remove</button>
-                                {{participant.display_name}} ({{participant.account_name}})
+                                <button type="button" class="btn btn-danger" ng-click="removeParticipant(participant.accountId)"><i class="fas fa-arrow-left mr-1"></i> Remove</button>
+                                {{participant.displayName}} ({{participant.accountName}})
                             </li>
                         </ul>
                     </div>
@@ -149,12 +149,12 @@
                 <form ng-submit="createRound()" role="form">
                     <div class="form-group">
                         <label for="dateFrom">Date Start</label>
-                        <input class="form-control" type="date" id="dateFrom" ng-model="newRound.date_start">
+                        <input class="form-control" type="date" id="dateFrom" ng-model="newRound.dateStart">
                     </div>
 
                     <div class="form-group">
                         <label for="dateTo">Date End</label>
-                        <input class="form-control" type="date" id="dateTo" ng-model="newRound.date_end">
+                        <input class="form-control" type="date" id="dateTo" ng-model="newRound.dateEnd">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Add</button>
@@ -163,8 +163,8 @@
                 <hr>
 
                 <li class="list-group-item" ng-repeat="round in rounds">
-                    <b>{{round.name}}</b>: {{round.date_start}} to {{round.date_end}}
-                    <button type="button" class="btn btn-danger" ng-click="removeRound(round.round_id)">Delete</button>
+                    <b>{{round.name}}</b>: {{round.dateStart}} to {{round.dateEnd}}
+                    <button type="button" class="btn btn-danger" ng-click="removeRound(round.roundId)">Delete</button>
                     <button type="button" class="btn btn-primary" ng-click="managePairingsModal(round)">Pairings</button>
                 </li>
             </div>
@@ -189,14 +189,14 @@
                     <div class="form-group">
                         <label for="player1">Player 1</label>
                         <select class="form-control" ng-model="newPairing.accountId1" id="player1">
-                            <option ng-repeat="participant in participants" value="{{participant.account_id}}">{{participant.display_name}}</option>
+                            <option ng-repeat="participant in participants" value="{{participant.accountId}}">{{participant.displayName}}</option>
                           </select>
                     </div>
 
                     <div class="form-group">
                         <label for="player2">Player 2</label>
                         <select class="form-control" ng-model="newPairing.accountId2" id="player2">
-                            <option ng-repeat="participant in participants" value="{{participant.account_id}}">{{participant.display_name}}</option>
+                            <option ng-repeat="participant in participants" value="{{participant.accountId}}">{{participant.displayName}}</option>
                           </select>
                     </div>
 
@@ -206,8 +206,8 @@
                 <hr>
 
                 <li class="list-group-item" ng-repeat="pairing in pairings">
-                    <b>{{pairing.match_id}}</b>: {{pairing.display_name_1}} vs {{pairing.display_name_2}}
-                    <button type="button" class="btn btn-danger" ng-click="removePairing(pairing.match_id)">Delete</button>
+                    <b>{{pairing.matchId}}</b>: {{pairing.displayName1}} vs {{pairing.displayName2}}
+                    <button type="button" class="btn btn-danger" ng-click="removePairing(pairing.matchId)">Delete</button>
                 </li>
             </div>
             <div class="modal-footer">

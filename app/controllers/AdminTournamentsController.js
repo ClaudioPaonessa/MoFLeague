@@ -7,8 +7,8 @@ if (window.location.hostname == 'localhost') {
 app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBuilder, DTColumnBuilder){
     $scope.dtOptions = DTOptionsBuilder.newOptions().withDOM('lfrtip');
 
-    $scope.loading_tournaments = false;
-    $scope.selected_tournament_id = -1;
+    $scope.loadingTournaments = false;
+    $scope.selectedTournamentId = -1;
 
     $scope.filterAccounts = {$: undefined};
     $scope.filterParticipants = {$: undefined};
@@ -24,19 +24,19 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.initTournaments = function() {
-        $scope.loading_tournaments = true;
+        $scope.loadingTournaments = true;
 
-        $http.get(API_URL + '/api/tournament/Tournaments').then( function ( response ) {
+        $http.get(API_URL + '/api/tournament/tournaments.php').then( function ( response ) {
             $scope.result = response.data.records;
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            $scope.loading_tournaments = false;
+            $scope.loadingTournaments = false;
         });
     };
 
     $scope.initSets = function() {
-        $http.get(API_URL + '/api/cards/Sets').then( function ( response ) {
+        $http.get(API_URL + '/api/cards/sets.php').then( function ( response ) {
             $scope.sets = response.data.records;
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -46,7 +46,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.createTournament = function() {
-        $http.post(API_URL + '/api/admin/CreateTournament.php', $scope.tournament).then( function ( response ) {
+        $http.post(API_URL + '/api/admin/createTournament.php', $scope.tournament).then( function ( response ) {
             $scope.initTournaments();
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -56,7 +56,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.deleteSelectedTournament = function() {
-        $http.get(API_URL + '/api/admin/DeleteTournament.php/' + $scope.selected_tournament_id).then( function ( response ) {
+        $http.get(API_URL + '/api/admin/deleteTournament.php/' + $scope.selectedTournamentId).then( function ( response ) {
             $scope.initTournaments();
             $("#deleteConfirm").modal("hide");
         }, function ( response ) {
@@ -67,8 +67,8 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.manageParticipantsModal = function(row) {
-        $scope.selected_tournament_id = row.tournament_id;
-        $scope.selectedTournamentName = row.tournament_name;
+        $scope.selectedTournamentId = row.tournamentId;
+        $scope.selectedTournamentName = row.tournamentName;
 
         $scope.loadAllAccounts();
         $scope.loadCurrentParticipants();
@@ -77,8 +77,8 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.manageRoundsModal = function(row) {
-        $scope.selected_tournament_id = row.tournament_id;
-        $scope.selectedTournamentName = row.tournament_name;
+        $scope.selectedTournamentId = row.tournamentId;
+        $scope.selectedTournamentName = row.tournamentName;
 
         $scope.loadRounds();
 
@@ -86,7 +86,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.createRound = function() {
-        $http.post(API_URL + '/api/admin/CreateRound.php/' + $scope.selected_tournament_id, $scope.newRound).then( function ( response ) {
+        $http.post(API_URL + '/api/admin/createRound.php/' + $scope.selectedTournamentId, $scope.newRound).then( function ( response ) {
             $scope.loadRounds();
             $scope.initTournaments();
         }, function ( response ) {
@@ -96,8 +96,8 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         });
     }
 
-    $scope.removeRound = function(round_id) {
-        $http.get(API_URL + '/api/admin/DeleteRound.php/' + round_id).then( function ( response ) {
+    $scope.removeRound = function(roundId) {
+        $http.get(API_URL + '/api/admin/deleteRound.php/' + roundId).then( function ( response ) {
             $scope.loadRounds();
             $scope.initTournaments();
         }, function ( response ) {
@@ -108,20 +108,18 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.managePairingsModal = function(round) {
-        // $scope.selectedTournamentId = row.tournament_id;
-        // $scope.selectedTournamentName = row.tournament_name;
         $scope.selectedRound = round;
 
-        $scope.loadPairings(round.round_id);
+        $scope.loadPairings(round.roundId);
         $scope.loadCurrentParticipants();
 
         $("#managePairings").modal("show");
     }
 
     $scope.createPairing = function() {
-        $http.post(API_URL + '/api/admin/CreatePairing.php/' + $scope.selectedRound.round_id, $scope.newPairing).then( function ( response ) {
+        $http.post(API_URL + '/api/admin/createPairing.php/' + $scope.selectedRound.roundId, $scope.newPairing).then( function ( response ) {
             $scope.loadRounds();
-            $scope.loadPairings($scope.selectedRound.round_id);
+            $scope.loadPairings($scope.selectedRound.roundId);
             $scope.initTournaments();
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -131,9 +129,9 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.removePairing = function(matchId) {
-        $http.get(API_URL + '/api/admin/DeletePairing.php/' + matchId).then( function ( response ) {
+        $http.get(API_URL + '/api/admin/deletePairing.php/' + matchId).then( function ( response ) {
             $scope.loadRounds();
-            $scope.loadPairings($scope.selectedRound.round_id);
+            $scope.loadPairings($scope.selectedRound.roundId);
             $scope.initTournaments();
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -144,7 +142,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
 
 
     $scope.loadCurrentParticipants = function() {
-        $http.get(API_URL + '/api/tournament/TournamentParticipants.php/' + $scope.selected_tournament_id).then( function ( response ) {
+        $http.get(API_URL + '/api/tournament/tournamentParticipants.php/' + $scope.selectedTournamentId).then( function ( response ) {
             $scope.participants = response.data.records;
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -154,7 +152,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.loadAllAccounts = function() {
-        $http.get(API_URL + '/api/tournament/TournamentAccounts.php/' + $scope.selected_tournament_id).then( function ( response ) {
+        $http.get(API_URL + '/api/tournament/tournamentAccounts.php/' + $scope.selectedTournamentId).then( function ( response ) {
             $scope.accounts = response.data.records;
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -164,7 +162,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.loadRounds = function() {
-        $http.get(API_URL + '/api/tournament/TournamentRounds.php/' + $scope.selected_tournament_id).then( function ( response ) {
+        $http.get(API_URL + '/api/tournament/tournamentRounds.php/' + $scope.selectedTournamentId).then( function ( response ) {
             $scope.rounds = response.data.records;
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -174,7 +172,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.loadPairings = function(roundId) {
-        $http.get(API_URL + '/api/tournament/TournamentRoundPairings.php/' + roundId).then( function ( response ) {
+        $http.get(API_URL + '/api/tournament/tournamentRoundPairings.php/' + roundId).then( function ( response ) {
             $scope.pairings = response.data.records;
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -184,7 +182,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.addParticipant = function(accountId) {
-        $http.get(API_URL + '/api/admin/AddParticipant.php/' + $scope.selected_tournament_id + '/' + accountId).then( function ( response ) {
+        $http.get(API_URL + '/api/admin/addParticipant.php/' + $scope.selectedTournamentId + '/' + accountId).then( function ( response ) {
             $scope.loadAllAccounts();
             $scope.loadCurrentParticipants();
             $scope.initTournaments();
@@ -196,7 +194,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.removeParticipant = function(accountId) {
-        $http.get(API_URL + '/api/admin/RemoveParticipant.php/' + $scope.selected_tournament_id + '/' + accountId).then( function ( response ) {
+        $http.get(API_URL + '/api/admin/removeParticipant.php/' + $scope.selectedTournamentId + '/' + accountId).then( function ( response ) {
             $scope.loadAllAccounts();
             $scope.loadCurrentParticipants();
             $scope.initTournaments();
@@ -208,8 +206,8 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.deleteModalTournament = function(row) {
-        $scope.selected_tournament_id = row.tournament_id;
-        $scope.delete_modal_text = "Do you really want to delete the tournament " + row.tournament_name + "?";
+        $scope.selectedTournamentId = row.tournamentId;
+        $scope.deleteModalText = "Do you really want to delete the tournament " + row.tournamentName + "?";
 
         $("#deleteConfirm").modal("show");
     }

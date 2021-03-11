@@ -2,12 +2,13 @@
 
 session_start();
 
-require_once '../../auth/check_login.php';
-require_once '../../auth/check_admin.php';
-require_once '../../helper/url_id_helper.php';
+require_once '../../auth/checkLogin.php';
+require_once '../../auth/checkAdmin.php';
+require_once '../../helper/urlIdHelper.php';
+require_once '../../helper/errorHelper.php';
 require_once '../../db/pdo.php';
 
-$tournamentId = get_id();
+$tournamentId = getId();
 
 $query = 'DELETE FROM tournaments WHERE (tournament_id = :tournament_id)';
 $values = [':tournament_id' => $tournamentId];
@@ -19,8 +20,7 @@ try
 }
 catch (PDOException $e)
 {
-    header("HTTP/1.1 404 Not Found");
-    die();
+    returnError("Error in SQL query.");
 }
 
 http_response_code(200);

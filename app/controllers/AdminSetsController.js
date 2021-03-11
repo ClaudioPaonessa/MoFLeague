@@ -7,25 +7,25 @@ if (window.location.hostname == 'localhost') {
 app.controller('AdminSetsController', function($scope, $http, DTOptionsBuilder, DTColumnBuilder){
     $scope.dtOptions = DTOptionsBuilder.newOptions().withDOM('Plfrtip');
     
-    $scope.loading_sets = false;
-    $scope.refreshing_sets = false;
+    $scope.loadingSets = false;
+    $scope.refreshingSets = false;
     
     $scope.sets = [];
     
     $scope.initSets = function() {
-        $scope.loading_sets = true;
+        $scope.loadingSets = true;
 
-        $http.get(API_URL + '/api/cards/Sets').then( function ( response ) {
+        $http.get(API_URL + '/api/cards/sets.php').then( function ( response ) {
             $scope.result = response.data.records;
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            $scope.loading_sets = false;
+            $scope.loadingSets = false;
         });
     }
 
     $scope.importSet = function(row) {
-        $http.get(API_URL + '/api/admin/ImportSet.php/' + row.set_id).then( function ( response ) {
+        $http.get(API_URL + '/api/admin/importSet.php/' + row.set_id).then( function ( response ) {
             $scope.initSets();
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -35,14 +35,14 @@ app.controller('AdminSetsController', function($scope, $http, DTOptionsBuilder, 
     }
 
     $scope.refreshSets = function(row) {
-        $scope.refreshing_sets = true;
+        $scope.refreshingSets = true;
         
-        $http.get(API_URL + '/api/admin/RefreshSets.php').then( function ( response ) {
+        $http.get(API_URL + '/api/admin/refreshSets.php').then( function ( response ) {
             $scope.initSets();
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            $scope.refreshing_sets = false;
+            $scope.refreshingSets = false;
         });
     }
 

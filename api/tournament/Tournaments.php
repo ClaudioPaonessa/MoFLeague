@@ -2,11 +2,12 @@
 
 session_start();
 
-require_once '../../auth/check_login.php';
+require_once '../../auth/checkLogin.php';
+require_once '../../helper/errorHelper.php';
 require_once '../../db/pdo.php';
 
-$tournaments_arr = array();
-$tournaments_arr["records"] = array();
+$tournaments = array();
+$tournaments["records"] = array();
 
 $query = 'SELECT t.tournament_id, t.tournament_name, COUNT(DISTINCT p.account_id) AS participant_count, COUNT(DISTINCT you.account_id) AS you_participate, s.set_name AS set_name, COUNT(DISTINCT tr.round_id) AS round_count, MIN(tr.date_start) AS start_date, MAX(tr.date_end) AS end_date
 FROM tournaments AS t
@@ -26,29 +27,28 @@ try
 }
 catch (PDOException $e)
 {
-    echo 'Query error.';
-    die();
+    returnError("Error in SQL query.");
 }
 
 while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     extract($row);
 
-    $tournament_item=array(
-        "tournament_id" => $tournament_id,
-        "tournament_name" => $tournament_name,
-        "set_name" => $set_name,
-        "participant_count" => $participant_count,
-        "round_count" => $round_count,
-        "start_date" => $start_date,
-        "end_date" => $end_date,
-        "you_participate" => boolval($you_participate)
+    $tournamentItem=array(
+        "tournamentId" => $tournament_id,
+        "tournamentName" => $tournament_name,
+        "setName" => $set_name,
+        "participantCount" => $participant_count,
+        "roundCount" => $round_count,
+        "startDate" => $start_date,
+        "endDate" => $end_date,
+        "youParticipate" => boolval($you_participate)
     );
 
-    array_push($tournaments_arr["records"], $tournament_item);
+    array_push($tournaments["records"], $tournamentItem);
 }
 
 http_response_code(200);
 
-echo json_encode($tournaments_arr);
+echo json_encode($tournaments);
 
 ?>

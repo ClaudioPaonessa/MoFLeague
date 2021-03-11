@@ -2,19 +2,20 @@
 
 session_start();
 
-require_once '../../auth/check_login.php';
-require_once '../../auth/check_admin.php';
-require_once '../../helper/url_id_helper.php';
-require_once '../../helper/get_content_helper.php';
+require_once '../../auth/checkLogin.php';
+require_once '../../auth/checkAdmin.php';
+require_once '../../helper/urlIdHelper.php';
+require_once '../../helper/getContentHelper.php';
+require_once '../../helper/errorHelper.php';
 require_once '../../db/pdo.php';
 
-$setId = get_id();
+$setId = getId();
 
 function loadCards($pdo, $set_id, $url) {
     $stmt = $pdo->prepare('INSERT INTO magic_cards (card_id_scryfall, magic_set_id, card_collector_number, card_name, card_type_line, card_image_uri, card_mana_cost, card_name_back, card_type_line_back, card_image_uri_back, card_mana_cost_back) VALUES(:card_id_scryfall, :magic_set_id, :card_collector_number, :card_name, :card_type_line, :card_image_uri, :card_mana_cost, :card_name_back, :card_type_line_back, :card_image_uri_back, :card_mana_cost_back)');
 
-    $json_cards = get_content($url);
-    $cards = json_decode($json_cards);
+    $jsonCards = getContent($url);
+    $cards = json_decode($jsonCards);
 
     if ($cards === null) {
         return;
@@ -63,7 +64,7 @@ function loadCards($pdo, $set_id, $url) {
         }
         catch (PDOException $e)
         {
-            
+            // Skip for now...
         }
     }
 
@@ -84,8 +85,7 @@ try
 }
 catch (PDOException $e)
 {
-    header("HTTP/1.1 404 Not Found");
-    die();
+    returnError("Error in SQL query.");
 }
 
 $row = $res->fetch(PDO::FETCH_ASSOC);

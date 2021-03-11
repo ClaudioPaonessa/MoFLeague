@@ -2,21 +2,21 @@ var URL = "https://mof-league.com"
 
 app.controller("TournamentController", function($scope, $routeParams, $http) {
     
-    var tournamentId = $routeParams.tournament_id;
-    $scope.loading_tournament = true;
+    var tournamentId = $routeParams.tournamentId;
+    $scope.loadingTournament = true;
     $scope.matches = []
     
     $scope.initTournament = function() {
-        $scope.loading_tournament = true;
+        $scope.loadingTournament = true;
 
-        $http.get(API_URL + '/api/tournament/Tournament.php/' + tournamentId).then( function ( response ) {
+        $http.get(API_URL + '/api/tournament/tournament.php/' + tournamentId).then( function ( response ) {
             $scope.tournamentName = response.data.tournamentName
             $scope.matches = response.data.currentMatches;
             $scope.currentRound = response.data.currentRoundId;
         }, function ( response ) {
             // TODO: handle the error somehow
         }).finally(function() {
-            $scope.loading_tournament = false;
+            $scope.loadingTournament = false;
         });
     }
 
@@ -26,7 +26,7 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
             player2GamesWon: player2GamesWon
         };
         
-        $http.post(API_URL + '/api/match/MatchRecordResult.php/' + matchId, matchResult).then( function ( response ) {
+        $http.post(API_URL + '/api/match/matchRecordResult.php/' + matchId, matchResult).then( function ( response ) {
             $scope.initTournament();
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -36,7 +36,7 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
     }
 
     $scope.revokeResult = function(matchId) {
-        $http.get(API_URL + '/api/match/MatchRevokeResult.php/' + matchId).then( function ( response ) {
+        $http.get(API_URL + '/api/match/matchRevokeResult.php/' + matchId).then( function ( response ) {
             $scope.initTournament();
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -46,7 +46,7 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
     }
 
     $scope.acceptResult = function(matchId) {
-        $http.get(API_URL + '/api/match/MatchAcceptResult.php/' + matchId).then( function ( response ) {
+        $http.get(API_URL + '/api/match/matchAcceptResult.php/' + matchId).then( function ( response ) {
             $scope.initTournament();
         }, function ( response ) {
             // TODO: handle the error somehow
@@ -56,15 +56,15 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
     }
 
     $scope.filterPlayedAndConfirmed = function(match) {
-        return match.player_1_games_won != null && Boolean(match.result_confirmed);
+        return match.player1GamesWon != null && Boolean(match.resultConfirmed);
     }
 
     $scope.filterPlayedNotConfirmed = function(match) {
-        return match.player_1_games_won != null && !Boolean(match.result_confirmed);
+        return match.player1GamesWon != null && !Boolean(match.resultConfirmed);
     }
 
     $scope.filterNotPlayed = function(match) {
-        return match.player_1_games_won == null;
+        return match.player1GamesWon == null;
     }
 
     $scope.initTournament();
