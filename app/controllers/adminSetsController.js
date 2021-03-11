@@ -9,6 +9,7 @@ app.controller('AdminSetsController', function($scope, $http, DTOptionsBuilder, 
     
     $scope.loadingSets = false;
     $scope.refreshingSets = false;
+    $scope.alertText = null;
     
     $scope.sets = [];
     
@@ -18,7 +19,7 @@ app.controller('AdminSetsController', function($scope, $http, DTOptionsBuilder, 
         $http.get(API_URL + '/api/cards/sets.php').then( function ( response ) {
             $scope.result = response.data.records;
         }, function ( response ) {
-            // TODO: handle the error somehow
+            $scope.alertText = response.data.error;
         }).finally(function() {
             $scope.loadingSets = false;
         });
@@ -28,7 +29,7 @@ app.controller('AdminSetsController', function($scope, $http, DTOptionsBuilder, 
         $http.get(API_URL + '/api/admin/importSet.php/' + row.set_id).then( function ( response ) {
             $scope.initSets();
         }, function ( response ) {
-            // TODO: handle the error somehow
+            $scope.alertText = response.data.error;
         }).finally(function() {
             
         });
@@ -40,10 +41,14 @@ app.controller('AdminSetsController', function($scope, $http, DTOptionsBuilder, 
         $http.get(API_URL + '/api/admin/refreshSets.php').then( function ( response ) {
             $scope.initSets();
         }, function ( response ) {
-            // TODO: handle the error somehow
+            $scope.alertText = response.data.error;
         }).finally(function() {
             $scope.refreshingSets = false;
         });
+    }
+
+    $scope.closeAlert = function() {
+        $scope.alertText = null;
     }
 
     $scope.initSets();

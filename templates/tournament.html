@@ -2,6 +2,17 @@
 
 <hr>
 
+<div class="row" ng-show='alertText'>
+    <div class="col-xl-12">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" ng-click="closeAlert()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Error!</strong> {{alertText}}
+        </div>
+    </div>
+</div>
+
 <div class="row" ng-show="currentRound < 0">
     <div class="col-xl-6">
         <p>There is no round currently running...</p>
@@ -20,19 +31,24 @@
             </div>
             <div class="card-body">
                 <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="row in matches | filter : filterNotPlayed">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        ng-repeat="row in matches | filter : filterNotPlayed">
                         {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
 
                         <div class="form-inline" role="form">
                             <div class="form-group mb-2">
-                              <label for="player1GamesWon" class="sr-only">P1 Games Won</label>
-                              <input type="number" class="form-control input-sm" id="player1GamesWon" ng-model="player1GamesWon" min="0" max="2">
+                                <label for="player1GamesWon" class="sr-only">P1 Games Won</label>
+                                <input type="number" class="form-control input-sm" id="player1GamesWon"
+                                    ng-model="player1GamesWon" min="0" max="2">
                             </div>
                             <div class="form-group mx-sm-3 mb-2">
-                              <label for="player2GamesWon" class="sr-only">P2 Games Won</label>
-                              <input type="number" class="form-control input-sm" id="player2GamesWon" ng-model="player2GamesWon" min="0" max="2">
+                                <label for="player2GamesWon" class="sr-only">P2 Games Won</label>
+                                <input type="number" class="form-control input-sm" id="player2GamesWon"
+                                    ng-model="player2GamesWon" min="0" max="2">
                             </div>
-                            <button class="btn btn-primary mb-2" ng-click="recordMatchResult(row.matchId, player1GamesWon, player2GamesWon)">Send Request</button>
+                            <button class="btn btn-primary mb-2"
+                                ng-click="recordMatchResult(row.matchId, player1GamesWon, player2GamesWon)">Send
+                                Request</button>
                         </div>
                     </li>
                 </ul>
@@ -50,19 +66,26 @@
             </div>
             <div class="card-body">
                 <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="row in matches | filter : filterPlayedNotConfirmed">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        ng-repeat="row in matches | filter : filterPlayedNotConfirmed">
                         {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
                         <span>
-                            <span class="badge bg-primary text-light">{{row.player1GamesWon}} : {{row.player2GamesWon}}</span>
-                            <span ng-show="row.reporterYou" class="badge rounded-pill bg-warning text-dark">Opponent pending</span>
-                            <span ng-hide="row.reporterYou" class="badge rounded-pill bg-danger text-light">You pending</span>
+                            <span class="badge bg-primary text-light">{{row.player1GamesWon}} :
+                                {{row.player2GamesWon}}</span>
+                            <span ng-show="row.reporterYou" class="badge rounded-pill bg-warning text-dark">Opponent
+                                pending</span>
+                            <span ng-hide="row.reporterYou" class="badge rounded-pill bg-danger text-light">You
+                                pending</span>
                         </span>
-                        
-                        <button type="button" class="btn btn-danger btn-sm" ng-show="row.reporterYou" ng-click="revokeResult(row.matchId)">Revoke</button>
+
+                        <button type="button" class="btn btn-danger btn-sm" ng-show="row.reporterYou"
+                            ng-click="revokeResult(row.matchId)">Revoke</button>
 
                         <div class="btn-group btn-group-sm" role="group" ng-hide="row.reporterYou">
-                            <button type="button" class="btn btn-success" ng-click="acceptResult(row.matchId)"><i class="fas fa-check-circle mr-1"></i>Accept</button>
-                            <button type="button" class="btn btn-danger" ng-click="revokeResult(row.matchId)"><i class="fas fa-times-circle mr-1"></i>Decline</button>
+                            <button type="button" class="btn btn-success" ng-click="acceptResult(row.matchId)"><i
+                                    class="fas fa-check-circle mr-1"></i>Accept</button>
+                            <button type="button" class="btn btn-danger" ng-click="revokeResult(row.matchId)"><i
+                                    class="fas fa-times-circle mr-1"></i>Decline</button>
                         </div>
                     </li>
                 </ul>
@@ -78,11 +101,13 @@
                 </span>
                 Played and confirmed matches
             </div>
-            <div class="card-body" >
+            <div class="card-body">
                 <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="row in matches | filter : filterPlayedAndConfirmed">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        ng-repeat="row in matches | filter : filterPlayedAndConfirmed">
                         {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
-                        <span class="badge bg-primary rounded-pill text-light">{{row.player1GamesWon}} : {{row.player2GamesWon}}</span>
+                        <span class="badge bg-primary rounded-pill text-light">{{row.player1GamesWon}} :
+                            {{row.player2GamesWon}}</span>
                     </li>
                 </ul>
             </div>

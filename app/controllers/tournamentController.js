@@ -5,6 +5,7 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
     var tournamentId = $routeParams.tournamentId;
     $scope.loadingTournament = true;
     $scope.matches = []
+    $scope.alertText = null;
     
     $scope.initTournament = function() {
         $scope.loadingTournament = true;
@@ -14,7 +15,7 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
             $scope.matches = response.data.currentMatches;
             $scope.currentRound = response.data.currentRoundId;
         }, function ( response ) {
-            // TODO: handle the error somehow
+            $scope.alertText = response.data.error;
         }).finally(function() {
             $scope.loadingTournament = false;
         });
@@ -29,7 +30,7 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
         $http.post(API_URL + '/api/match/matchRecordResult.php/' + matchId, matchResult).then( function ( response ) {
             $scope.initTournament();
         }, function ( response ) {
-            // TODO: handle the error somehow
+            $scope.alertText = response.data.error;
         }).finally(function() {
 
         });
@@ -39,7 +40,7 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
         $http.get(API_URL + '/api/match/matchRevokeResult.php/' + matchId).then( function ( response ) {
             $scope.initTournament();
         }, function ( response ) {
-            // TODO: handle the error somehow
+            $scope.alertText = response.data.error;
         }).finally(function() {
             
         });
@@ -49,7 +50,7 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
         $http.get(API_URL + '/api/match/matchAcceptResult.php/' + matchId).then( function ( response ) {
             $scope.initTournament();
         }, function ( response ) {
-            // TODO: handle the error somehow
+            $scope.alertText = response.data.error;
         }).finally(function() {
             
         });
@@ -65,6 +66,10 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
 
     $scope.filterNotPlayed = function(match) {
         return match.player1GamesWon == null;
+    }
+
+    $scope.closeAlert = function() {
+        $scope.alertText = null;
     }
 
     $scope.initTournament();
