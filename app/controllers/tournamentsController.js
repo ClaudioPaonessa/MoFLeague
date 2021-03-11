@@ -8,7 +8,7 @@ app.controller("TournamentsController", function($scope, $http) {
     $scope.initTournaments = function() {
         $scope.loadingTournaments = true;
 
-        $http.get(API_URL + '/api/tournament/Tournaments').then( function ( response ) {
+        $http.get(API_URL + '/api/tournament/tournaments').then( function ( response ) {
             $scope.result = response.data.records;
         }, function ( response ) {
             $scope.alertText = response.data.error;
