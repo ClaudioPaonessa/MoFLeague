@@ -89,7 +89,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
                                     <div class="card-body">
-                                        <form form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                     <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">

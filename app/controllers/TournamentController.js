@@ -20,6 +20,41 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
         });
     }
 
+    $scope.recordMatchResult = function(matchId, player1GamesWon, player2GamesWon) {
+        let matchResult = {
+            player1GamesWon: player1GamesWon,
+            player2GamesWon: player2GamesWon
+        };
+        
+        $http.post(API_URL + '/api/match/MatchRecordResult.php/' + matchId, matchResult).then( function ( response ) {
+            $scope.initTournament();
+        }, function ( response ) {
+            // TODO: handle the error somehow
+        }).finally(function() {
+
+        });
+    }
+
+    $scope.revokeResult = function(matchId) {
+        $http.get(API_URL + '/api/match/MatchRevokeResult.php/' + matchId).then( function ( response ) {
+            $scope.initTournament();
+        }, function ( response ) {
+            // TODO: handle the error somehow
+        }).finally(function() {
+            
+        });
+    }
+
+    $scope.acceptResult = function(matchId) {
+        $http.get(API_URL + '/api/match/MatchAcceptResult.php/' + matchId).then( function ( response ) {
+            $scope.initTournament();
+        }, function ( response ) {
+            // TODO: handle the error somehow
+        }).finally(function() {
+            
+        });
+    }
+
     $scope.filterPlayedAndConfirmed = function(match) {
         return match.player_1_games_won != null && Boolean(match.result_confirmed);
     }

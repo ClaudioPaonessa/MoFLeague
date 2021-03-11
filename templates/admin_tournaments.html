@@ -18,7 +18,7 @@
                 <label for="tournament_set">Set</label>
                 <select class="form-control" ng-model="tournament.set" id="tournament_set">
                     <option ng-repeat="x in sets" ng-if="x.cards_in_db > 0" value="{{x.set_id}}">{{x.set_name}}</option>
-                  </select>
+                </select>
             </div>
 
             <button type="submit" class="btn btn-primary">Create</button>

@@ -14,10 +14,10 @@
                     <a href="#!tournament/{{row.tournament_id}}" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterRunning">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{row.tournament_name}}</h5>
-                            <small>{{row.start_date}} - {{row.end_date}}</small>
+                            <small>{{row.start_date | date:'MMM d yyyy'}} - {{row.end_date | date:'MMM d yyyy'}}</small>
                         </div>
                         <p class="mb-1">{{row.round_count}} rounds</p>
-                        <small>{{row.participant_count}} participants</small>
+                        <small>{{row.participant_count}} participants <span ng-show="row.you_participate" class="badge bg-danger rounded-pill text-light">You participate</span></small>
                     </a>
                 </div>
             </div>
@@ -34,10 +34,10 @@
                     <a href="#!tournament/{{row.tournament_id}}" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterFuture">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{row.tournament_name}}</h5>
-                            <small>{{row.start_date}} - {{row.end_date}}</small>
+                            <small>{{row.start_date | date:'MMM d yyyy'}} - {{row.end_date | date:'MMM d yyyy'}}</small>
                         </div>
                         <p class="mb-1">{{row.round_count}} rounds</p>
-                        <small>{{row.participant_count}} participants</small>
+                        <small>{{row.participant_count}} participants <span ng-show="row.you_participate" class="badge bg-primary rounded-pill text-light">You are subscribed</span></small>
                     </a>
                 </div>
             </div>
@@ -54,10 +54,10 @@
                     <a href="#!tournament/{{row.tournament_id}}" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterPast">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{row.tournament_name}}</h5>
-                            <small>{{row.start_date}} - {{row.end_date}}</small>
+                            <small>{{row.start_date | date:'MMM d yyyy'}} - {{row.end_date | date:'MMM d yyyy'}}</small>
                         </div>
                         <p class="mb-1">{{row.round_count}} rounds</p>
-                        <small>{{row.participant_count}} participants</small>
+                        <small>{{row.participant_count}} participants <span ng-show="row.you_participate" class="badge bg-primary rounded-pill text-light">You participated</span></small>
                     </a>
                 </div>
             </div>
