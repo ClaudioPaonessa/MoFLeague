@@ -23,7 +23,7 @@
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" ng-repeat="round in rounds" ng-class="round.active ? 'active' : ''">
-                        {{round.name}}: {{round.dateStart}} - {{round.dateEnd}}
+                        <b>{{round.name}}</b>: <small>{{round.dateStart | date:'MMM d yyyy'}} - {{round.dateEnd | date:'MMM d yyyy'}}</small>
                     </li>
                 </ul>
             </div>
