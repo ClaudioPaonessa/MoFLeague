@@ -4,19 +4,32 @@
 <hr>
 
 <div class="row">
-    <div class="col-xl-12">
-        <span ng-repeat="n in [] | range:roundsFinished">
-            <span style="color: #BFBFBF; font-size: 48px;"><i class="fas fa-check-square mr-4"></i></span>
-        </span>
-        <span ng-repeat="n in [] | range:1" ng-hide="currentRound < 0">
-            <span style="color: #4bc48b; font-size: 48px;"><i class="far fa-caret-square-right mr-4"></i></span>
-        </span>
-        <span ng-repeat="n in [] | range:numberOfRounds - 1 - roundsFinished" ng-hide="currentRound < 0">
-            <span style="color: #BFBFBF; font-size: 48px;" ><i class="far fa-square mr-4"></i></span>
-        </span>
-        <span ng-repeat="n in [] | range:numberOfRounds - roundsFinished" ng-show="currentRound < 0">
-            <span style="color: #BFBFBF; font-size: 48px;" ><i class="far fa-square mr-4"></i></span>
-        </span>
+    <div class="col-xl-6">
+        <div class="card mb-4">
+            <div class="card-header text-center">
+                <span ng-repeat="n in [] | range:roundsFinished">
+                    <span style="color: #BFBFBF; font-size: 48px;"><i class="fas fa-check-square mr-4"></i></span>
+                </span>
+                <span ng-repeat="n in [] | range:1" ng-hide="currentRound < 0">
+                    <span style="color: #4bc48b; font-size: 48px;"><i class="far fa-caret-square-right mr-4"></i></span>
+                </span>
+                <span ng-repeat="n in [] | range:numberOfRounds - 1 - roundsFinished" ng-hide="currentRound < 0">
+                    <span style="color: #BFBFBF; font-size: 48px;" ><i class="far fa-square mr-4"></i></span>
+                </span>
+                <span ng-repeat="n in [] | range:numberOfRounds - roundsFinished" ng-show="currentRound < 0">
+                    <span style="color: #BFBFBF; font-size: 48px;" ><i class="far fa-square mr-4"></i></span>
+                </span>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" ng-repeat="round in rounds" ng-class="round.active ? 'active' : ''">
+                        {{round.name}}: {{round.dateStart}} - {{round.dateEnd}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        
     </div>
 </div>
 

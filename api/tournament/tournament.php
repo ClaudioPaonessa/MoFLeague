@@ -11,6 +11,7 @@ $tournamentId = getId();
 
 $tournamentData = array();
 $tournamentData["currentMatches"] = array();
+$tournamentData["rounds"] = array();
 $tournamentData["currentRoundId"] = -1;
 $tournamentData["tournamentName"] = "";
 
@@ -38,6 +39,45 @@ function getTournamentName($tournamentId, $pdo) {
     }
 
     return "";
+}
+
+function getRounds($tournamentId, $currentRoundIndex, $pdo) {
+    $query = 'SELECT tr.round_id, tr.date_start, tr.date_end
+    FROM tournament_rounds AS tr
+    WHERE (tournament_id = :tournament_id)
+    ORDER BY tr.date_start ASC';
+
+    $values = [':tournament_id' => $tournamentId];
+
+    $rounds = array();
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+
+    $i = 1;
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        $roundItem=array(
+            "roundId" => $round_id,
+            "name" => "Round " . $i++,
+            "dateStart" =>  (new DateTime($date_start, new DateTimeZone("Europe/Zurich")))->format('Y-m-d'),
+            "dateEnd" => (new DateTime($date_end, new DateTimeZone("Europe/Zurich")))->format('Y-m-d'),
+            "active" => $currentRoundIndex === $round_id
+        );
+
+        array_push($rounds, $roundItem);
+    }
+
+    return $rounds;
 }
 
 function getCurrentRoundIndex($tournamentId, $pdo) {
@@ -176,13 +216,12 @@ $roundsFinished = getCurrentRoundsFinished($tournamentId, $pdo);
 $tournamentData["currentRoundId"] = $currentRoundIndex;
 $tournamentData["numberOfRounds"] = intval($numberOfRounds);
 $tournamentData["roundsFinished"] = intval($roundsFinished);
+$tournamentData["rounds"] = getRounds($tournamentId, $currentRoundIndex, $pdo);
 
 if ($currentRoundIndex >= 0) {
     $matches = getCurrentMatches($currentRoundIndex, $pdo);
     $tournamentData["currentMatches"] = $matches;
 }
-
-
 
 http_response_code(200);
 
