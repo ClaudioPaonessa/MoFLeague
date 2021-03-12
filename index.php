@@ -103,7 +103,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Copyright &copy; Mansion of Fire 2021</div>
                             <div>
-                                <a href="#">Privacy Policy</a>
+                                <a href="/privacy.html">Privacy Policy</a>
                                 &middot;
                                 <a href="#">Terms &amp; Conditions</a>
                             </div>

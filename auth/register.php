@@ -12,7 +12,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 require '../db/pdo.php';
  
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $display_name = "";
+$username = $password = $confirm_password = $display_name = $mtg_arena_name = "";
 $username_err = $password_err = $confirm_password_err = $display_name_err = "";
  
 // Processing form data when form is submitted
@@ -42,13 +42,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         $display_name = trim($_POST["display_name"]);
     }
+
+    $mtg_arena_name = trim($_POST["mtg_arena_name"]);
     
     // Validate credentials
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($display_name_err)){
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = 'INSERT INTO accounts (account_name, display_name, account_passwd) VALUES (:username, :display_name, :passwd)';
-        $values = [':username' => $username, ':display_name' => $display_name, ':passwd' => $hash];
+        $sql = 'INSERT INTO accounts (account_name, display_name, mtg_arena_name, account_passwd) VALUES (:username, :display_name, :mtg_arena_name, :passwd)';
+        $values = [':username' => $username, ':display_name' => $display_name, ':mtg_arena_name' => $mtg_arena_name, ':passwd' => $hash];
 
         try
         {
@@ -101,8 +103,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                                 <div class="col-md-6">
                                                     <div class="form-group <?php echo (!empty($display_name_err)) ? 'has-error' : ''; ?>">
                                                         <label class="small mb-1" for="display_name">Display Name</label>
-                                                        <input class="form-control py-4" name="display_name" id="display_name" type="text" value="<?php echo $display_name; ?>" placeholder="Enter display name" />
+                                                        <input class="form-control py-4" name="display_name" id="display_name" type="text" value="<?php echo $display_name; ?>" placeholder="Enter display name (real name)" />
                                                         <span class="help-block"><?php echo $display_name_err; ?></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="mtg_arena_name">MTG Arena Name</label>
+                                                        <input class="form-control py-4" name="mtg_arena_name" id="mtg_arena_name" type="text" value="<?php echo $mtg_arena_name; ?>" placeholder="Enter MTG arena name" />
                                                     </div>
                                                 </div>
                                             </div>

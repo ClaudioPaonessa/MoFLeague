@@ -162,8 +162,8 @@ function getCurrentMatches($roundId, $pdo) {
     $matches = array();
     
     $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2, 
-        p1.account_name AS p1_account_name, p1.display_name AS p1_display_name, 
-        p2.account_name AS p2_account_name, p2.display_name AS p2_display_name, 
+        p1.mtg_arena_name AS p1_mtg_arena_name, p1.display_name AS p1_display_name, 
+        p2.mtg_arena_name AS p2_mtg_arena_name, p2.display_name AS p2_display_name, 
         mr.player_1_games_won AS player_1_games_won, mr.player_2_games_won AS player_2_games_won,
         mr.result_confirmed AS result_confirmed, mr.reporter_account_id AS reporter_account_id
         FROM matches AS m
@@ -191,9 +191,9 @@ function getCurrentMatches($roundId, $pdo) {
             "matchId" => $match_id,
             "playerId1" => $player_id_1,
             "playerId2" => $player_id_2,
-            "p1AccountName" => $p1_account_name,
+            "p1MTGArenaName" => $p1_mtg_arena_name,
             "p1DisplayName" => $p1_display_name,
-            "p2AccountName" => $p2_account_name,
+            "p2MTGArenaName" => $p2_mtg_arena_name,
             "p2DisplayName" => $p2_display_name,
             "player1GamesWon" => $player_1_games_won,
             "player2GamesWon" => $player_2_games_won,

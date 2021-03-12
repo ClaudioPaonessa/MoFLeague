@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-xl-6">
-        <div class="card mb-4">
+        <div class="card mb-4 text-white bg-info">
             <div class="card-header">
                 <i class="fas fa-dice-d20 mr-1"></i>
                 Currently Running Tournaments
@@ -16,7 +16,7 @@
                     <a href="#!tournament/{{row.tournamentId}}" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterRunning">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{row.tournamentName}}</h5>
-                            <small>{{row.startDate | date:'MMM d yyyy'}} - {{row.endDate | date:'MMM d yyyy'}}</small>
+                            <small>{{row.startDate | date:'EEE, MMM d yyyy'}} - {{row.endDate | date:'EEE, MMM d yyyy'}}</small>
                         </div>
                         <p class="mb-1">{{row.roundCount}} rounds</p>
                         <small>{{row.participantCount}} participants <span ng-show="row.youParticipate" class="badge bg-danger rounded-pill text-light">You participate</span></small>
@@ -36,7 +36,7 @@
                     <a href="#!tournament/{{row.tournamentId}}" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterFuture">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{row.tournamentName}}</h5>
-                            <small>{{row.startDate | date:'MMM d yyyy'}} - {{row.endDate | date:'MMM d yyyy'}}</small>
+                            <small>{{row.startDate | date:'EEE, MMM d yyyy'}} - {{row.endDate | date:'EEE, MMM d yyyy'}}</small>
                         </div>
                         <p class="mb-1">{{row.roundCount}} rounds</p>
                         <small>{{row.participantCount}} participants <span ng-show="row.youParticipate" class="badge bg-primary rounded-pill text-light">You are subscribed</span></small>
@@ -58,7 +58,7 @@
                     <a href="#!tournament/{{row.tournamentId}}" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterPast">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{row.tournamentName}}</h5>
-                            <small>{{row.startDate | date:'MMM d yyyy'}} - {{row.endDate | date:'MMM d yyyy'}}</small>
+                            <small>{{row.startDate | date:'EEE, MMM d yyyy'}} - {{row.endDate | date:'EEE, MMM d yyyy'}}</small>
                         </div>
                         <p class="mb-1">{{row.roundCount}} rounds</p>
                         <small>{{row.participantCount}} participants <span ng-show="row.youParticipate" class="badge bg-primary rounded-pill text-light">You participated</span></small>

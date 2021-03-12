@@ -8,22 +8,22 @@
         <div class="card mb-4">
             <div class="card-header text-center">
                 <span ng-repeat="n in [] | range:roundsFinished">
-                    <span style="color: #BFBFBF; font-size: 48px;"><i class="fas fa-check-square mr-4"></i></span>
+                    <span style="color: #BFBFBF; font-size: 34px;"><i class="fas fa-check-square mr-4"></i></span>
                 </span>
                 <span ng-repeat="n in [] | range:1" ng-hide="currentRound < 0">
-                    <span style="color: #4bc48b; font-size: 48px;"><i class="far fa-caret-square-right mr-4"></i></span>
+                    <span style="color: #4bc48b; font-size: 34px;"><i class="far fa-caret-square-right mr-4"></i></span>
                 </span>
                 <span ng-repeat="n in [] | range:numberOfRounds - 1 - roundsFinished" ng-hide="currentRound < 0">
-                    <span style="color: #BFBFBF; font-size: 48px;" ><i class="far fa-square mr-4"></i></span>
+                    <span style="color: #BFBFBF; font-size: 34px;" ><i class="far fa-square mr-4"></i></span>
                 </span>
                 <span ng-repeat="n in [] | range:numberOfRounds - roundsFinished" ng-show="currentRound < 0">
-                    <span style="color: #BFBFBF; font-size: 48px;" ><i class="far fa-square mr-4"></i></span>
+                    <span style="color: #BFBFBF; font-size: 34px;" ><i class="far fa-square mr-4"></i></span>
                 </span>
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" ng-repeat="round in rounds" ng-class="round.active ? 'active' : ''">
-                        <b>{{round.name}}</b>: <small>{{round.dateStart | date:'MMM d yyyy'}} - {{round.dateEnd | date:'MMM d yyyy'}}</small>
+                        <b>{{round.name}}</b>: <small>{{round.dateStart | date:'EEE, MMM d yyyy'}} - {{round.dateEnd | date:'EEE, MMM d yyyy'}}</small>
                     </li>
                 </ul>
             </div>
@@ -63,7 +63,7 @@
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center"
                         ng-repeat="row in matches | filter : filterNotPlayed">
-                        {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
+                        <span><b>{{row.p1DisplayName}}</b> <span ng-if="row.p1MTGArenaName">({{row.p1MTGArenaName}})</span> vs. <b>{{row.p2DisplayName}}</b> <span ng-if="row.p2MTGArenaName">({{row.p2MTGArenaName}})</span></span>
 
                         <div class="form-inline" role="form">
                             <div class="form-group mb-2">
