@@ -14,6 +14,8 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
             $scope.tournamentName = response.data.tournamentName
             $scope.matches = response.data.currentMatches;
             $scope.currentRound = response.data.currentRoundId;
+            $scope.numberOfRounds = response.data.numberOfRounds;
+            $scope.roundsFinished = response.data.roundsFinished;
         }, function ( response ) {
             $scope.alertText = response.data.error;
         }).finally(function() {

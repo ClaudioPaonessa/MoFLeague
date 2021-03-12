@@ -40,7 +40,7 @@ function getTournamentName($tournamentId, $pdo) {
     return "";
 }
 
-function getCurrentRound($tournamentId, $pdo) {
+function getCurrentRoundIndex($tournamentId, $pdo) {
     $query = 'SELECT tr.round_id
         FROM tournament_rounds AS tr
         WHERE (tr.tournament_id = :tournament_id) AND (tr.date_start <= CURDATE()) AND (tr.date_end >= CURDATE())';
@@ -64,6 +64,58 @@ function getCurrentRound($tournamentId, $pdo) {
     }
 
     return -1;
+}
+
+function getNumberOfRounds($tournamentId, $pdo) {
+    $query = 'SELECT COUNT(1) AS count
+        FROM tournament_rounds AS tr
+        WHERE (tr.tournament_id = :tournament_id)';
+
+    $values = [':tournament_id' => $tournamentId];
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        return $count;
+    }
+
+    return 0;
+}
+
+function getCurrentRoundsFinished($tournamentId, $pdo) {
+    $query = 'SELECT COUNT(1) AS count
+        FROM tournament_rounds AS tr
+        WHERE (tr.tournament_id = :tournament_id) AND (tr.date_start <= CURDATE()) AND (tr.date_end < CURDATE())';
+
+    $values = [':tournament_id' => $tournamentId];
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        return $count;
+    }
+
+    return 0;
 }
 
 function getCurrentMatches($roundId, $pdo) {
@@ -117,13 +169,20 @@ function getCurrentMatches($roundId, $pdo) {
 
 $tournamentData["tournamentName"] = getTournamentName($tournamentId, $pdo);
 
-$currentRound = getCurrentRound($tournamentId, $pdo);
-$tournamentData["currentRoundId"] = $currentRound;
+$currentRoundIndex = getCurrentRoundIndex($tournamentId, $pdo);
+$numberOfRounds = getNumberOfRounds($tournamentId, $pdo);
+$roundsFinished = getCurrentRoundsFinished($tournamentId, $pdo);
 
-if ($currentRound >= 0) {
-    $matches = getCurrentMatches($currentRound, $pdo);
+$tournamentData["currentRoundId"] = $currentRoundIndex;
+$tournamentData["numberOfRounds"] = intval($numberOfRounds);
+$tournamentData["roundsFinished"] = intval($roundsFinished);
+
+if ($currentRoundIndex >= 0) {
+    $matches = getCurrentMatches($currentRoundIndex, $pdo);
     $tournamentData["currentMatches"] = $matches;
 }
+
+
 
 http_response_code(200);
 

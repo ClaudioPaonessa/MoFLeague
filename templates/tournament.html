@@ -1,6 +1,33 @@
-<h1 class="mt-4">{{tournamentName}}</h1>
+<h1 class="mt-4">Tournament Overview</h1>
+<h3 class="mt-2" style="color: #4C4C4C">{{tournamentName}}</h3>
 
 <hr>
+
+<div class="row">
+    <div class="col-xl-12">
+        <span ng-repeat="n in [] | range:roundsFinished">
+            <span style="color: #BFBFBF; font-size: 48px;"><i class="fas fa-check-square mr-4"></i></span>
+        </span>
+        <span ng-repeat="n in [] | range:1" ng-hide="currentRound < 0">
+            <span style="color: #4bc48b; font-size: 48px;"><i class="far fa-caret-square-right mr-4"></i></span>
+        </span>
+        <span ng-repeat="n in [] | range:numberOfRounds - 1 - roundsFinished" ng-hide="currentRound < 0">
+            <span style="color: #BFBFBF; font-size: 48px;" ><i class="far fa-square mr-4"></i></span>
+        </span>
+        <span ng-repeat="n in [] | range:numberOfRounds - roundsFinished" ng-show="currentRound < 0">
+            <span style="color: #BFBFBF; font-size: 48px;" ><i class="far fa-square mr-4"></i></span>
+        </span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12" ng-hide="currentRound < 0">
+        <h3 class="mt-4 mb-4">Round {{roundsFinished + 1}} of {{numberOfRounds}} currently running</h3>
+    </div>
+    <div class="col-xl-12" ng-show="currentRound < 0">
+        <h3 class="mt-4 mb-4">Already played {{roundsFinished}} rounds of {{numberOfRounds}}. Waiting for next round to start...</h3>
+    </div>
+</div>
 
 <div ng-include src="'partials/errormessage.html'"></div>
 
@@ -10,12 +37,11 @@
     </div>
 </div>
 
-
 <div class="row" ng-hide="currentRound < 0">
     <div class="col-xl-12">
         <div class="card mb-4">
             <div class="card-header">
-                <span style="color: red;">
+                <span style="color: #FF4940;">
                     <i class="fas fa-circle mr-1"></i>
                 </span>
                 Your outstanding matches this round
@@ -50,7 +76,7 @@
     <div class="col-xl-6">
         <div class="card mb-4">
             <div class="card-header">
-                <span style="color: orange;">
+                <span style="color: #FF8540;">
                     <i class="fas fa-pause-circle mr-1"></i>
                 </span>
                 Played but not yet confirmed matches
@@ -87,7 +113,7 @@
     <div class="col-xl-6">
         <div class="card mb-4">
             <div class="card-header">
-                <span style="color: green;">
+                <span style="color: #00B74A;">
                     <i class="fas fa-check-circle mr-1"></i>
                 </span>
                 Played and confirmed matches
