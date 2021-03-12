@@ -1,7 +1,7 @@
 <?php
 
 function returnError($message) {
-    http_response_code(500);
+    http_response_code(422);
     
     $errorData = array();
     $errorData["error"] = $message;

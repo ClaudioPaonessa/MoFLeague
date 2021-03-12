@@ -2,16 +2,7 @@
 
 <hr>
 
-<div class="row" ng-show='alertText'>
-    <div class="col-xl-12">
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <button type="button" class="close" ng-click="closeAlert()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>Error!</strong> {{alertText}}
-        </div>
-    </div>
-</div>
+<div ng-include src="'partials/errormessage.html'"></div>
 
 <div class="row" ng-show="currentRound < 0">
     <div class="col-xl-6">
@@ -39,12 +30,12 @@
                             <div class="form-group mb-2">
                                 <label for="player1GamesWon" class="sr-only">P1 Games Won</label>
                                 <input type="number" class="form-control input-sm" id="player1GamesWon"
-                                    ng-model="player1GamesWon" min="0" max="2">
+                                    ng-model="player1GamesWon">
                             </div>
                             <div class="form-group mx-sm-3 mb-2">
                                 <label for="player2GamesWon" class="sr-only">P2 Games Won</label>
                                 <input type="number" class="form-control input-sm" id="player2GamesWon"
-                                    ng-model="player2GamesWon" min="0" max="2">
+                                    ng-model="player2GamesWon">
                             </div>
                             <button class="btn btn-primary mb-2"
                                 ng-click="recordMatchResult(row.matchId, player1GamesWon, player2GamesWon)">Send
