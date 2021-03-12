@@ -94,9 +94,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                <div class="row">
                     <div class="container-fluid" ng-view>
-                        
+                        <!-- PAGE CONTENT -->
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
