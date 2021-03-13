@@ -13,9 +13,9 @@
             </div>
             <div class="card-body">
                 <div class="list-group">
-                    <a href="#!tournament/{{row.tournamentId}}" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterRunning">
+                    <a href="#!tournament/{{row.tournamentId}}" class="list-group-item item-special list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterRunning">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{row.tournamentName}}</h5>
+                            <h4 class="mb-1">{{row.tournamentName}}</h4>
                             <small>{{row.startDate | date:'EEE, MMM d yyyy'}} - {{row.endDate | date:'EEE, MMM d yyyy'}}</small>
                         </div>
                         <p class="mb-1">{{row.roundCount}} rounds</p>
@@ -33,9 +33,9 @@
             </div>
             <div class="card-body">
                 <div class="list-group">
-                    <a href="#!tournament/{{row.tournamentId}}" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterFuture">
+                    <a href="#!tournament/{{row.tournamentId}}" class="list-group-item item-special list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterFuture">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{row.tournamentName}}</h5>
+                            <h4 class="mb-1">{{row.tournamentName}}</h4>
                             <small>{{row.startDate | date:'EEE, MMM d yyyy'}} - {{row.endDate | date:'EEE, MMM d yyyy'}}</small>
                         </div>
                         <p class="mb-1">{{row.roundCount}} rounds</p>
@@ -55,9 +55,9 @@
             </div>
             <div class="card-body">
                 <div class="list-group">
-                    <a href="#!tournament/{{row.tournamentId}}" class="list-group-item list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterPast">
+                    <a href="#!tournament/{{row.tournamentId}}" class="list-group-item item-special list-group-item-action flex-column align-items-start" ng-repeat="row in result | filter : filterPast">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{row.tournamentName}}</h5>
+                            <h4 class="mb-1">{{row.tournamentName}}</h4>
                             <small>{{row.startDate | date:'EEE, MMM d yyyy'}} - {{row.endDate | date:'EEE, MMM d yyyy'}}</small>
                         </div>
                         <p class="mb-1">{{row.roundCount}} rounds</p>

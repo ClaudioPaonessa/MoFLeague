@@ -10306,6 +10306,18 @@ a {
   color: #00dbea;
 }
 
+a.item-special {
+  background-color: #000000;
+  border-radius: 0px !important;
+  color: #ffffff;
+  border-bottom: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+
+  -o-border-image: linear-gradient(90deg, #000000 2%, #ffffff 50%, #000000 98%);
+  border-image: linear-gradient(90deg,#000000 2%, #ffffff 50%, #000000 98%);
+  border-image-slice: 1;
+}
+
 li.item-special {
   border: 1px solid #00dbea;
   -o-border-image: linear-gradient(90deg, #000000 2%, #00dbea 50%, #000000 98%);
