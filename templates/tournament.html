@@ -1,11 +1,13 @@
 <h1 class="mt-4">Tournament Overview</h1>
-<h3 class="mt-2" style="color: #4C4C4C">{{tournamentName}}</h3>
+<h3 class="mt-2" style="color: #b1b1b1">{{tournamentName}}</h3>
 
 <hr>
 
+<div ng-include src="'partials/errormessage.html'"></div>
+
 <div class="row">
     <div class="col-xl-6">
-        <div class="card mb-4">
+        <div class="card card-special mb-4">
             <div class="card-header text-center">
                 <span ng-repeat="n in [] | range:roundsFinished">
                     <span style="color: #BFBFBF; font-size: 34px;"><i class="fas fa-check-square mr-4"></i></span>
@@ -42,8 +44,6 @@
     </div>
 </div>
 
-<div ng-include src="'partials/errormessage.html'"></div>
-
 <div class="row" ng-show="currentRound < 0">
     <div class="col-xl-6">
         <p>There is no round currently running...</p>
@@ -52,7 +52,7 @@
 
 <div class="row" ng-hide="currentRound < 0">
     <div class="col-xl-12">
-        <div class="card mb-4">
+        <div class="card card-special mb-4">
             <div class="card-header">
                 <span style="color: #FF4940;">
                     <i class="fas fa-circle mr-1"></i>
@@ -60,7 +60,7 @@
                 Your outstanding matches this round
             </div>
             <div class="card-body">
-                <ul class="list-group">
+                <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center"
                         ng-repeat="row in matches | filter : filterNotPlayed">
                         <span><b>{{row.p1DisplayName}}</b> <span ng-if="row.p1MTGArenaName">({{row.p1MTGArenaName}})</span> vs. <b>{{row.p2DisplayName}}</b> <span ng-if="row.p2MTGArenaName">({{row.p2MTGArenaName}})</span></span>
@@ -87,7 +87,7 @@
     </div>
 
     <div class="col-xl-6">
-        <div class="card mb-4">
+        <div class="card card-special mb-4">
             <div class="card-header">
                 <span style="color: #FF8540;">
                     <i class="fas fa-pause-circle mr-1"></i>
@@ -95,8 +95,8 @@
                 Played but not yet confirmed matches
             </div>
             <div class="card-body">
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item item-special d-flex justify-content-between align-items-center"
                         ng-repeat="row in matches | filter : filterPlayedNotConfirmed">
                         {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
                         <span>
@@ -124,7 +124,7 @@
     </div>
 
     <div class="col-xl-6">
-        <div class="card mb-4">
+        <div class="card card-special mb-4">
             <div class="card-header">
                 <span style="color: #00B74A;">
                     <i class="fas fa-check-circle mr-1"></i>
@@ -132,8 +132,8 @@
                 Played and confirmed matches
             </div>
             <div class="card-body">
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item item-special d-flex justify-content-between align-items-center"
                         ng-repeat="row in matches | filter : filterPlayedAndConfirmed">
                         {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
                         <span class="badge bg-primary rounded-pill text-light">{{row.player1GamesWon}} :

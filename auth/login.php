@@ -88,16 +88,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <title>MoF - Login</title>
         <link href="../css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans&display=swap" rel="stylesheet">
     </head>
-    <body class="bg-primary">
+    <body>
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                <div class="card card-special mt-5">
+                                    <div class="card-header"><h3>Login</h3></div>
                                     <div class="card-body">
                                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
@@ -126,10 +128,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </main>
             </div>
             <div id="layoutAuthentication_footer">
-                <footer class="py-4 bg-light mt-auto">
+                <footer class="py-4 bg-dark mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Mansion of Fire 2021</div>
+                            <div>Copyright &copy; Mansion of Fire 2021</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
