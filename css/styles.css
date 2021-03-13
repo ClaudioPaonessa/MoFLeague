@@ -10263,7 +10263,7 @@ body {
 
 .card-special > .card-header {
   border-bottom: 0px;
-  background-color: #232e2d;
+  background-image: url("/img/header_bg1.png");
   padding-top: 25px;
   text-align: center;
   font-family: 'Bebas Neue', sans-serif;
