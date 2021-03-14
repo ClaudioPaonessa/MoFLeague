@@ -6,16 +6,16 @@ if (window.location.hostname == 'localhost') {
 
 app.controller("TournamentController", function($scope, $routeParams, $http) {
     
-    var tournamentId = $routeParams.tournamentId;
+    $scope.tournamentId = $routeParams.tournamentId;
     $scope.loadingTournament = true;
-    $scope.matches = []
+    $scope.matches = [];
     $scope.alertText = null;
     
     $scope.initTournament = function() {
         $scope.loadingTournament = true;
 
-        $http.get(API_URL + '/api/tournament/tournament.php/' + tournamentId).then( function ( response ) {
-            $scope.tournamentName = response.data.tournamentName
+        $http.get(API_URL + '/api/tournament/tournament.php/' + $scope.tournamentId).then( function ( response ) {
+            $scope.tournamentName = response.data.tournamentName;
             $scope.matches = response.data.currentMatches;
             $scope.rounds = response.data.rounds;
             $scope.currentRound = response.data.currentRoundId;

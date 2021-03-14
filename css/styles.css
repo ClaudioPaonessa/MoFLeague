@@ -10263,12 +10263,24 @@ body {
 
 .card-special > .card-header {
   border-bottom: 0px;
-  background-image: url("/img/header_bg1.png");
   padding-top: 25px;
   text-align: center;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 20pt;
   border-radius: 0;
+  background-image: url("/img/header_bg1.png");
+}
+
+.card-special > .bg-1 {
+  background-image: url("/img/header_bg1.png");
+}
+
+.card-special > .bg-2 {
+  background-image: url("/img/header_bg2.png");
+}
+
+.card-special > .bg-3 {
+  background-image: url("/img/header_bg3.png");
 }
 
 hr {
