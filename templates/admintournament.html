@@ -1,0 +1,138 @@
+<h1 class="mt-4"><i class="fas fa-shield-alt"></i> Admin - Tournament Dashboard</h1>
+<h3 class="mt-2" style="color: #b1b1b1">{{tournamentName}}</h3>
+
+<hr>
+
+<div ng-include src="'partials/errormessage.html'"></div>
+
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card card-special mb-4">
+            <div class="card-header text-center">
+                <span ng-repeat="n in [] | range:roundsFinished">
+                    <span style="color: #BFBFBF; font-size: 34px;"><i class="fas fa-check-square mr-4"></i></span>
+                </span>
+                <span ng-repeat="n in [] | range:1" ng-hide="currentRound < 0">
+                    <span style="color: #4bc48b; font-size: 34px;"><i class="far fa-caret-square-right mr-4"></i></span>
+                </span>
+                <span ng-repeat="n in [] | range:numberOfRounds - 1 - roundsFinished" ng-hide="currentRound < 0">
+                    <span style="color: #BFBFBF; font-size: 34px;" ><i class="far fa-square mr-4"></i></span>
+                </span>
+                <span ng-repeat="n in [] | range:numberOfRounds - roundsFinished" ng-show="currentRound < 0">
+                    <span style="color: #BFBFBF; font-size: 34px;" ><i class="far fa-square mr-4"></i></span>
+                </span>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" ng-repeat="round in rounds" ng-class="round.active ? 'active' : ''">
+                        <b>{{round.name}}</b>: <small>{{round.dateStart | date:'EEE, MMM d yyyy'}} - {{round.dateEnd | date:'EEE, MMM d yyyy'}}</small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card card-special mb-4">
+            <div class="card-header text-center">
+                Overall tournament status
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item item-special list-group-flush d-flex justify-content-between align-items-center">
+                        <span><span style="color: #FF4940;"><i class="fas fa-circle mr-1"></i></span> Outstanding matches:</span> 
+                        <b>{{(allMatches | filter : filterNotPlayed).length}}</b>
+                    </li>
+                    <li class="list-group-item item-special d-flex justify-content-between align-items-center">
+                        <span><span style="color: #FF8540;"><i class="fas fa-pause-circle mr-1"></i></span> Played but not confirmed matches:</span>
+                        <b>{{(allMatches | filter : filterPlayedNotConfirmed).length}}</b>
+                    </li>
+                    <li class="list-group-item item-special d-flex justify-content-between align-items-center">
+                        <span><span style="color: #00B74A;"><i class="fas fa-check-circle mr-1"></i></span> Played and confirmed matches:</span>
+                        <b>{{(allMatches | filter : filterPlayedAndConfirmed).length}}</b>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12" ng-hide="currentRound < 0">
+        <h3 class="mt-4 mb-4">Round {{roundsFinished + 1}} of {{numberOfRounds}} currently running</h3>
+    </div>
+    <div class="col-xl-12" ng-show="currentRound < 0">
+        <h3 class="mt-4 mb-4">Already played {{roundsFinished}} rounds of {{numberOfRounds}}. Waiting for next round to start...</h3>
+    </div>
+</div>
+
+<div class="row" ng-show="currentRound < 0">
+    <div class="col-xl-6">
+        <p>There is no round currently running...</p>
+    </div>
+</div>
+
+<div class="row" ng-hide="currentRound < 0">
+    <div class="col-xl-6">
+        <div class="card card-special mb-4">
+            <div class="card-header">
+                <span style="color: #FF4940;">
+                    <i class="fas fa-circle mr-1"></i>
+                </span>
+                Outstanding matches this round
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item item-special d-flex justify-content-between align-items-center"
+                        ng-repeat="row in matches | filter : filterNotPlayed">
+                        <span><b>{{row.p1DisplayName}}</b> <span ng-if="row.p1MTGArenaName">({{row.p1MTGArenaName}})</span> vs. <b>{{row.p2DisplayName}}</b> <span ng-if="row.p2MTGArenaName">({{row.p2MTGArenaName}})</span></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card card-special mb-4">
+            <div class="card-header">
+                <span style="color: #FF8540;">
+                    <i class="fas fa-pause-circle mr-1"></i>
+                </span>
+                Played but not yet confirmed matches
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item item-special d-flex justify-content-between align-items-center"
+                        ng-repeat="row in matches | filter : filterPlayedNotConfirmed">
+                        {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
+                        <span>
+                            <span class="badge bg-primary text-light">{{row.player1GamesWon}} :
+                                {{row.player2GamesWon}}</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card card-special mb-4">
+            <div class="card-header">
+                <span style="color: #00B74A;">
+                    <i class="fas fa-check-circle mr-1"></i>
+                </span>
+                Played and confirmed matches
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item item-special d-flex justify-content-between align-items-center"
+                        ng-repeat="row in matches | filter : filterPlayedAndConfirmed">
+                        {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
+                        <span class="badge bg-primary rounded-pill text-light">{{row.player1GamesWon}} :
+                            {{row.player2GamesWon}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

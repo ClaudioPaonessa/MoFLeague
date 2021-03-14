@@ -3,6 +3,7 @@
 session_start();
 
 require_once '../../auth/checkLogin.php';
+require_once '../../auth/checkAdmin.php';
 require_once '../../helper/urlIdHelper.php';
 require_once '../../helper/errorHelper.php';
 require_once '../../helper/tournamentHelper.php';
@@ -12,6 +13,7 @@ $tournamentId = getId();
 
 $tournamentData = array();
 $tournamentData["currentMatches"] = array();
+$tournamentData["tournamentMatches"] = array();
 $tournamentData["rounds"] = array();
 $tournamentData["currentRoundId"] = -1;
 $tournamentData["tournamentName"] = "";
@@ -26,9 +28,10 @@ $tournamentData["currentRoundId"] = $currentRoundIndex;
 $tournamentData["numberOfRounds"] = intval($numberOfRounds);
 $tournamentData["roundsFinished"] = intval($roundsFinished);
 $tournamentData["rounds"] = getRounds($tournamentId, $currentRoundIndex, $pdo);
+$tournamentData["tournamentMatches"] = getTournamentMatches($tournamentId, $pdo);
 
 if ($currentRoundIndex >= 0) {
-    $tournamentData["currentMatches"] = getCurrentMatchesFiltered($currentRoundIndex, $_SESSION["id"], $pdo);
+    $tournamentData["currentMatches"] = getCurrentMatches($currentRoundIndex, $pdo);
 }
 
 http_response_code(200);

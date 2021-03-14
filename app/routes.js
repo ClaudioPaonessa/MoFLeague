@@ -15,6 +15,10 @@ app.config(['$routeProvider',
 	            templateUrl: 'templates/admintournaments.html',
 	            controller: 'AdminTournamentsController'
 	        })
+			.when('/admin_tournament/:tournamentId', {
+	            templateUrl: 'templates/admintournament.html',
+	            controller: 'AdminTournamentController'
+	        })
 			.when('/tournament/:tournamentId', {
 				templateUrl: 'templates/tournament.html',
 				controller: 'TournamentController'

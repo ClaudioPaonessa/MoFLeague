@@ -1,5 +1,9 @@
 var URL = "https://mof-league.com"
 
+if (window.location.hostname == 'localhost') {
+    API_URL = "";
+}
+
 app.controller("TournamentsController", function($scope, $http) {
     
     $scope.result = []
@@ -22,7 +26,8 @@ app.controller("TournamentsController", function($scope, $http) {
         date.setHours(0);
         date.setMinutes(0);
         date.setSeconds(0);
-        return date;
+        date.setUTCMilliseconds(0);
+        return date.getTime();
     }  
 
     convertDate = function(d) {
@@ -31,11 +36,11 @@ app.controller("TournamentsController", function($scope, $http) {
         date.setMinutes(0);
         date.setSeconds(0);
 
-        return date;
+        return date.getTime();
     }
 
     $scope.filterRunning = function(tournament) {
-        return convertDate(tournament.startDate) <= now() & convertDate(tournament.endDate) >= now();
+        return convertDate(tournament.startDate) <= now() && convertDate(tournament.endDate) >= now();
     }
     
     $scope.filterFuture = function(tournament) {
@@ -43,7 +48,7 @@ app.controller("TournamentsController", function($scope, $http) {
     }
 
     $scope.filterPast = function(tournament) {
-        return convertDate(tournament.startDate) < now() & convertDate(tournament.endDate) < now();
+        return (convertDate(tournament.startDate) < now() && convertDate(tournament.endDate) < now());
     }
 
     $scope.closeAlert = function() {

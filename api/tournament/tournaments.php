@@ -16,7 +16,7 @@ LEFT JOIN tournament_participants AS p ON t.tournament_id = p.tournament_id
 LEFT JOIN tournament_participants AS you ON (:player_id = you.account_id) AND (t.tournament_id = you.tournament_id)
 LEFT JOIN tournament_rounds AS tr ON t.tournament_id = tr.tournament_id
 GROUP BY t.tournament_id
-ORDER BY you_participate DESC';
+ORDER BY start_date DESC';
 
 $values = [':player_id' => $_SESSION["id"]];
 
