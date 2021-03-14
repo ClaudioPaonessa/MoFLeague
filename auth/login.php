@@ -130,15 +130,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div id="layoutAuthentication_footer">
                 <footer class="py-4 bg-dark mt-auto">
                     <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div style="width: 60%">
+                        <div class="row small align-items-center">
+                            <div class="col-xl-6">
                                 <p>Copyright &copy; Mansion of Fire 2021</p>
                                 <p class="text-muted small">Portions of Mansion of Fire are unofficial Fan Content permitted under the Wizards of the Coast Fan Content Policy. 
                                     The literal and graphical information presented on this site about Magic: The Gathering, including card images, 
                                     the mana symbols, and Oracle text, is copyright Wizards of the Coast, LLC, a subsidiary of Hasbro, 
                                     Mansion of Fire is not produced by, endorsed by, supported by, or affiliated with Wizards of the Coast.</p>
                             </div>
-                            <div>
+                            <div class="col-xl-6 text-right">
                                 <a href="/privacy.html">Privacy Policy</a>
                                 &middot;
                                 <a href="#">Terms &amp; Conditions</a>

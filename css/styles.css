@@ -10318,6 +10318,12 @@ a.item-special {
   border-image-slice: 1;
 }
 
+a.item-special:hover {
+  background-color: #474747 !important;
+  color: #ffffff;
+  box-shadow: 0px 0px 10px 10px #0ff;
+}
+
 li.item-special {
   border: 1px solid #00dbea;
   -o-border-image: linear-gradient(90deg, #000000 2%, #00dbea 50%, #000000 98%);

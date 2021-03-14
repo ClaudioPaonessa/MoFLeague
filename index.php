@@ -30,7 +30,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="/">Mansion of Fire</a>
+            <a class="navbar-brand" href="/">
+                Mansion of Fire
+            </a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -43,7 +45,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">Account Information</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item bg-danger" href="/auth/logout">Logout</a>
+                        <a class="dropdown-item bg-danger text-white" href="/auth/logout">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -102,15 +104,15 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 </main>
                 <footer class="py-4 bg-dark mt-auto">
                     <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div style="width: 60%">
+                        <div class="row small align-items-center">
+                            <div class="col-xl-6">
                                 <p>Copyright &copy; Mansion of Fire 2021</p>
                                 <p class="text-muted small">Portions of Mansion of Fire are unofficial Fan Content permitted under the Wizards of the Coast Fan Content Policy. 
                                     The literal and graphical information presented on this site about Magic: The Gathering, including card images, 
                                     the mana symbols, and Oracle text, is copyright Wizards of the Coast, LLC, a subsidiary of Hasbro, 
                                     Mansion of Fire is not produced by, endorsed by, supported by, or affiliated with Wizards of the Coast.</p>
                             </div>
-                            <div>
+                            <div class="col-xl-6 text-right">
                                 <a href="/privacy.html">Privacy Policy</a>
                                 &middot;
                                 <a href="#">Terms &amp; Conditions</a>
