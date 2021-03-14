@@ -4,27 +4,38 @@
 
 <div ng-include src="'partials/errormessage.html'"></div>
 
-<div class="card card-light mb-4">
-    <div class="card-header">
-        <i class="fas fa-plus-circle mr-1"></i>
-        Create tournament
-    </div>
-    <div class="card-body">
-        <form ng-submit="createTournament()" role="form">
-            <div class="form-group">
-                <label for="tournamentName">Tournament Name</label>
-                <input type="text" class="form-control" id="tournamentName" placeholder="Enter tournament name" ng-model="tournament.name">
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card card-special mb-4">
+            <div class="card-header">
+                <i class="fas fa-plus-circle mr-1"></i>
+                Create tournament
             </div>
+            <div class="card-body">
+                <form ng-submit="createTournament()" role="form">
+                    <div class="form-group">
+                        <label for="tournamentName">Tournament Name</label>
+                        <input type="text" class="form-control" id="tournamentName" placeholder="Enter tournament name" ng-model="tournament.name">
+                    </div>
 
-            <div class="form-group">
-                <label for="tournamentSet">Set</label>
-                <select class="form-control" ng-model="tournament.set" id="tournamentSet">
-                    <option ng-repeat="x in sets" ng-if="x.cardsInDB > 0" value="{{x.setId}}">{{x.setName}}</option>
-                </select>
+                    <div class="row">
+                        <div class="form-group col-xl-6">
+                            <label for="tournamentSet">Set</label>
+                            <select class="form-control" ng-model="tournament.set" id="tournamentSet">
+                                <option ng-repeat="x in sets" ng-if="x.cardsInDB > 0" value="{{x.setId}}">{{x.setName}}</option>
+                            </select>
+                        </div>
+            
+                        <div class="form-group col-xl-6">
+                            <label for="groupSize">Group size</label>
+                            <input type="number" class="form-control" id="groupSize" ng-model="tournament.groupSize" min="0">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary float-right">Create</button>
+                </form>
             </div>
-
-            <button type="submit" class="btn btn-primary">Create</button>
-        </form>
+        </div>
     </div>
 </div>
 
@@ -46,6 +57,7 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Set</th>
+                        <th>Group Size</th>
                         <th>Participants</th>
                         <th>Start Date</th>
                         <th>Duration</th>
@@ -57,6 +69,7 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Set</th>
+                        <th>Group Size</th>
                         <th>Participants</th>
                         <th>Start Date</th>
                         <th>Duration</th>
@@ -68,6 +81,7 @@
                         <td>{{row.tournamentId}}</td>
                         <td>{{row.tournamentName}}</td>
                         <td>{{row.setName}}</td>
+                        <td>{{row.groupSize}}</td>
                         <td>{{row.participantCount}}</td>
                         <td>{{row.startDate}}</td>
                         <td>{{row.roundCount}} rounds ({{row.startDate}} to {{row.endDate}})</td>

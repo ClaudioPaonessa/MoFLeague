@@ -11,9 +11,10 @@ $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 $tournamentName = $request->name;
 $setId = $request->set;
+$groupSize = $request->groupSize;
 
-$query = 'INSERT INTO tournaments (tournament_name, set_id) VALUES (:tournament_name, :set_id)';
-$values = [':tournament_name' => $tournamentName, ':set_id' => $setId];
+$query = 'INSERT INTO tournaments (tournament_name, set_id, group_size) VALUES (:tournament_name, :set_id, :group_size)';
+$values = [':tournament_name' => $tournamentName, ':set_id' => $setId, ':group_size' => $groupSize];
 
 try
 {
