@@ -107,30 +107,33 @@
                 Played but not yet confirmed matches
             </div>
             <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item item-special d-flex justify-content-between align-items-center"
-                        ng-repeat="row in matches | filter : filterPlayedNotConfirmed">
-                        {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
-                        <span>
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in matches | filter : filterPlayedNotConfirmed">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">{{row.p1DisplayName}} vs. {{row.p2DisplayName}}</h5>
+                          <small>
                             <span class="badge bg-primary text-light">{{row.player1GamesWon}} :
                                 {{row.player2GamesWon}}</span>
                             <span ng-show="row.reporterYou" class="badge rounded-pill bg-warning text-dark">Opponent
                                 pending</span>
                             <span ng-hide="row.reporterYou" class="badge rounded-pill bg-danger text-light">You
                                 pending</span>
-                        </span>
-
-                        <button type="button" class="btn btn-danger btn-sm" ng-show="row.reporterYou"
+                          </small>
+                        </div>
+                        <p class="mb-1 small">{{row.p1DisplayName}} receives: {{row.tradedToP1}}</p>
+                        <p class="mb-1 small">{{row.p2DisplayName}} receives: {{row.tradedToP2}}</p>
+                        
+                        <button type="button" class="btn btn-danger btn-sm float-right" ng-show="row.reporterYou"
                             ng-click="revokeResult(row.matchId)">Revoke</button>
 
-                        <div class="btn-group btn-group-sm" role="group" ng-hide="row.reporterYou">
+                        <div class="btn-group btn-group-sm float-right" role="group" ng-hide="row.reporterYou">
                             <button type="button" class="btn btn-success" ng-click="acceptResult(row.matchId)"><i
                                     class="fas fa-check-circle mr-1"></i>Accept</button>
                             <button type="button" class="btn btn-danger" ng-click="revokeResult(row.matchId)"><i
                                     class="fas fa-times-circle mr-1"></i>Decline</button>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -200,8 +203,7 @@
                                                 <input class="form-control" type="text" placeholder="Search" aria-label="Search"
                                                     ng-model="query1">
                                             </div>
-                                            
-                                            <!--Ugly workaround to not close the dropdown on click-->
+
                                             <button class="dropdown-item" ng-repeat='card in cards | filter:query1 | limitTo : 5' ng-click="addTradeP1toP2(card.cardId, card.cardName)">
                                                 <span style="color: #25af30;"><i class="fas fa-plus-square"></i></span> {{card.cardName}}
                                             </button>
@@ -222,8 +224,7 @@
                                                 <input class="form-control" type="text" placeholder="Search" aria-label="Search"
                                                     ng-model="query2">
                                             </div>
-                                            
-                                            <!--Ugly workaround to not close the dropdown on click-->
+
                                             <button class="dropdown-item" ng-repeat='card in cards | filter:query2 | limitTo : 5' ng-click="addTradeP2toP1(card.cardId, card.cardName)">
                                                 <span style="color: #25af30;"><i class="fas fa-plus-square"></i></span> {{card.cardName}}
                                             </button>

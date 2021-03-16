@@ -18,18 +18,8 @@ if (checkIfReporter($matchId, $_SESSION["id"], $pdo)) {
     returnError("Not allowed to accept own reported match result.");
 }
 
-$query = 'UPDATE match_results SET result_confirmed = :confirmed WHERE (match_id = :match_id)';
-$values = [':match_id' => $matchId, ':confirmed' => TRUE];
-
-try
-{
-    $res = $pdo->prepare($query);
-    $res->execute($values);
-}
-catch (PDOException $e)
-{
-    returnError("Error in SQL query.");
-}
+acceptMatchResult($matchId, $pdo);
+acceptTrade($matchId, $pdo);
 
 http_response_code(200);
 

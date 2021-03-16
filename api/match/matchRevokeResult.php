@@ -14,18 +14,8 @@ if (!checkIfAllowed($matchId, $_SESSION["id"], $pdo)) {
     returnError("Not allowed to revoke this match result.");
 }
 
-$query = 'DELETE FROM match_results WHERE (match_id = :match_id)';
-$values = [':match_id' => $matchId];
-
-try
-{
-    $res = $pdo->prepare($query);
-    $res->execute($values);
-}
-catch (PDOException $e)
-{
-    returnError("Error in SQL query.");
-}
+revokeMatchResult($matchId, $pdo);
+revokeTrade($matchId, $pdo);
 
 http_response_code(200);
 

@@ -74,4 +74,132 @@ function addMatchResult($matchId, $player1GamesWon, $player2GamesWon, $reporterI
     }
 }
 
+function getPlayer1Id($matchId, $pdo) {
+    $query = 'SELECT m.player_id_1
+        FROM matches AS m
+        WHERE (m.match_id = :match_id)';
+
+    $values = [':match_id' => $matchId];
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        return $player_id_1;
+    }
+
+    returnError("Match not found.");
+}
+
+function getPlayer2Id($matchId, $pdo) {
+    $query = 'SELECT m.player_id_2
+        FROM matches AS m
+        WHERE (m.match_id = :match_id)';
+
+    $values = [':match_id' => $matchId];
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        return $player_id_2;
+    }
+
+    returnError("Match not found.");
+}
+
+function addCardTrade($matchId, $cardId, $authorId, $player2Id, $pdo) {
+    $query = 'INSERT INTO card_trades (match_id, card_id, author_account_id, receiver_account_id, trade_confirmed) 
+            VALUES (:match_id, :card_id, :author_account_id, :receiver_account_id, :trade_confirmed)';
+    $values = [':match_id' => $matchId, ':card_id' => $cardId, ':author_account_id' => $authorId, ':receiver_account_id' => $player2Id, ':trade_confirmed' => FALSE];
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+}
+
+function revokeMatchResult($matchId, $pdo) {
+    $query = 'DELETE FROM match_results WHERE (match_id = :match_id)';
+    $values = [':match_id' => $matchId];
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+}
+
+function revokeTrade($matchId, $pdo) {
+    $query = 'DELETE FROM card_trades WHERE (match_id = :match_id)';
+    $values = [':match_id' => $matchId];
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+}
+
+function acceptMatchResult($matchId, $pdo) {
+    $query = 'UPDATE match_results SET result_confirmed = :confirmed WHERE (match_id = :match_id)';
+    $values = [':match_id' => $matchId, ':confirmed' => TRUE];
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+}
+
+function acceptTrade($matchId, $pdo) {
+    $query = 'UPDATE card_trades SET trade_confirmed = :confirmed WHERE (match_id = :match_id)';
+    $values = [':match_id' => $matchId, ':confirmed' => TRUE];
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+}
+
 ?>

@@ -10318,7 +10318,7 @@ a {
   color: #00dbea;
 }
 
-a.item-special {
+.item-special {
   background-color: #000000;
   border-radius: 0px !important;
   color: #ffffff;
@@ -10336,7 +10336,7 @@ a.item-special:hover {
   box-shadow: 0px 0px 5px 5px #0ff;
 }
 
-li.item-special {
+.item-special {
   border: 1px solid #00dbea;
   -o-border-image: linear-gradient(90deg, #000000 2%, #00dbea 50%, #000000 98%);
   border-image: linear-gradient(90deg,#000000 2%, #00dbea 50%, #000000 98%);
@@ -10394,4 +10394,9 @@ div.modal-content {
   width: 94%;
   border-radius: 0px;
   z-index: 999999;
+}
+
+.navbar-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.0rem
 }

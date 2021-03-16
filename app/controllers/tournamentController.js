@@ -32,7 +32,9 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
     $scope.recordMatchResult = function(matchId, player1GamesWon, player2GamesWon) {
         let matchResult = {
             player1GamesWon: player1GamesWon,
-            player2GamesWon: player2GamesWon
+            player2GamesWon: player2GamesWon,
+            tradesP1toP2: $scope.tradesP1toP2,
+            tradesP2toP1: $scope.tradesP2toP1
         };
         
         $http.post(API_URL + '/api/match/matchRecordResult.php/' + matchId, matchResult).then( function ( response ) {
