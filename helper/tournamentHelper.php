@@ -1,5 +1,7 @@
 <?php
 
+require_once '../../helper/errorHelper.php';
+
 function getTournamentName($tournamentId, $pdo) {
     $query = 'SELECT t.tournament_name
         FROM tournaments AS t
@@ -359,6 +361,66 @@ function getCurrentMatchesFiltered($roundId, $accountId, $pdo) {
     }
 
     return $matches;
+}
+
+function getCardSetId($tournamentId, $pdo) {    
+    $query = 'SELECT t.set_id
+        FROM tournaments AS t
+        WHERE (t.tournament_id = :tournament_id)';
+
+    $values = [':tournament_id' => $tournamentId];  
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        return $set_id;
+    }
+
+    returnError("No tournament with this id found.");
+}
+
+function getSetCards($setId, $pdo) {
+    $cards = array();
+    
+    $query = 'SELECT c.card_id, c.card_name, c.card_image_uri
+        FROM magic_cards AS c
+        WHERE (c.magic_set_id = :magic_set_id)';
+
+    $values = [':magic_set_id' => $setId];
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        $cards_item=array(
+            "cardId" => $card_id,
+            "cardName" => $card_name,
+            "cardImageUri" => $card_image_uri
+        );
+    
+        array_push($cards, $cards_item);
+    }
+
+    return $cards;
 }
 
 ?>

@@ -1,5 +1,5 @@
-<h1 class="mt-4">Tournament Overview</h1>
-<h3 class="mt-2" style="color: #b1b1b1">{{tournamentName}}</h3>
+<h1 class="mt-4">{{tournamentName}}</h1>
+<h3 class="mt-2" style="color: #b1b1b1">Tournament Overview</h3>
 
 <hr>
 
@@ -16,16 +16,18 @@
                     <span style="color: #4bc48b; font-size: 34px;"><i class="far fa-caret-square-right mr-4"></i></span>
                 </span>
                 <span ng-repeat="n in [] | range:numberOfRounds - 1 - roundsFinished" ng-hide="currentRound < 0">
-                    <span style="color: #BFBFBF; font-size: 34px;" ><i class="far fa-square mr-4"></i></span>
+                    <span style="color: #BFBFBF; font-size: 34px;"><i class="far fa-square mr-4"></i></span>
                 </span>
                 <span ng-repeat="n in [] | range:numberOfRounds - roundsFinished" ng-show="currentRound < 0">
-                    <span style="color: #BFBFBF; font-size: 34px;" ><i class="far fa-square mr-4"></i></span>
+                    <span style="color: #BFBFBF; font-size: 34px;"><i class="far fa-square mr-4"></i></span>
                 </span>
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" ng-repeat="round in rounds" ng-class="round.active ? 'active' : ''">
-                        <b>{{round.name}}</b>: <small>{{round.dateStart | date:'EEE, MMM d yyyy'}} - {{round.dateEnd | date:'EEE, MMM d yyyy'}}</small>
+                        <b>{{round.name}}</b>: <small>{{round.dateStart | date:'EEE, MMM d yyyy'}} -
+                            {{round.dateEnd | date:'EEE, MMM d yyyy'}}</small>
+                        <span ng-show="round.active" class="badge rounded-pill bg-danger text-light">Active</span>
                     </li>
                 </ul>
             </div>
@@ -35,20 +37,32 @@
     <div class="col-xl-6">
         <div class="card card-special mb-4">
             <div class="card-header bg-1 text-center">
-                Stats
+                Round Stats
             </div>
             <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item item-special d-flex justify-content-between align-items-center">
+                        <span><span style="color: #FF4940;"><i class="fas fa-circle mr-1"></i></span> Your outstanding matches:</span> 
+                        <b>{{(matches | filter : filterNotPlayed).length}}</b>
+                    </li>
+                    <li class="list-group-item item-special d-flex justify-content-between align-items-center">
+                        <span><span style="color: #FF8540;"><i class="fas fa-pause-circle mr-1"></i></span> Played but not confirmed matches:</span>
+                        <b>{{(matches | filter : filterPlayedNotConfirmed).length}}</b>
+                    </li>
+                    <li class="list-group-item item-special d-flex justify-content-between align-items-center">
+                        <span><span style="color: #00B74A;"><i class="fas fa-check-circle mr-1"></i></span> Played and confirmed matches:</span>
+                        <b>{{(matches | filter : filterPlayedAndConfirmed).length}}</b>
+                    </li>
+                </ul>
+
                 <a href="#!ranking/{{tournamentId}}" class="btn btn-primary">Show Ranking</a>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-xl-12" ng-hide="currentRound < 0">
-        <h3 class="mt-4 mb-4">Round {{roundsFinished + 1}} of {{numberOfRounds}} currently running</h3>
-    </div>
-    <div class="col-xl-12" ng-show="currentRound < 0">
+<div class="row" ng-show="currentRound < 0">
+    <div class="col-xl-12">
         <h3 class="mt-4 mb-4">Already played {{roundsFinished}} rounds of {{numberOfRounds}}. Waiting for next round to start...</h3>
     </div>
 </div>
@@ -72,23 +86,12 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center"
                         ng-repeat="row in matches | filter : filterNotPlayed">
-                        <span><b>{{row.p1DisplayName}}</b> <span ng-if="row.p1MTGArenaName">({{row.p1MTGArenaName}})</span> vs. <b>{{row.p2DisplayName}}</b> <span ng-if="row.p2MTGArenaName">({{row.p2MTGArenaName}})</span></span>
+                        <span><b>{{row.p1DisplayName}}</b> <span
+                                ng-if="row.p1MTGArenaName">({{row.p1MTGArenaName}})</span> vs.
+                            <b>{{row.p2DisplayName}}</b> <span
+                                ng-if="row.p2MTGArenaName">({{row.p2MTGArenaName}})</span></span>
 
-                        <div class="form-inline" role="form">
-                            <div class="form-group mb-2">
-                                <label for="player1GamesWon" class="sr-only">P1 Games Won</label>
-                                <input type="number" class="form-control input-sm" id="player1GamesWon"
-                                    ng-model="player1GamesWon">
-                            </div>
-                            <div class="form-group mx-sm-3 mb-2">
-                                <label for="player2GamesWon" class="sr-only">P2 Games Won</label>
-                                <input type="number" class="form-control input-sm" id="player2GamesWon"
-                                    ng-model="player2GamesWon">
-                            </div>
-                            <button class="btn btn-primary mb-2"
-                                ng-click="recordMatchResult(row.matchId, player1GamesWon, player2GamesWon)">Send
-                                Request</button>
-                        </div>
+                        <button class="btn btn-primary" ng-click="reportMatchResultModal(row)">Report Match Result</button>
                     </li>
                 </ul>
             </div>
@@ -149,6 +152,112 @@
                             {{row.player2GamesWon}}</span>
                     </li>
                 </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-special" id="reportMatchResult" tabindex="-1" role="dialog" aria-labelledby="matchResultModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="matchResultModal">Report match result: {{selectedMatchP1Name}} vs. {{selectedMatchP2Name}}</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form" role="form">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="player1GamesWon">{{selectedMatchP1Name}} Games Won</label>
+                                    <input type="number" class="form-control" id="player1GamesWon" ng-model="player1GamesWon" placeholder="0">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="player2GamesWon">{{selectedMatchP2Name}} Games Won</label>
+                                    <input type="number" class="form-control" id="player2GamesWon" ng-model="player2GamesWon" placeholder="0">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <h4>Trading</h4>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropDownTrade2"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Add Trade {{selectedMatchP1Name}} to {{selectedMatchP2Name}}
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropDownTrade2">
+                                            <div class="form-group has-search">
+                                                <span class="fa fa-search form-control-feedback"></span>
+                                                <input class="form-control" type="text" placeholder="Search" aria-label="Search"
+                                                    ng-model="query1">
+                                            </div>
+                                            
+                                            <!--Ugly workaround to not close the dropdown on click-->
+                                            <button class="dropdown-item" ng-repeat='card in cards | filter:query1 | limitTo : 5' ng-click="addTradeP1toP2(card.cardId, card.cardName)">
+                                                <span style="color: #a33535;"><i class="fas fa-minus-square"></i></span>
+                                                {{card.cardName}}
+                                            </button>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropDownTrade2"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Add Trade {{selectedMatchP2Name}} to {{selectedMatchP1Name}}
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropDownTrade2">
+                                            <div class="form-group has-search">
+                                                <span class="fa fa-search form-control-feedback"></span>
+                                                <input class="form-control" type="text" placeholder="Search" aria-label="Search"
+                                                    ng-model="query2">
+                                            </div>
+                                            
+                                            <!--Ugly workaround to not close the dropdown on click-->
+                                            <button class="dropdown-item" ng-repeat='card in cards | filter:query2 | limitTo : 5' ng-click="addTradeP2toP1(card.cardId, card.cardName)">
+                                                <span style="color: #25af30;"><i class="fas fa-plus-square"></i></span> {{card.cardName}}
+                                            </button>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <ul class="list-group">
+                                        <li class="list-group-item" ng-repeat="card in tradesP1toP2">
+                                            {{card.name}} {{card.id}}
+                                        </li>
+                                      </ul>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <ul class="list-group">
+                                        <li class="list-group-item" ng-repeat="card in tradesP2toP1">
+                                            {{card.name}}
+                                        </li>
+                                      </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" ng-click="recordMatchResult(selectedMatchId, player1GamesWon, player2GamesWon)">Send Request</button>
             </div>
         </div>
     </div>

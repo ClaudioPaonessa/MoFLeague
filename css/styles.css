@@ -10352,3 +10352,46 @@ li.active {
 .btn {
   border-radius: 0px !important;
 }
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+input {
+  border-radius: 0px !important;
+}
+
+div.modal-special {
+  color: #ffffff !important;
+}
+
+div.modal-special > * .close {
+  color: #ffffff !important;
+}
+
+div.modal-content {
+  background-color: #2b2b2b;
+  border-radius: 0px;
+  outline: none;
+  box-shadow: 0px 0px 5px 5px #0ff;
+}
+
+.alert-top {
+  position: fixed;
+  top: 20px;
+  left: 3%;
+  width: 94%;
+  border-radius: 0px;
+  z-index: 999999;
+}

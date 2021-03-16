@@ -19,7 +19,7 @@ foreach ($sets->data as &$set) {
     {
         $stmt->bindValue(':set_code', $set->code);
         $stmt->bindValue(':set_name',$set->name);
-        $stmt->bindValue(':scryfall_search_url',$set->search_uri);
+        $stmt->bindValue(':scryfall_search_url',str_replace("unique=prints","unique=cards",$set->search_uri));
         $stmt->bindValue(':release_date',$set->released_at);
         $stmt->bindValue(':set_type',$set->set_type);
         $stmt->bindValue(':set_icon_svg_uri',$set->icon_svg_uri);

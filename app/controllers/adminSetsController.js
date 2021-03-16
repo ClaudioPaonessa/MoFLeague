@@ -26,7 +26,7 @@ app.controller('AdminSetsController', function($scope, $http, DTOptionsBuilder, 
     }
 
     $scope.importSet = function(row) {
-        $http.get(API_URL + '/api/admin/importSet.php/' + row.set_id).then( function ( response ) {
+        $http.get(API_URL + '/api/admin/importSet.php/' + row.setId).then( function ( response ) {
             $scope.initSets();
         }, function ( response ) {
             $scope.alertText = response.data.error;
