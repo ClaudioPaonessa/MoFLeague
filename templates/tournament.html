@@ -190,11 +190,11 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropDownTrade2"
+                                        <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropDownTrade2"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Add Trade {{selectedMatchP1Name}} to {{selectedMatchP2Name}}
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropDownTrade2">
+                                        <div class="dropdown-menu w-100" aria-labelledby="dropDownTrade2">
                                             <div class="form-group has-search">
                                                 <span class="fa fa-search form-control-feedback"></span>
                                                 <input class="form-control" type="text" placeholder="Search" aria-label="Search"
@@ -203,8 +203,7 @@
                                             
                                             <!--Ugly workaround to not close the dropdown on click-->
                                             <button class="dropdown-item" ng-repeat='card in cards | filter:query1 | limitTo : 5' ng-click="addTradeP1toP2(card.cardId, card.cardName)">
-                                                <span style="color: #a33535;"><i class="fas fa-minus-square"></i></span>
-                                                {{card.cardName}}
+                                                <span style="color: #25af30;"><i class="fas fa-plus-square"></i></span> {{card.cardName}}
                                             </button>
                                             </ul>
                                         </div>
@@ -213,11 +212,11 @@
 
                                 <div class="col-md-6">
                                     <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropDownTrade2"
+                                        <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropDownTrade2"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Add Trade {{selectedMatchP2Name}} to {{selectedMatchP1Name}}
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropDownTrade2">
+                                        <div class="dropdown-menu w-100" aria-labelledby="dropDownTrade2">
                                             <div class="form-group has-search">
                                                 <span class="fa fa-search form-control-feedback"></span>
                                                 <input class="form-control" type="text" placeholder="Search" aria-label="Search"
@@ -238,7 +237,7 @@
                                 <div class="col-md-6">
                                     <ul class="list-group">
                                         <li class="list-group-item" ng-repeat="card in tradesP1toP2">
-                                            {{card.name}} {{card.id}}
+                                            {{card.name}}
                                         </li>
                                       </ul>
                                 </div>
