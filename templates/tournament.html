@@ -61,7 +61,7 @@
 </div>
 
 <div class="row" ng-show="currentRound">
-    <div class="col-xl-12">
+    <div class="col-xl-6">
         <div class="card card-special mb-4">
             <div class="card-header bg-3">
                 <span style="color: #FF4940;">
@@ -70,9 +70,11 @@
                 Your outstanding matches this round
             </div>
             <div class="card-body">
+                <p ng-show='outstandingMatches.length == 0'>Test</p>
+
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center"
-                        ng-repeat="row in matches | filter : filterNotPlayed">
+                        ng-repeat="row in outstandingMatches = (matches | filter : filterNotPlayed)">
                         <span><b>{{row.p1DisplayName}}</b> <span
                                 ng-if="row.p1MTGArenaName">({{row.p1MTGArenaName}})</span> vs.
                             <b>{{row.p2DisplayName}}</b> <span

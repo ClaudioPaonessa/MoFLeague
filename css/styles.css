@@ -10345,7 +10345,7 @@ a.item-special:hover {
 
 li.active-special {
   box-shadow: 0px 0px 3px 3px #0ff;
-  z-index: 9999;
+  z-index: 999;
 }
 
 .btn {
@@ -10392,7 +10392,7 @@ div.modal-content {
   left: 3%;
   width: 94%;
   border-radius: 0px;
-  z-index: 999999;
+  z-index: 99999;
 }
 
 .navbar-brand {
