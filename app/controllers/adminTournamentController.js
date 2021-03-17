@@ -6,7 +6,7 @@ if (window.location.hostname == 'localhost') {
 
 app.controller("AdminTournamentController", function($scope, $routeParams, $http) {
     
-    var tournamentId = $routeParams.tournamentId;
+    $scope.tournamentId = $routeParams.tournamentId;
     $scope.loadingTournament = true;
     $scope.matches = []
     $scope.alertText = null;
@@ -14,7 +14,7 @@ app.controller("AdminTournamentController", function($scope, $routeParams, $http
     $scope.initTournament = function() {
         $scope.loadingTournament = true;
 
-        $http.get(API_URL + '/api/admin/tournamentDashboard.php/' + tournamentId).then( function ( response ) {
+        $http.get(API_URL + '/api/admin/tournamentDashboard.php/' + $scope.tournamentId).then( function ( response ) {
             $scope.tournamentName = response.data.tournamentName
             $scope.matches = response.data.currentMatches;
             $scope.allMatches = response.data.tournamentMatches;
@@ -26,6 +26,44 @@ app.controller("AdminTournamentController", function($scope, $routeParams, $http
             $scope.alertText = response.data.error;
         }).finally(function() {
             $scope.loadingTournament = false;
+        });
+    }
+
+    $scope.changeRoundCompleted = function(roundId, value) {
+        let completionStatus = {
+            status: value
+        };
+
+        $http.post(API_URL + '/api/admin/changeRoundCompletion.php/' + roundId, completionStatus).then( function ( response ) {
+            $scope.initTournament();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+
+        });
+    }
+
+    $scope.setActiveRound = function(roundId) {
+        let completionStatus = {
+            roundId: roundId
+        };
+
+        $http.post(API_URL + '/api/admin/setActiveRound.php/' + $scope.tournamentId, completionStatus).then( function ( response ) {
+            $scope.initTournament();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+
+        });
+    }
+
+    $scope.resetActiveRound = function() {
+        $http.get(API_URL + '/api/admin/resetActiveRound.php/' + $scope.tournamentId).then( function ( response ) {
+            $scope.initTournament();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+
         });
     }
 

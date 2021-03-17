@@ -29,7 +29,7 @@ function getTournamentName($tournamentId, $pdo) {
 }
 
 function getRounds($tournamentId, $currentRoundIndex, $pdo) {
-    $query = 'SELECT tr.round_id, tr.date_start, tr.date_end
+    $query = 'SELECT tr.round_id, tr.date_start, tr.date_end, tr.completed
     FROM tournament_rounds AS tr
     WHERE (tournament_id = :tournament_id)
     ORDER BY tr.date_start ASC';
@@ -58,7 +58,8 @@ function getRounds($tournamentId, $currentRoundIndex, $pdo) {
             "name" => "Round " . $i++,
             "dateStart" =>  (new DateTime($date_start, new DateTimeZone("Europe/Zurich")))->format('Y-m-d'),
             "dateEnd" => (new DateTime($date_end, new DateTimeZone("Europe/Zurich")))->format('Y-m-d'),
-            "active" => $currentRoundIndex === $round_id
+            "active" => $currentRoundIndex === $round_id,
+            "completed" => boolval($completed)
         );
 
         array_push($rounds, $roundItem);
@@ -122,7 +123,7 @@ function getNumberOfRounds($tournamentId, $pdo) {
 function getCurrentRoundsFinished($tournamentId, $pdo) {
     $query = 'SELECT COUNT(1) AS count
         FROM tournament_rounds AS tr
-        WHERE (tr.tournament_id = :tournament_id) AND (tr.date_start <= CURDATE()) AND (tr.date_end < CURDATE())';
+        WHERE (tr.tournament_id = :tournament_id) AND (tr.completed = TRUE)';
 
     $values = [':tournament_id' => $tournamentId];
 

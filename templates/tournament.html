@@ -9,32 +9,25 @@
     <div class="col-xl-6">
         <div class="card card-special mb-4">
             <div class="card-header bg-1 text-center">
-                <span ng-repeat="n in [] | range:roundsFinished">
-                    <span style="color: #BFBFBF; font-size: 34px;"><i class="fas fa-check-square mr-4"></i></span>
-                </span>
-                <span ng-repeat="n in [] | range:1" ng-hide="currentRound < 0">
-                    <span style="color: #4bc48b; font-size: 34px;"><i class="far fa-caret-square-right mr-4"></i></span>
-                </span>
-                <span ng-repeat="n in [] | range:numberOfRounds - 1 - roundsFinished" ng-hide="currentRound < 0">
-                    <span style="color: #BFBFBF; font-size: 34px;"><i class="far fa-square mr-4"></i></span>
-                </span>
-                <span ng-repeat="n in [] | range:numberOfRounds - roundsFinished" ng-show="currentRound < 0">
-                    <span style="color: #BFBFBF; font-size: 34px;"><i class="far fa-square mr-4"></i></span>
+                <span ng-repeat="round in rounds">
+                    <span ng-show="round.active" style="color: #4bc48b; font-size: 34px;"><i class="far fa-caret-square-right mr-4"></i></span>
+                    <span ng-show="round.completed" style="color: #BFBFBF; font-size: 34px;"><i class="fas fa-check-square mr-4"></i></span>
+                    <span ng-hide="round.completed || round.active" style="color: #BFBFBF; font-size: 34px;" ><i class="far fa-square mr-4"></i></span>
                 </span>
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item" ng-repeat="round in rounds" ng-class="round.active ? 'active' : ''">
+                    <li class="list-group-item" ng-repeat="round in rounds" ng-class="round.active ? 'active-special' : ''">
                         <b>{{round.name}}</b>: <small>{{round.dateStart | date:'EEE, MMM d yyyy'}} -
                             {{round.dateEnd | date:'EEE, MMM d yyyy'}}</small>
-                        <span ng-show="round.active" class="badge rounded-pill bg-danger text-light">Active</span>
+                        <span ng-show="round.active" class="badge rounded-pill text-dark" style="background-color: #4bc48b;">Active</span>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="col-xl-6">
+    <div class="col-xl-6" ng-show="currentRound">
         <div class="card card-special mb-4">
             <div class="card-header bg-1 text-center">
                 Round Stats
@@ -61,19 +54,13 @@
     </div>
 </div>
 
-<div class="row" ng-show="currentRound < 0">
+<div class="row" ng-hide="currentRound">
     <div class="col-xl-12">
         <h3 class="mt-4 mb-4">Already played {{roundsFinished}} rounds of {{numberOfRounds}}. Waiting for next round to start...</h3>
     </div>
 </div>
 
-<div class="row" ng-show="currentRound < 0">
-    <div class="col-xl-6">
-        <p>There is no round currently running...</p>
-    </div>
-</div>
-
-<div class="row" ng-hide="currentRound < 0">
+<div class="row" ng-show="currentRound">
     <div class="col-xl-12">
         <div class="card card-special mb-4">
             <div class="card-header bg-3">

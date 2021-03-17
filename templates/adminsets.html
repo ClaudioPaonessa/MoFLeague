@@ -4,10 +4,6 @@
 
 <div ng-include src="'partials/errormessage.html'"></div>
 
-<div class="spinner-border" ng-show="loading" role="status">
-    <span class="sr-only">Loading...</span>
-</div>
-
 <div class="mb-4">
     <button class="btn btn-primary" type="button" ng-click="refreshSets()" ng-disabled="refreshingSets">
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" ng-show="refreshingSets"></span>
@@ -15,14 +11,18 @@
       </button>
 </div>
 
-<div class="card card-light mb-4" ng-hide="loading">
+<div class="spinner-border" ng-show="loadingSets" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+
+<div class="card card-light mb-4" ng-hide="loadingSets">
     <div class="card-header">
         <i class="fas fa-table mr-1"></i>
         Import Sets
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table datatable="ng" class="table table-bordered" id="dataTable" dt-options="dtOptions" width="100%" cellspacing="0">
+            <table datatable="ng" class="table table-bordered table-dark" id="dataTable" dt-options="dtOptions" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Icon</th>
@@ -47,7 +47,7 @@
                 </tfoot>
                 <tbody>
                     <tr ng-repeat="row in result">
-                        <td><img width="20" src="{{row.setIconSVGUri}}"></td> 
+                        <td><img class="inverted" width="20" src="{{row.setIconSVGUri}}"></td> 
                         <td>{{row.setCode}}</td> 
                         <td>{{row.setName}}</td>
                         <td>{{row.setType}}</td>
