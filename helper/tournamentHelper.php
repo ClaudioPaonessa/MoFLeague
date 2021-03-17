@@ -339,7 +339,7 @@ function arrayColumnSort() {
 function getTournamentMatches($tournamentId, $pdo) {
     $matches = array();
     
-    $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2, 
+    $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2, tr.round_id AS round_name,
         p1.mtg_arena_name AS p1_mtg_arena_name, p1.display_name AS p1_display_name, 
         p2.mtg_arena_name AS p2_mtg_arena_name, p2.display_name AS p2_display_name, 
         mr.player_1_games_won AS player_1_games_won, mr.player_2_games_won AS player_2_games_won,
@@ -370,6 +370,7 @@ function getTournamentMatches($tournamentId, $pdo) {
             "matchId" => $match_id,
             "playerId1" => $player_id_1,
             "playerId2" => $player_id_2,
+            "roundName" => $round_name,
             "p1MTGArenaName" => $p1_mtg_arena_name,
             "p1DisplayName" => $p1_display_name,
             "p2MTGArenaName" => $p2_mtg_arena_name,
@@ -388,7 +389,7 @@ function getTournamentMatches($tournamentId, $pdo) {
 function getCurrentMatchesFiltered($roundId, $accountId, $pdo) {
     $matches = array();
 
-    $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2, 
+    $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2,
         p1.mtg_arena_name AS p1_mtg_arena_name, p1.display_name AS p1_display_name, 
         p2.mtg_arena_name AS p2_mtg_arena_name, p2.display_name AS p2_display_name, 
         mr.player_1_games_won AS player_1_games_won, mr.player_2_games_won AS player_2_games_won,
