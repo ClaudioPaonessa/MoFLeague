@@ -68,9 +68,9 @@ function getRounds($tournamentId, $currentRoundIndex, $pdo) {
 }
 
 function getCurrentRoundIndex($tournamentId, $pdo) {
-    $query = 'SELECT tr.round_id
-        FROM tournament_rounds AS tr
-        WHERE (tr.tournament_id = :tournament_id) AND (tr.date_start <= CURDATE()) AND (tr.date_end >= CURDATE())';
+    $query = 'SELECT t.active_round_id
+        FROM tournaments AS t
+        WHERE (t.tournament_id = :tournament_id)';
 
     $values = [':tournament_id' => $tournamentId];
 
@@ -87,10 +87,10 @@ function getCurrentRoundIndex($tournamentId, $pdo) {
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         extract($row);
 
-        return $round_id;
+        return $active_round_id;
     }
 
-    return -1;
+    returnError("Tournament not found");
 }
 
 function getNumberOfRounds($tournamentId, $pdo) {

@@ -12,7 +12,7 @@ require_once '../../db/pdo.php';
 $setId = getId();
 
 function loadCards($pdo, $set_id, $url) {
-    $stmt = $pdo->prepare('INSERT INTO magic_cards (card_id_scryfall, magic_set_id, card_collector_number, card_name, card_type_line, card_image_uri, card_mana_cost, card_name_back, card_type_line_back, card_image_uri_back, card_mana_cost_back) VALUES(:card_id_scryfall, :magic_set_id, :card_collector_number, :card_name, :card_type_line, :card_image_uri, :card_mana_cost, :card_name_back, :card_type_line_back, :card_image_uri_back, :card_mana_cost_back)');
+    $stmt = $pdo->prepare('INSERT INTO magic_cards (card_id_scryfall, magic_set_id, card_collector_number, card_name, card_rarity, card_type_line, card_image_uri, card_mana_cost, card_name_back, card_type_line_back, card_image_uri_back, card_mana_cost_back) VALUES(:card_id_scryfall, :magic_set_id, :card_collector_number, :card_name, :card_rarity, :card_type_line, :card_image_uri, :card_mana_cost, :card_name_back, :card_type_line_back, :card_image_uri_back, :card_mana_cost_back)');
 
     $jsonCards = getContent($url);
     $cards = json_decode($jsonCards);
@@ -27,11 +27,12 @@ function loadCards($pdo, $set_id, $url) {
             $stmt->bindValue(':card_id_scryfall', $card->id);
             $stmt->bindValue(':card_collector_number', $card->collector_number);
 
+            $stmt->bindValue(':magic_set_id', $set_id);
+            $stmt->bindValue(':card_rarity', $card->rarity);
+
             if (isset($card->card_faces)) {
                 $card_face_front = $card->card_faces[0];
                 $card_face_back = $card->card_faces[1];
-                
-                $stmt->bindValue(':magic_set_id', $set_id);
                 
                 $stmt->bindValue(':card_name', $card_face_front->name);
                 $stmt->bindValue(':card_type_line', $card_face_front->type_line);
@@ -48,7 +49,6 @@ function loadCards($pdo, $set_id, $url) {
             else {
                 $card_face_front = $card;
 
-                $stmt->bindValue(':magic_set_id', $set_id);
                 $stmt->bindValue(':card_name', $card_face_front->name);
                 $stmt->bindValue(':card_type_line', $card_face_front->type_line);
                 $stmt->bindValue(':card_image_uri',$card_face_front->image_uris->normal);
