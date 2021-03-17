@@ -193,7 +193,7 @@ function getCurrentMatches($roundId, $pdo) {
     return $matches;
 }
 
-function getTournamentMatchResults($tournamentId, $pdo) {
+function getTournamentMatchResults($tournamentId, $accountId, $pdo) {
     $ranking = array();
     $POINTS_FOR_MATCH = 3;
 
@@ -269,7 +269,8 @@ function getTournamentMatchResults($tournamentId, $pdo) {
             "GWPOriginal" => floatval($GWP),
             "MWP" => number_format($MWP * 100, 2, '.', ''),
             "GWP" => number_format($GWP * 100, 2, '.', ''),
-            "opponents" => $opponentsArray
+            "opponents" => $opponentsArray,
+            "you" => $player_id === $accountId
         );
     
         array_push($ranking, $ranking_item);
@@ -286,7 +287,7 @@ function getTournamentMatchResults($tournamentId, $pdo) {
                 $sumOpponentGP += max($opponentRank["GWPOriginal"], 0.3333333333);
             }
             $participant["OMPOriginal"] = $sumOpponentMP / count($participant["opponents"]);
-            $participant["OGPOriginal"] = $sumOpponentMP / count($participant["opponents"]);
+            $participant["OGPOriginal"] = $sumOpponentGP / count($participant["opponents"]);
             $participant["OMP"] = number_format($participant["OMPOriginal"] * 100, 2, '.', '');
             $participant["OGP"] = number_format($participant["OGPOriginal"] * 100, 2, '.', '');
         }

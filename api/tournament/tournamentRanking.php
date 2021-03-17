@@ -13,7 +13,7 @@ $tournamentId = getId();
 $rankingData = array();
 
 $rankingData["tournamentName"] = getTournamentName($tournamentId, $pdo);
-$rankingData["ranking"] = getTournamentMatchResults($tournamentId, $pdo);
+$rankingData["ranking"] = getTournamentMatchResults($tournamentId, $_SESSION["id"], $pdo);
 
 http_response_code(200);
 
