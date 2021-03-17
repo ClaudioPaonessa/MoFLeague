@@ -195,7 +195,7 @@
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropDownTrade2"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Add Trade {{selectedMatchP1Name}} to {{selectedMatchP2Name}}
+                                            Add card {{selectedMatchP1Name}} receives
                                         </button>
                                         <div class="dropdown-menu w-100" aria-labelledby="dropDownTrade2">
                                             <div class="form-group has-search">
@@ -204,7 +204,7 @@
                                                     ng-model="query1">
                                             </div>
 
-                                            <button class="dropdown-item" ng-repeat='card in cards | filter:query1 | limitTo : 5' ng-click="addTradeP1toP2(card.cardId, card.cardName)">
+                                            <button class="dropdown-item" ng-repeat='card in cards | filter:query1 | limitTo : 5' ng-click="addTradeP2toP1(card.cardId, card.cardName)">
                                                 <span style="color: #25af30;"><i class="fas fa-plus-square"></i></span> {{card.cardName}}
                                             </button>
                                             </ul>
@@ -216,7 +216,7 @@
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropDownTrade2"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Add Trade {{selectedMatchP2Name}} to {{selectedMatchP1Name}}
+                                            Add card {{selectedMatchP2Name}} receives
                                         </button>
                                         <div class="dropdown-menu w-100" aria-labelledby="dropDownTrade2">
                                             <div class="form-group has-search">
@@ -225,7 +225,7 @@
                                                     ng-model="query2">
                                             </div>
 
-                                            <button class="dropdown-item" ng-repeat='card in cards | filter:query2 | limitTo : 5' ng-click="addTradeP2toP1(card.cardId, card.cardName)">
+                                            <button class="dropdown-item" ng-repeat='card in cards | filter:query2 | limitTo : 5' ng-click="addTradeP1toP2(card.cardId, card.cardName)">
                                                 <span style="color: #25af30;"><i class="fas fa-plus-square"></i></span> {{card.cardName}}
                                             </button>
                                             </ul>
@@ -237,16 +237,18 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <ul class="list-group">
-                                        <li class="list-group-item" ng-repeat="card in tradesP1toP2">
+                                        <li class="list-group-item" ng-repeat="card in tradesP2toP1">
                                             {{card.name}}
+                                            <button class="btn btn-sm btn-danger float-right" ng-click="removeTradeCardP1($index)"><i class="fas fa-minus-square"></i></button>
                                         </li>
                                       </ul>
                                 </div>
 
                                 <div class="col-md-6">
                                     <ul class="list-group">
-                                        <li class="list-group-item" ng-repeat="card in tradesP2toP1">
-                                            {{card.name}}
+                                        <li class="list-group-item" ng-repeat="card in tradesP1toP2">
+                                            {{card.name}} {{$index}}
+                                            <button class="btn btn-sm btn-danger float-right" ng-click="removeTradeCardP2($index)"><i class="fas fa-minus-square"></i></button>
                                         </li>
                                       </ul>
                                 </div>

@@ -98,8 +98,16 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
         $scope.tradesP1toP2.push({id: cardId, name: cardName});
     }
 
+    $scope.removeTradeCardP1 = function(idx) {
+        $scope.tradesP2toP1.splice(idx, 1);
+    }
+
     $scope.addTradeP2toP1 = function(cardId, cardName) {
         $scope.tradesP2toP1.push({id: cardId, name: cardName});
+    }
+
+    $scope.removeTradeCardP2 = function(idx) {
+        $scope.tradesP1toP2.splice(idx, 1);
     }
 
     $scope.filterPlayedAndConfirmed = function(match) {
