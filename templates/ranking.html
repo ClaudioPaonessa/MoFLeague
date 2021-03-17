@@ -18,22 +18,20 @@
                             <tr>
                                 <th>Rank</th>
                                 <th>Name</th>
-                                <th>Total Points</th>
-                                <th>Matches Played</th>
-                                <th>Matches Won</th>
-                                <th>Games Played</th>
-                                <th>Games Won</th>
+                                <th>Points</th>
+                                <th>Tiebreakers <br> <small>OMP / GWP / OGP</small></th>
+                                <th>Matches <br> <small>Wins / Played (MWP)</small></th>
+                                <th>Games <br> <small>Wins / Played (GWP)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="row in ranking">
-                                <td>{{$index + 1}}</td>
+                                <td>{{row.rank}}</td>
                                 <td>{{row.displayName}}</td>
                                 <td><b>{{row.totalPoints}}</b></td>
-                                <td>{{row.matchesPlayed}}</td>
-                                <td>{{row.matchesWon}}</td>
-                                <td>{{row.gamesPlayed}}</td>
-                                <td>{{row.gamesWon}}</td>
+                                <td>{{row.OMP}}% / {{row.GWP}}% / {{row.OGP}}%</td>
+                                <td>{{row.matchesWon}} / {{row.matchesPlayed}} ({{row.MWP}}%)</td>
+                                <td>{{row.gamesWon}} / {{row.gamesPlayed}} ({{row.GWP}}%)</td>
                             </tr>
                         </tbody>
                     </table>
