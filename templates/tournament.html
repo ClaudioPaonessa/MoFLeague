@@ -136,14 +136,16 @@
                 Played and confirmed matches
             </div>
             <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item item-special d-flex justify-content-between align-items-center"
-                        ng-repeat="row in matches | filter : filterPlayedAndConfirmed">
-                        {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
-                        <span class="badge bg-primary rounded-pill text-light">{{row.player1GamesWon}} :
-                            {{row.player2GamesWon}}</span>
-                    </li>
-                </ul>
+                <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in matches | filter : filterPlayedAndConfirmed">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">{{row.p1DisplayName}} vs. {{row.p2DisplayName}}</h5>
+                      <small>
+                        <span class="badge bg-primary text-light">{{row.player1GamesWon}} : {{row.player2GamesWon}}</span>
+                      </small>
+                    </div>
+                    <p class="mb-1 small">{{row.p1DisplayName}} received: {{row.tradedToP1}}</p>
+                    <p class="mb-1 small">{{row.p2DisplayName}} received: {{row.tradedToP2}}</p>
+                </div>
             </div>
         </div>
     </div>

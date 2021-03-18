@@ -107,7 +107,9 @@
                 Outstanding matches
             </div>
             <div class="card-body">
-                <div ng-repeat="(key, value) in allMatches | filter : filterNotPlayed | groupBy: 'roundName'">
+                <p ng-show='outstandingMatches.length == 0' class="text-center">No outstanding matches <i class="far fa-thumbs-up"></i></p>
+
+                <div ng-repeat="(key, value) in outstandingMatches = (allMatches | filter : filterNotPlayed | groupBy: 'roundName')">
                     <h4>Round {{key}}</h4>
                     <ul class="list-group list-group-flush" >
                         <li class="list-group-item item-special d-flex justify-content-between align-items-center" 
@@ -131,14 +133,19 @@
             <div class="card-body">
                 <div ng-repeat="(key, value) in allMatches | filter : filterPlayedNotConfirmed | groupBy: 'roundName'">
                     <h4>Round {{key}}</h4>
-                    <ul class="list-group list-group-flush" >
-                        <li class="list-group-item item-special d-flex justify-content-between align-items-center" 
-                        ng-repeat="row in value">
-                            {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
-                            <span class="badge bg-primary rounded-pill text-light">{{row.player1GamesWon}} :
-                                {{row.player2GamesWon}}</span>
-                        </li>
-                    </ul>
+
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in value">
+                            <div class="d-flex w-100 justify-content-between">
+                              <h5 class="mb-1">{{row.p1DisplayName}} vs. {{row.p2DisplayName}}</h5>
+                              <small>
+                                <span class="badge bg-primary text-light">{{row.player1GamesWon}} : {{row.player2GamesWon}}</span>
+                              </small>
+                            </div>
+                            <p class="mb-1 small">{{row.p1DisplayName}} receives: {{row.tradedToP1}}</p>
+                            <p class="mb-1 small">{{row.p2DisplayName}} receives: {{row.tradedToP2}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -155,14 +162,19 @@
             <div class="card-body">
                 <div ng-repeat="(key, value) in allMatches | filter : filterPlayedAndConfirmed | groupBy: 'roundName'">
                     <h4>Round {{key}}</h4>
-                    <ul class="list-group list-group-flush" >
-                        <li class="list-group-item item-special d-flex justify-content-between align-items-center" 
-                        ng-repeat="row in value">
-                            {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
-                            <span class="badge bg-primary rounded-pill text-light">{{row.player1GamesWon}} :
-                                {{row.player2GamesWon}}</span>
-                        </li>
-                    </ul>
+
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in value">
+                            <div class="d-flex w-100 justify-content-between">
+                              <h5 class="mb-1">{{row.p1DisplayName}} vs. {{row.p2DisplayName}}</h5>
+                              <small>
+                                <span class="badge bg-primary text-light">{{row.player1GamesWon}} : {{row.player2GamesWon}}</span>
+                              </small>
+                            </div>
+                            <p class="mb-1 small">{{row.p1DisplayName}} received: {{row.tradedToP1}}</p>
+                            <p class="mb-1 small">{{row.p2DisplayName}} received: {{row.tradedToP2}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

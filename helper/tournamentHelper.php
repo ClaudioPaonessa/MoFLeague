@@ -343,13 +343,19 @@ function getTournamentMatches($tournamentId, $pdo) {
         p1.mtg_arena_name AS p1_mtg_arena_name, p1.display_name AS p1_display_name, 
         p2.mtg_arena_name AS p2_mtg_arena_name, p2.display_name AS p2_display_name, 
         mr.player_1_games_won AS player_1_games_won, mr.player_2_games_won AS player_2_games_won,
-        mr.result_confirmed AS result_confirmed, mr.reporter_account_id AS reporter_account_id
+        mr.result_confirmed AS result_confirmed, mr.reporter_account_id AS reporter_account_id,
+        GROUP_CONCAT((CASE WHEN ct.receiver_account_id = m.player_id_1 THEN mc.card_name ELSE NULL END) SEPARATOR "; ") as cards_traded_to_p1, 
+        GROUP_CONCAT((CASE WHEN ct.receiver_account_id = m.player_id_2 THEN mc.card_name ELSE NULL END) SEPARATOR "; ") as cards_traded_to_p2
         FROM matches AS m
         LEFT JOIN accounts p1 on (m.player_id_1 = p1.account_id)
         LEFT JOIN accounts p2 on (m.player_id_2 = p2.account_id)
         LEFT JOIN match_results mr on (m.match_id = mr.match_id)
         LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
-        WHERE (tr.tournament_id = :tournament_id)';
+        LEFT JOIN card_trades ct on (m.match_id = ct.match_id)
+        LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
+        WHERE (tr.tournament_id = :tournament_id)
+        GROUP BY m.match_id
+        ORDER BY tr.date_start ASC';
 
     $values = [':tournament_id' => $tournamentId];
 
@@ -377,6 +383,8 @@ function getTournamentMatches($tournamentId, $pdo) {
             "p2DisplayName" => $p2_display_name,
             "player1GamesWon" => $player_1_games_won,
             "player2GamesWon" => $player_2_games_won,
+            "tradedToP1" => $cards_traded_to_p1,
+            "tradedToP2" => $cards_traded_to_p2,
             "resultConfirmed" => boolval($result_confirmed)
         );
     

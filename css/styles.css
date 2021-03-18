@@ -10404,3 +10404,7 @@ img.inverted {
   -webkit-filter: invert(100%);
   filter: invert(100%);
 }
+
+.item-special > * small > .badge {
+  font-size: 85% !important;
+}
