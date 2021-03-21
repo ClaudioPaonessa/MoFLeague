@@ -72,7 +72,7 @@ function getRoundsKeyValuePair($rounds) {
     $roundsKeyValuePair = array();
 
     foreach ($rounds as &$round) {
-        $roundsKeyValuePair[$round["roundId"]] = $round["name"];
+        $roundsKeyValuePair[intval($round["roundId"])] = $round["name"];
     }
 
     return $roundsKeyValuePair;
@@ -388,7 +388,7 @@ function getTournamentMatches($tournamentId, $roundsKeyValuePair, $pdo) {
             "matchId" => $match_id,
             "playerId1" => $player_id_1,
             "playerId2" => $player_id_2,
-            "roundName" => $roundsKeyValuePair[intval($round_id)],
+            "roundName" => $roundsKeyValuePair[$round_id],
             "p1MTGArenaName" => $p1_mtg_arena_name,
             "p1DisplayName" => $p1_display_name,
             "p2MTGArenaName" => $p2_mtg_arena_name,
@@ -468,7 +468,7 @@ function getCurrentMatchesFiltered($roundId, $accountId, $pdo) {
     return $matches;
 }
 
-function getMatchesFiltered($accountId, $roundsKeyValuePair, $pdo) {
+function getMatchesFiltered($tournamentId, $accountId, $roundsKeyValuePair, $pdo) {
     $matches = array();
 
     $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2, tr.round_id AS round_id,
@@ -487,10 +487,10 @@ function getMatchesFiltered($accountId, $roundsKeyValuePair, $pdo) {
         LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
         LEFT JOIN card_trades ct on (m.match_id = ct.match_id)
         LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
-        WHERE ((m.player_id_1 = :player_id) OR (m.player_id_2 = :player_id))
+        WHERE ((m.player_id_1 = :player_id) OR (m.player_id_2 = :player_id)) AND (tr.tournament_id = :tournament_id) 
         GROUP BY m.match_id';
 
-    $values = [':player_id' => $accountId];
+    $values = [':player_id' => $accountId, ':tournament_id' => $tournamentId];
 
     try
     {
@@ -509,7 +509,7 @@ function getMatchesFiltered($accountId, $roundsKeyValuePair, $pdo) {
             "matchId" => $match_id,
             "playerId1" => $player_id_1,
             "playerId2" => $player_id_2,
-            "roundName" => $roundsKeyValuePair[intval($round_id)],
+            "roundName" => $roundsKeyValuePair[$round_id],
             "p1MTGArenaName" => $p1_mtg_arena_name,
             "p1DisplayName" => $p1_display_name,
             "p2MTGArenaName" => $p2_mtg_arena_name,
