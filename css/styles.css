@@ -10408,3 +10408,15 @@ img.inverted {
 .item-special > * small > .badge {
   font-size: 85% !important;
 }
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.popover {
+  color:#004085 !important;
+  opacity: 100% !important;
+}
+
+.popover-content {
+  width: 100px !important;
+  border: 0px !important;
+}

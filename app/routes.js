@@ -1,4 +1,4 @@
-var app =  angular.module('mfoApp', ['ngRoute', 'datatables', 'angular.filter']);
+var app =  angular.module('mfoApp', ['ngRoute', 'datatables', 'angular.filter', 'ui.bootstrap']);
 
 app.config(['$routeProvider',
     function($routeProvider) {
