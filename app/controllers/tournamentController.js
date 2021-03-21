@@ -18,6 +18,7 @@ app.controller("TournamentController", function($scope, $routeParams, $http) {
         $http.get(API_URL + '/api/tournament/tournament.php/' + $scope.tournamentId).then( function ( response ) {
             $scope.tournamentName = response.data.tournamentName;
             $scope.matches = response.data.currentMatches;
+            $scope.allMatches = response.data.tournamentMatches;
             $scope.rounds = response.data.rounds;
             $scope.currentRound = response.data.currentRoundId;
             $scope.numberOfRounds = response.data.numberOfRounds;

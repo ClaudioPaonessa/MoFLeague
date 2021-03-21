@@ -20,6 +20,8 @@
                     <li class="list-group-item" ng-repeat="round in rounds" ng-class="round.active ? 'active-special' : ''">
                         <b>{{round.name}}</b>: <small>{{round.dateStart | date:'EEE, MMM d yyyy'}} -
                             {{round.dateEnd | date:'EEE, MMM d yyyy'}}</small>
+                        
+                        <span ng-show="round.completed" class="badge bg-secondary rounded-pill">Completed</span>
                         <span ng-show="round.active" class="badge rounded-pill text-dark" style="background-color: #4bc48b;">Active</span>
                     </li>
                 </ul>
@@ -30,7 +32,7 @@
     <div class="col-xl-6" ng-show="currentRound">
         <div class="card card-special mb-4">
             <div class="card-header bg-1 text-center">
-                Round Stats
+                Current Round Stats
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
@@ -136,15 +138,21 @@
                 Played and confirmed matches
             </div>
             <div class="card-body">
-                <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in matches | filter : filterPlayedAndConfirmed">
-                    <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-1">{{row.p1DisplayName}} vs. {{row.p2DisplayName}}</h5>
-                      <small>
-                        <span class="badge bg-primary text-light">{{row.player1GamesWon}} : {{row.player2GamesWon}}</span>
-                      </small>
+                <div ng-repeat="(key, value) in allMatches | filter : filterPlayedAndConfirmed | groupBy: 'roundName'">
+                    <h4>{{key}}</h4>
+
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in value">
+                            <div class="d-flex w-100 justify-content-between">
+                              <h5 class="mb-1">{{row.p1DisplayName}} vs. {{row.p2DisplayName}}</h5>
+                              <small>
+                                <span class="badge bg-primary text-light">{{row.player1GamesWon}} : {{row.player2GamesWon}}</span>
+                              </small>
+                            </div>
+                            <p class="mb-1 small">{{row.p1DisplayName}} receives: {{row.tradedToP1}}</p>
+                            <p class="mb-1 small">{{row.p2DisplayName}} receives: {{row.tradedToP2}}</p>
+                        </div>
                     </div>
-                    <p class="mb-1 small">{{row.p1DisplayName}} received: {{row.tradedToP1}}</p>
-                    <p class="mb-1 small">{{row.p2DisplayName}} received: {{row.tradedToP2}}</p>
                 </div>
             </div>
         </div>

@@ -68,6 +68,16 @@ function getRounds($tournamentId, $currentRoundIndex, $pdo) {
     return $rounds;
 }
 
+function getRoundsKeyValuePair($rounds) {
+    $roundsKeyValuePair = array();
+
+    foreach ($rounds as &$round) {
+        $roundsKeyValuePair[$round["roundId"]] = $round["name"];
+    }
+
+    return $roundsKeyValuePair;
+}
+
 function getCurrentRoundIndex($tournamentId, $pdo) {
     $query = 'SELECT t.active_round_id
         FROM tournaments AS t
@@ -336,10 +346,10 @@ function arrayColumnSort() {
     return $array;
   }
 
-function getTournamentMatches($tournamentId, $pdo) {
+function getTournamentMatches($tournamentId, $roundsKeyValuePair, $pdo) {
     $matches = array();
     
-    $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2, tr.round_id AS round_name,
+    $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2, tr.round_id AS round_id,
         p1.mtg_arena_name AS p1_mtg_arena_name, p1.display_name AS p1_display_name, 
         p2.mtg_arena_name AS p2_mtg_arena_name, p2.display_name AS p2_display_name, 
         mr.player_1_games_won AS player_1_games_won, mr.player_2_games_won AS player_2_games_won,
@@ -376,7 +386,7 @@ function getTournamentMatches($tournamentId, $pdo) {
             "matchId" => $match_id,
             "playerId1" => $player_id_1,
             "playerId2" => $player_id_2,
-            "roundName" => $round_name,
+            "roundName" => $roundsKeyValuePair[intval($round_id)],
             "p1MTGArenaName" => $p1_mtg_arena_name,
             "p1DisplayName" => $p1_display_name,
             "p2MTGArenaName" => $p2_mtg_arena_name,
@@ -432,6 +442,64 @@ function getCurrentMatchesFiltered($roundId, $accountId, $pdo) {
             "matchId" => $match_id,
             "playerId1" => $player_id_1,
             "playerId2" => $player_id_2,
+            "p1MTGArenaName" => $p1_mtg_arena_name,
+            "p1DisplayName" => $p1_display_name,
+            "p2MTGArenaName" => $p2_mtg_arena_name,
+            "p2DisplayName" => $p2_display_name,
+            "player1GamesWon" => $player_1_games_won,
+            "player2GamesWon" => $player_2_games_won,
+            "tradedToP1" => $cards_traded_to_p1,
+            "tradedToP2" => $cards_traded_to_p2,
+            "resultConfirmed" => boolval($result_confirmed),
+            "reporterYou" => $reporter_account_id == $accountId
+        );
+    
+        array_push($matches, $match_item);
+    }
+
+    return $matches;
+}
+
+function getMatchesFiltered($accountId, $roundsKeyValuePair, $pdo) {
+    $matches = array();
+
+    $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2, tr.round_id AS round_id,
+        p1.mtg_arena_name AS p1_mtg_arena_name, p1.display_name AS p1_display_name, 
+        p2.mtg_arena_name AS p2_mtg_arena_name, p2.display_name AS p2_display_name, 
+        mr.player_1_games_won AS player_1_games_won, mr.player_2_games_won AS player_2_games_won,
+        mr.result_confirmed AS result_confirmed, mr.reporter_account_id AS reporter_account_id, 
+        GROUP_CONCAT(CASE WHEN ct.receiver_account_id = m.player_id_1 THEN mc.card_name ELSE NULL END) as cards_traded_to_p1, 
+        GROUP_CONCAT(CASE WHEN ct.receiver_account_id = m.player_id_2 THEN mc.card_name ELSE NULL END) as cards_traded_to_p2
+        FROM matches AS m
+        LEFT JOIN accounts p1 on (m.player_id_1 = p1.account_id)
+        LEFT JOIN accounts p2 on (m.player_id_2 = p2.account_id)
+        LEFT JOIN match_results mr on (m.match_id = mr.match_id)
+        LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
+        LEFT JOIN card_trades ct on (m.match_id = ct.match_id)
+        LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
+        WHERE ((m.player_id_1 = :player_id) OR (m.player_id_2 = :player_id))
+        GROUP BY m.match_id';
+
+    $values = [':player_id' => $accountId];
+
+    try
+    {
+        $res = $pdo->prepare($query);
+        $res->execute($values);
+    }
+    catch (PDOException $e)
+    {
+        returnError("Error in SQL query.");
+    }
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        $match_item=array(
+            "matchId" => $match_id,
+            "playerId1" => $player_id_1,
+            "playerId2" => $player_id_2,
+            "roundName" => $roundsKeyValuePair[intval($round_id)],
             "p1MTGArenaName" => $p1_mtg_arena_name,
             "p1DisplayName" => $p1_display_name,
             "p2MTGArenaName" => $p2_mtg_arena_name,

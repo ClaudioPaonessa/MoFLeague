@@ -27,8 +27,12 @@ $roundsFinished = getCurrentRoundsFinished($tournamentId, $pdo);
 $tournamentData["currentRoundId"] = $currentRoundIndex;
 $tournamentData["numberOfRounds"] = intval($numberOfRounds);
 $tournamentData["roundsFinished"] = intval($roundsFinished);
-$tournamentData["rounds"] = getRounds($tournamentId, $currentRoundIndex, $pdo);
-$tournamentData["tournamentMatches"] = getTournamentMatches($tournamentId, $pdo);
+
+$rounds = getRounds($tournamentId, $currentRoundIndex, $pdo);
+$tournamentData["rounds"] = $rounds;
+$roundsKeyValuePair = getRoundsKeyValuePair($rounds);
+
+$tournamentData["tournamentMatches"] = getTournamentMatches($tournamentId, $roundsKeyValuePair, $pdo);
 
 if ($currentRoundIndex >= 0) {
     $tournamentData["currentMatches"] = getCurrentMatches($currentRoundIndex, $pdo);
