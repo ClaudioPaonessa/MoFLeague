@@ -10420,3 +10420,32 @@ img.inverted {
   width: 100px !important;
   border: 0px !important;
 }
+
+.btn-special {
+  color: #ffffff;
+  background: transparent;
+  font-weight: 600;
+  border: 2px solid #ffffff;
+  border-radius: 20px !important;
+}
+
+.btn-special:hover {
+  color: #00dbea;
+  font-weight: 600;
+  border: 2px solid #00dbea;
+  text-shadow: 0px 0px 5px #00dbea;
+  box-shadow: 0px 0px 5px #00dbea;
+}
+
+.btn-special-filled {
+  color: #202426;
+  background: #ffffff;
+  font-weight: 600;
+  border: 2px solid #ffffff;
+  border-radius: 20px !important;
+}
+
+.btn-special-filled:hover {
+  font-weight: 600;
+  box-shadow: 0px 0px 5px #00dbea;
+}

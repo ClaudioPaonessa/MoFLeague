@@ -32,7 +32,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary float-right">Create</button>
+                    <button type="submit" class="btn btn-special float-right">Create</button>
                 </form>
             </div>
         </div>
@@ -86,9 +86,9 @@
                         <td>{{row.startDate}}</td>
                         <td>{{row.roundCount}} rounds ({{row.startDate}} to {{row.endDate}})</td>
                         <td>
-                            <a href="#!admin_tournament/{{row.tournamentId}}" class="btn btn-primary">Dashboard</a>
-                            <button class="btn btn-primary" ng-click="manageParticipantsModal(row)">Manage participants</button>
-                            <button class="btn btn-primary" ng-click="manageRoundsModal(row)">Manage rounds</button>
+                            <a href="#!admin_tournament/{{row.tournamentId}}" class="btn btn-special-filled">Dashboard</a>
+                            <button class="btn btn-special" ng-click="manageParticipantsModal(row)">Manage participants</button>
+                            <button class="btn btn-special" ng-click="manageRoundsModal(row)">Manage rounds</button>
                             <button class="btn btn-danger" ng-click="deleteModalTournament(row)">Delete</button>
                         </td>
                     </tr>

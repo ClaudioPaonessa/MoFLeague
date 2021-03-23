@@ -50,7 +50,7 @@
                     </li>
                 </ul>
 
-                <a href="#!ranking/{{tournamentId}}" class="btn btn-primary">Show Ranking</a>
+                <a href="#!ranking/{{tournamentId}}" class="btn btn-special">Show Ranking</a>
             </div>
         </div>
     </div>
@@ -82,7 +82,7 @@
                             <b>{{row.p2DisplayName}}</b> <span
                                 ng-if="row.p2MTGArenaName">({{row.p2MTGArenaName}})</span></span>
 
-                        <button class="btn btn-primary" ng-click="reportMatchResultModal(row)">Report Match Result</button>
+                        <button class="btn btn-special" ng-click="reportMatchResultModal(row)">Report Result</button>
                     </li>
                 </ul>
             </div>
@@ -212,11 +212,10 @@
                             <div class="form-row">
                                 <div class="col-md-12">
                                     <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropDownTrade2"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropdownTrade2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Add card {{selectedMatchP1Name}} receives
                                         </button>
-                                        <div class="dropdown-menu w-100" aria-labelledby="dropDownTrade2">
+                                        <div class="dropdown-menu w-100" aria-labelledby="dropdownTrade2">
                                             <div class="form-group has-search">
                                                 <span class="fa fa-search form-control-feedback"></span>
                                                 <input class="form-control" type="text" placeholder="Search" aria-label="Search"
@@ -228,7 +227,7 @@
                                             </button>
                                             </ul>
                                         </div>
-                                    </div>
+                                      </div>
                                 </div>
                             </div>
 
@@ -246,11 +245,10 @@
                             <div class="form-row">
                                 <div class="col-md-12">
                                     <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropDownTrade2"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropdownTrade1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Add card {{selectedMatchP2Name}} receives
                                         </button>
-                                        <div class="dropdown-menu w-100" aria-labelledby="dropDownTrade2">
+                                        <div class="dropdown-menu w-100" aria-labelledby="dropdownTrade1">
                                             <div class="form-group has-search">
                                                 <span class="fa fa-search form-control-feedback"></span>
                                                 <input class="form-control" type="text" placeholder="Search" aria-label="Search"
@@ -262,7 +260,7 @@
                                             </button>
                                             </ul>
                                         </div>
-                                    </div>
+                                      </div>
                                 </div>
                             </div>
 

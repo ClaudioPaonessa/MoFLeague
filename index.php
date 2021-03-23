@@ -22,6 +22,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <meta http-equiv="Expires" content="0">
         <title>MoF - Mansion of Fire</title>
         <link href="css/styles.css" rel="stylesheet" />
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <link href="https://cdn.datatables.net/searchpanes/1.2.1/css/searchPanes.dataTables.min.css" rel="stylesheet" crossorigin="anonymous" />
         <link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet" crossorigin="anonymous" />
@@ -42,8 +46,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto ml-md-0">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i> <?php echo $_SESSION["username"] ?></a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="nav-link dropdown-toggle" id="userDropdown" data-target="#accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i> <?php echo $_SESSION["username"] ?></a>
+                    <div id="accountDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">Account Information</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item bg-danger text-white" href="/auth/logout">Logout</a>
@@ -114,11 +118,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 </footer>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap.min.js" integrity="sha512-DnqROrGrc9uBNiRGC7ZWLbctwtoVcD5005fL7pGUOkylaE7zXunb6xYUkD/nI0MYZn8XxReXnub2V/nspYUkUw==" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js" integrity="sha512-+qNXcNMBMY6Vx1oKJbdSsPsKS+bcB2yrprqb2jysz8bYC+vPJQsNBapHpq8zvf7oNGEhCgkFLKAsIeUXSkThHg==" crossorigin="anonymous"></script>
@@ -133,7 +135,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <script src="https://cdn.datatables.net/searchpanes/1.2.1/js/dataTables.searchPanes.min.js"></script>
         <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.17/angular-filter.min.js" integrity="sha512-f2q5tYQJ0pnslHkuVw7tm7GP7E0BF1YLckJjgLU5z4p1vNz78Jv+nPIEKtZerevbt/HwEfYnRrAo9U3u4m0UHw==" crossorigin="anonymous"></script>
-        
 
         <script src="app/routes.js"></script>
         <script src="app/helper/angularHelper.js"></script>
