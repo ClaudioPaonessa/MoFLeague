@@ -5,29 +5,21 @@ session_start();
 require_once '../../auth/checkLogin.php';
 require_once '../../helper/urlIdHelper.php';
 require_once '../../helper/errorHelper.php';
-require_once '../../db/pdo.php';
+require_once '../../helper/dbHelper.php';
 
 $tournamentId = getId();
 
 $query = 'SELECT tr.round_id, tr.date_start, tr.date_end
-FROM tournament_rounds AS tr
-WHERE (tournament_id = :tournament_id)
-ORDER BY tr.date_start ASC';
+            FROM tournament_rounds AS tr
+            WHERE (tournament_id = :tournament_id)
+            ORDER BY tr.date_start ASC';
 
 $values = [':tournament_id' => $tournamentId];
 
+$res = executeSQL($query, $values);
+
 $rounds = array();
 $rounds["records"] = array();
-
-try
-{
-    $res = $pdo->prepare($query);
-    $res->execute($values);
-}
-catch (PDOException $e)
-{
-    returnError("Error in SQL query.");
-}
 
 $i = 1;
 

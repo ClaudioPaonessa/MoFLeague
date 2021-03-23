@@ -8,11 +8,15 @@ require_once '../../helper/urlIdHelper.php';
 require_once '../../helper/getContentHelper.php';
 require_once '../../helper/errorHelper.php';
 require_once '../../db/pdo.php';
+require_once '../../helper/dbHelper.php';
 
 $setId = getId();
 
 function loadCards($pdo, $set_id, $url) {
-    $stmt = $pdo->prepare('INSERT INTO magic_cards (card_id_scryfall, magic_set_id, card_collector_number, card_name, card_rarity, card_type_line, card_image_uri, card_mana_cost, card_name_back, card_type_line_back, card_image_uri_back, card_mana_cost_back) VALUES(:card_id_scryfall, :magic_set_id, :card_collector_number, :card_name, :card_rarity, :card_type_line, :card_image_uri, :card_mana_cost, :card_name_back, :card_type_line_back, :card_image_uri_back, :card_mana_cost_back)');
+    $stmt = $pdo->prepare('INSERT INTO magic_cards (card_id_scryfall, magic_set_id, card_collector_number, card_name, card_rarity, 
+                            card_type_line, card_image_uri, card_mana_cost, card_name_back, card_type_line_back, card_image_uri_back, card_mana_cost_back) 
+                            VALUES(:card_id_scryfall, :magic_set_id, :card_collector_number, :card_name, :card_rarity, :card_type_line, :card_image_uri, :card_mana_cost, :card_name_back, 
+                            :card_type_line_back, :card_image_uri_back, :card_mana_cost_back)');
 
     $jsonCards = getContent($url);
     $cards = json_decode($jsonCards);
@@ -78,15 +82,7 @@ function loadCards($pdo, $set_id, $url) {
 $query = 'SELECT * FROM magic_sets WHERE (set_id = :set_id)';
 $values = [':set_id' => $setId];
 
-try
-{
-    $res = $pdo->prepare($query);
-    $res->execute($values);
-}
-catch (PDOException $e)
-{
-    returnError("Error in SQL query.");
-}
+$res = executeSQL($query, $values);
 
 $row = $res->fetch(PDO::FETCH_ASSOC);
 $url = "";

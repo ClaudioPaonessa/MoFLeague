@@ -10,12 +10,12 @@ require_once '../../db/pdo.php';
 
 $matchId = getId();
 
-if (!checkIfAllowed($matchId, $_SESSION["id"], $pdo)) {
+if (!checkIfAllowed($matchId, $_SESSION["id"])) {
     returnError("Not allowed to revoke this match result.");
 }
 
-revokeMatchResult($matchId, $pdo);
-revokeTrade($matchId, $pdo);
+revokeMatchResult($matchId);
+revokeTrade($matchId);
 
 http_response_code(200);
 

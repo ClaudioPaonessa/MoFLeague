@@ -1,34 +1,27 @@
 <?php
 
 require_once '../../helper/errorHelper.php';
+require_once '../../helper/dbHelper.php';
 
-function getTournamentName($tournamentId, $pdo) {
+function getTournamentName($tournamentId) {
     $query = 'SELECT t.tournament_name
         FROM tournaments AS t
         WHERE (t.tournament_id = :tournament_id)';
 
     $values = [':tournament_id' => $tournamentId];
 
-    try
-    {
-        $res = $pdo->prepare($query);
-        $res->execute($values);
-    }
-    catch (PDOException $e)
-    {
-        returnError("Error in SQL query.");
-    }
-
-    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+    $res = executeSQL($query, $values);
+    $row = $res->fetch(PDO::FETCH_ASSOC);
+    
+    if (is_array($row)) {
         extract($row);
-
         return $tournament_name;
     }
-
-    return "";
+    
+    returnError("Tournament not found");
 }
 
-function getRounds($tournamentId, $currentRoundIndex, $pdo) {
+function getRounds($tournamentId, $currentRoundIndex) {
     $query = 'SELECT tr.round_id, tr.date_start, tr.date_end, tr.completed
     FROM tournament_rounds AS tr
     WHERE (tournament_id = :tournament_id)
@@ -36,17 +29,9 @@ function getRounds($tournamentId, $currentRoundIndex, $pdo) {
 
     $values = [':tournament_id' => $tournamentId];
 
-    $rounds = array();
+    $res = executeSQL($query, $values);
 
-    try
-    {
-        $res = $pdo->prepare($query);
-        $res->execute($values);
-    }
-    catch (PDOException $e)
-    {
-        returnError("Error in SQL query.");
-    }
+    $rounds = array();   
 
     $i = 1;
 
@@ -78,85 +63,61 @@ function getRoundsKeyValuePair($rounds) {
     return $roundsKeyValuePair;
 }
 
-function getCurrentRoundIndex($tournamentId, $pdo) {
+function getCurrentRoundIndex($tournamentId) {
     $query = 'SELECT t.active_round_id
         FROM tournaments AS t
         WHERE (t.tournament_id = :tournament_id)';
 
     $values = [':tournament_id' => $tournamentId];
 
-    try
-    {
-        $res = $pdo->prepare($query);
-        $res->execute($values);
-    }
-    catch (PDOException $e)
-    {
-        returnError("Error in SQL query.");
-    }
-
-    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+    $res = executeSQL($query, $values);
+    $row = $res->fetch(PDO::FETCH_ASSOC);
+    
+    if (is_array($row)) {
         extract($row);
-
         return $active_round_id;
     }
-
+    
     returnError("Tournament not found");
 }
 
-function getNumberOfRounds($tournamentId, $pdo) {
+function getNumberOfRounds($tournamentId) {
     $query = 'SELECT COUNT(1) AS count
         FROM tournament_rounds AS tr
         WHERE (tr.tournament_id = :tournament_id)';
 
     $values = [':tournament_id' => $tournamentId];
 
-    try
-    {
-        $res = $pdo->prepare($query);
-        $res->execute($values);
-    }
-    catch (PDOException $e)
-    {
-        returnError("Error in SQL query.");
-    }
+    $res = executeSQL($query, $values);
+    $row = $res->fetch(PDO::FETCH_ASSOC);
 
-    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+    if (is_array($row)) {
         extract($row);
-
         return $count;
     }
-
+    
     return 0;
 }
 
-function getCurrentRoundsFinished($tournamentId, $pdo) {
+function getCurrentRoundsFinished($tournamentId) {
     $query = 'SELECT COUNT(1) AS count
         FROM tournament_rounds AS tr
         WHERE (tr.tournament_id = :tournament_id) AND (tr.completed = TRUE)';
 
     $values = [':tournament_id' => $tournamentId];
 
-    try
-    {
-        $res = $pdo->prepare($query);
-        $res->execute($values);
-    }
-    catch (PDOException $e)
-    {
-        returnError("Error in SQL query.");
-    }
+    $res = executeSQL($query, $values);
+    $row = $res->fetch(PDO::FETCH_ASSOC);
 
-    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+    if (is_array($row)) {
         extract($row);
-
         return $count;
     }
-
+    
     return 0;
 }
 
-function getCurrentMatches($roundId, $pdo) {
+function getCurrentMatches($roundId) {
     $matches = array();
     
     $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2, 
@@ -172,15 +133,7 @@ function getCurrentMatches($roundId, $pdo) {
 
     $values = [':tournament_round_id' => $roundId];
 
-    try
-    {
-        $res = $pdo->prepare($query);
-        $res->execute($values);
-    }
-    catch (PDOException $e)
-    {
-        returnError("Error in SQL query.");
-    }
+    $res = executeSQL($query, $values);
 
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         extract($row);
@@ -204,7 +157,7 @@ function getCurrentMatches($roundId, $pdo) {
     return $matches;
 }
 
-function getTournamentMatchResults($tournamentId, $accountId, $pdo) {
+function getTournamentMatchResults($tournamentId, $accountId) {
     $ranking = array();
     $POINTS_FOR_MATCH = 3;
 
@@ -248,15 +201,7 @@ function getTournamentMatchResults($tournamentId, $accountId, $pdo) {
 
     $values = [':tournament_id' => $tournamentId, ':points_for_match' => $POINTS_FOR_MATCH];
 
-    try
-    {
-        $res = $pdo->prepare($query);
-        $res->execute($values);
-    }
-    catch (PDOException $e)
-    {
-        returnError("Error in SQL query.");
-    }
+    $res = executeSQL($query, $values);
 
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         extract($row);
@@ -294,8 +239,8 @@ function getTournamentMatchResults($tournamentId, $accountId, $pdo) {
             
             foreach ($participant["opponents"] as &$opponent) {
                 $opponentRank = $ranking[array_search($opponent, array_column($ranking, 'playerId'))];
-                $sumOpponentMP += max($opponentRank["MWPOriginal"], 0.3333333333);
-                $sumOpponentGP += max($opponentRank["GWPOriginal"], 0.3333333333);
+                $sumOpponentMP += max($opponentRank["MWPOriginal"], 1.0/3.0);
+                $sumOpponentGP += max($opponentRank["GWPOriginal"], 1.0/3.0);
             }
             $participant["OMPOriginal"] = $sumOpponentMP / count($participant["opponents"]);
             $participant["OGPOriginal"] = $sumOpponentGP / count($participant["opponents"]);
@@ -344,9 +289,9 @@ function arrayColumnSort() {
     $multisort_args[] = &$array;   // finally add the source array, by reference
     call_user_func_array("array_multisort", $multisort_args);
     return $array;
-  }
+}
 
-function getTournamentMatches($tournamentId, $roundsKeyValuePair, $pdo) {
+function getTournamentMatches($tournamentId, $roundsKeyValuePair) {
     $matches = array();
     
     $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2, tr.round_id AS round_id,
@@ -371,15 +316,7 @@ function getTournamentMatches($tournamentId, $roundsKeyValuePair, $pdo) {
 
     $values = [':tournament_id' => $tournamentId];
 
-    try
-    {
-        $res = $pdo->prepare($query);
-        $res->execute($values);
-    }
-    catch (PDOException $e)
-    {
-        returnError("Error in SQL query.");
-    }
+    $res = executeSQL($query, $values);
 
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         extract($row);
@@ -408,7 +345,7 @@ function getTournamentMatches($tournamentId, $roundsKeyValuePair, $pdo) {
     return $matches;
 }
 
-function getCurrentMatchesFiltered($roundId, $accountId, $pdo) {
+function getCurrentMatchesFiltered($roundId, $accountId) {
     $matches = array();
 
     $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2,
@@ -431,15 +368,7 @@ function getCurrentMatchesFiltered($roundId, $accountId, $pdo) {
 
     $values = [':tournament_round_id' => $roundId, ':player_id' => $accountId];
 
-    try
-    {
-        $res = $pdo->prepare($query);
-        $res->execute($values);
-    }
-    catch (PDOException $e)
-    {
-        returnError("Error in SQL query.");
-    }
+    $res = executeSQL($query, $values);
 
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         extract($row);
@@ -468,7 +397,7 @@ function getCurrentMatchesFiltered($roundId, $accountId, $pdo) {
     return $matches;
 }
 
-function getMatchesFiltered($tournamentId, $accountId, $roundsKeyValuePair, $pdo) {
+function getMatchesFiltered($tournamentId, $accountId, $roundsKeyValuePair) {
     $matches = array();
 
     $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2, tr.round_id AS round_id,
@@ -492,15 +421,7 @@ function getMatchesFiltered($tournamentId, $accountId, $roundsKeyValuePair, $pdo
 
     $values = [':player_id' => $accountId, ':tournament_id' => $tournamentId];
 
-    try
-    {
-        $res = $pdo->prepare($query);
-        $res->execute($values);
-    }
-    catch (PDOException $e)
-    {
-        returnError("Error in SQL query.");
-    }
+    $res = executeSQL($query, $values);
 
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         extract($row);
@@ -530,33 +451,27 @@ function getMatchesFiltered($tournamentId, $accountId, $roundsKeyValuePair, $pdo
     return $matches;
 }
 
-function getCardSetId($tournamentId, $pdo) {    
+function getCardSetId($tournamentId) {    
     $query = 'SELECT t.set_id
         FROM tournaments AS t
         WHERE (t.tournament_id = :tournament_id)';
 
     $values = [':tournament_id' => $tournamentId];  
 
-    try
-    {
-        $res = $pdo->prepare($query);
-        $res->execute($values);
-    }
-    catch (PDOException $e)
-    {
-        returnError("Error in SQL query.");
-    }
+    $res = executeSQL($query, $values);
+    $row = $res->fetch(PDO::FETCH_ASSOC);
 
-    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+    if (is_array($row)) {
         extract($row);
-
         return $set_id;
     }
+    
+    return 0;
 
-    returnError("No tournament with this id found.");
+    returnError("No Tournament found");
 }
 
-function getSetCards($setId, $pdo) {
+function getSetCards($setId) {
     $cards = array();
     
     $query = 'SELECT c.card_id, c.card_name, c.card_image_uri
@@ -565,15 +480,7 @@ function getSetCards($setId, $pdo) {
 
     $values = [':magic_set_id' => $setId];
 
-    try
-    {
-        $res = $pdo->prepare($query);
-        $res->execute($values);
-    }
-    catch (PDOException $e)
-    {
-        returnError("Error in SQL query.");
-    }
+    $res = executeSQL($query, $values);
 
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         extract($row);

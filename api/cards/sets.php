@@ -4,25 +4,17 @@ session_start();
 
 require_once '../../auth/checkLogin.php';
 require_once '../../helper/errorHelper.php';
-require '../../db/pdo.php';
+require_once '../../helper/dbHelper.php';
 
 $magicSetsArr = array();
 $magicSetsArr["records"] = array();
 
 $query = 'SELECT s.set_id, s.set_code, s.set_name, s.release_date, s.set_type, s.set_icon_svg_uri, COUNT(c.card_id) AS cards_in_db
-FROM magic_sets AS s
-LEFT JOIN magic_cards AS c ON s.set_id = c.magic_set_id
-GROUP BY s.set_id';
+            FROM magic_sets AS s
+            LEFT JOIN magic_cards AS c ON s.set_id = c.magic_set_id
+            GROUP BY s.set_id';
 
-try
-{
-    $res = $pdo->prepare($query);
-    $res->execute();
-}
-catch (PDOException $e)
-{
-    returnError("Error in SQL query.");
-}
+$res = executeSQL($query);
 
 while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     // extract row

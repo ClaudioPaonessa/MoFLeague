@@ -6,7 +6,6 @@ require_once '../../auth/checkLogin.php';
 require_once '../../helper/urlIdHelper.php';
 require_once '../../helper/errorHelper.php';
 require_once '../../helper/tournamentHelper.php';
-require_once '../../db/pdo.php';
 
 $tournamentId = getId();
 
@@ -16,28 +15,28 @@ $tournamentData["rounds"] = array();
 $tournamentData["currentRoundId"] = -1;
 $tournamentData["tournamentName"] = "";
 
-$tournamentData["tournamentName"] = getTournamentName($tournamentId, $pdo);
+$tournamentData["tournamentName"] = getTournamentName($tournamentId);
 
-$currentRoundIndex = getCurrentRoundIndex($tournamentId, $pdo);
-$numberOfRounds = getNumberOfRounds($tournamentId, $pdo);
-$roundsFinished = getCurrentRoundsFinished($tournamentId, $pdo);
+$currentRoundIndex = getCurrentRoundIndex($tournamentId);
+$numberOfRounds = getNumberOfRounds($tournamentId);
+$roundsFinished = getCurrentRoundsFinished($tournamentId);
 
 $tournamentData["currentRoundId"] = $currentRoundIndex;
 $tournamentData["numberOfRounds"] = intval($numberOfRounds);
 $tournamentData["roundsFinished"] = intval($roundsFinished);
 
-$rounds = getRounds($tournamentId, $currentRoundIndex, $pdo);
+$rounds = getRounds($tournamentId, $currentRoundIndex);
 $tournamentData["rounds"] = $rounds;
 $roundsKeyValuePair = getRoundsKeyValuePair($rounds);
 
-$tournamentData["tournamentMatches"] = getMatchesFiltered($tournamentId, $_SESSION["id"], $roundsKeyValuePair, $pdo);
+$tournamentData["tournamentMatches"] = getMatchesFiltered($tournamentId, $_SESSION["id"], $roundsKeyValuePair);
 
 if ($currentRoundIndex >= 0) {
-    $tournamentData["currentMatches"] = getCurrentMatchesFiltered($currentRoundIndex, $_SESSION["id"], $pdo);
+    $tournamentData["currentMatches"] = getCurrentMatchesFiltered($currentRoundIndex, $_SESSION["id"]);
 }
 
-http_response_code(200);
-
 echo json_encode($tournamentData);
+
+http_response_code(200);
 
 ?>

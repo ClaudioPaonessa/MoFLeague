@@ -31,7 +31,6 @@ foreach ($sets->data as &$set) {
     }
 }
 
-// set response code - 200 OK
 http_response_code(200);
 
 ?>

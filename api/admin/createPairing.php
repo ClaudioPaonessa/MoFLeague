@@ -6,7 +6,7 @@ require_once '../../auth/checkLogin.php';
 require_once '../../auth/checkAdmin.php';
 require_once '../../helper/urlIdHelper.php';
 require_once '../../helper/errorHelper.php';
-require_once '../../db/pdo.php';
+require_once '../../helper/dbHelper.php';
 
 $roundId = getId();
 
@@ -18,15 +18,7 @@ $accountId2 = $request->accountId2;
 $query = 'INSERT INTO matches (tournament_round_id, player_id_1, player_id_2) VALUES (:tournament_round_id, :player_id_1, :player_id_2)';
 $values = [':tournament_round_id' => $roundId, ':player_id_1' => $accountId1, ':player_id_2' => $accountId2];
 
-try
-{
-    $res = $pdo->prepare($query);
-    $res->execute($values);
-}
-catch (PDOException $e)
-{
-    returnError("Error in SQL query.");
-}
+executeSQL($query, $values);
 
 http_response_code(200);
 

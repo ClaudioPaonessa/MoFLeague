@@ -61,19 +61,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Tournaments
                             </a>
-                            <div class="sb-sidenav-menu-heading">Your stats</div>
+                            <div class="sb-sidenav-menu-heading">History</div>
                             <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Matches
-                            </a>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Trades
-                            </a>
-                            <div class="sb-sidenav-menu-heading">General</div>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
-                                Cards Explorer
                             </a>
                             <?php if ($_SESSION["admin"]): ?>
                             <div class="sb-sidenav-menu-heading">Admin</div>
