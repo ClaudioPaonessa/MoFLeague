@@ -66,7 +66,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 Tournaments
                             </a>
                             <div class="sb-sidenav-menu-heading">History</div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#!matchesHistory">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Matches
                             </a>
@@ -142,6 +142,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <script src="app/controllers/tournamentsController.js"></script>
         <script src="app/controllers/tournamentController.js"></script>
         <script src="app/controllers/rankingController.js"></script>
+        <script src="app/controllers/matchesHistoryController.js"></script>
         <script src="app/controllers/adminSetsController.js"></script>
         <script src="app/controllers/adminTournamentsController.js"></script>
         <script src="app/controllers/adminTournamentController.js"></script>

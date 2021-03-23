@@ -26,6 +26,10 @@ app.config(['$routeProvider',
 			.when('/ranking/:tournamentId', {
 				templateUrl: 'templates/ranking.html',
 				controller: 'RankingController'
+			})
+			.when('/matchesHistory', {
+				templateUrl: 'templates/matchesHistory.html',
+				controller: 'MatchesHistoryController'
 			});
 }]);
 
