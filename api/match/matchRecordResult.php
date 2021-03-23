@@ -16,7 +16,7 @@ if (!checkIfAllowed($matchId, $_SESSION["id"])) {
     returnError("Not authorized to record this match result.");
 }
 
-if (empty(@trim($request->player1GamesWon)) || empty(@trim($request->player2GamesWon))) {
+if (!isset($request->player1GamesWon) || !isset($request->player2GamesWon)) {
     returnError("Please specify a match result.");
 }
 
