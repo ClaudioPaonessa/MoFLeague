@@ -10414,11 +10414,15 @@ img.inverted {
 .popover {
   color:#004085 !important;
   opacity: 100% !important;
+  border: 2px solid #00dbea;
+  box-shadow: 0px 0px 5px #00dbea;
+  border-radius: 10px !important;
 }
 
 .popover-content {
-  width: 100px !important;
+  /*width: 100px !important;*/
   border: 0px !important;
+  background-color: transparent;
 }
 
 .btn-special {
