@@ -113,14 +113,28 @@
                         </div>
                         <p class="mb-1 small">
                             {{row.p1DisplayName}} receives:
+                            
                             <span ng-repeat="card in row.tradedToP1 track by $index">
-                                <a uib-popover-template="'tplTradeToP1.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary">{{card}}</a>
+                                <a uib-popover-template="'tplTradeToP1.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary" ng-class="row.tradedToP1Rarities[$index]">
+                                    {{card}}
+                                </a>
+                            </span>
+    
+                            <span ng-show="row.tradedToP1.length == 0">
+                                -
                             </span>
                         </p>
                         <p class="mb-1 small">
                             {{row.p2DisplayName}} receives: 
+                            
                             <span ng-repeat="card in row.tradedToP2 track by $index">
-                                <a uib-popover-template="'tplTradeToP2.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary">{{card}}</a>
+                                <a uib-popover-template="'tplTradeToP2.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary" ng-class="row.tradedToP2Rarities[$index]">
+                                    {{card}}
+                                </a>
+                            </span>
+    
+                            <span ng-show="row.tradedToP2.length == 0">
+                                -
                             </span>
                         </p>
                         
@@ -161,14 +175,28 @@
                             </div>
                             <p class="mb-1 small">
                                 {{row.p1DisplayName}} receives:
+
                                 <span ng-repeat="card in row.tradedToP1 track by $index">
-                                    <a uib-popover-template="'tplTradeToP1.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary">{{card}}</a>
+                                    <a uib-popover-template="'tplTradeToP1.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary" ng-class="row.tradedToP1Rarities[$index]">
+                                        {{card}}
+                                    </a>
+                                </span>
+        
+                                <span ng-show="row.tradedToP1.length == 0">
+                                    -
                                 </span>
                             </p>
                             <p class="mb-1 small">
                                 {{row.p2DisplayName}} receives: 
+
                                 <span ng-repeat="card in row.tradedToP2 track by $index">
-                                    <a uib-popover-template="'tplTradeToP2.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary">{{card}}</a>
+                                    <a uib-popover-template="'tplTradeToP2.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary" ng-class="row.tradedToP2Rarities[$index]">
+                                        {{card}}
+                                    </a>
+                                </span>
+        
+                                <span ng-show="row.tradedToP2.length == 0">
+                                    -
                                 </span>
                             </p>
                         </div>

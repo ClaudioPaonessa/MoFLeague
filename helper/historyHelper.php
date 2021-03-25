@@ -14,7 +14,9 @@ function getMatchHistoryForPlayer($accountId) {
         GROUP_CONCAT((CASE WHEN ct.receiver_account_id = m.player_id_1 THEN mc.card_name ELSE NULL END) SEPARATOR ";") as cards_traded_to_p1, 
         GROUP_CONCAT((CASE WHEN ct.receiver_account_id = m.player_id_2 THEN mc.card_name ELSE NULL END) SEPARATOR ";") as cards_traded_to_p2,
         GROUP_CONCAT((CASE WHEN ct.receiver_account_id = m.player_id_1 THEN mc.card_image_uri ELSE NULL END) SEPARATOR ";") as cards_traded_to_p1_images, 
-        GROUP_CONCAT((CASE WHEN ct.receiver_account_id = m.player_id_2 THEN mc.card_image_uri ELSE NULL END) SEPARATOR ";") as cards_traded_to_p2_images
+        GROUP_CONCAT((CASE WHEN ct.receiver_account_id = m.player_id_2 THEN mc.card_image_uri ELSE NULL END) SEPARATOR ";") as cards_traded_to_p2_images,
+        GROUP_CONCAT((CASE WHEN ct.receiver_account_id = m.player_id_1 THEN mc.card_rarity ELSE NULL END) SEPARATOR ";") as cards_traded_to_p1_rarities, 
+        GROUP_CONCAT((CASE WHEN ct.receiver_account_id = m.player_id_2 THEN mc.card_rarity ELSE NULL END) SEPARATOR ";") as cards_traded_to_p2_rarities
         FROM matches AS m
         LEFT JOIN accounts p1 on (m.player_id_1 = p1.account_id)
         LEFT JOIN accounts p2 on (m.player_id_2 = p2.account_id)
@@ -44,10 +46,12 @@ function getMatchHistoryForPlayer($accountId) {
             "p2DisplayName" => $p2_display_name,
             "player1GamesWon" => $player_1_games_won,
             "player2GamesWon" => $player_2_games_won,
-            "tradedToP1" => explode(";", $cards_traded_to_p1),
-            "tradedToP2" => explode(";", $cards_traded_to_p2),
+            "tradedToP1" => empty($cards_traded_to_p1) ? [] : explode(";", $cards_traded_to_p1),
+            "tradedToP2" => empty($cards_traded_to_p2) ? [] : explode(";", $cards_traded_to_p2),
             "tradedToP1Images" => explode(";", $cards_traded_to_p1_images),
             "tradedToP2Images" => explode(";", $cards_traded_to_p2_images),
+            "tradedToP1Rarities" => explode(";", $cards_traded_to_p1_rarities),
+            "tradedToP2Rarities" => explode(";", $cards_traded_to_p2_rarities),
             "resultConfirmed" => boolval($result_confirmed),
             "reporterYou" => $reporter_account_id == $accountId
         );
