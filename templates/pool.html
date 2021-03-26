@@ -1,0 +1,47 @@
+<h1 class="mt-4">Card Pool</h1>
+<h3 class="mt-2" style="color: #b1b1b1">{{tournamentName}}</h3>
+
+<hr>
+
+<div ng-include src="'partials/errormessage.html'"></div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <a class="btn btn-special mb-4" href="#!tournament/{{tournamentId}}"><i class="fas fa-arrow-left"></i> Back to Tournament Overview</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card card-special mb-4">
+            <div class="card-header bg-1 text-center">
+                Import Initial Pool
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <form ng-submit="importInitialCardPool()" role="form">
+                            <div class="form-group">
+                                <label for="tournamentName">Card Pool String from MTG Arena</label>
+                                <textarea class="form-control" id="cardPoolString"
+                                        placeholder="Format: 2 Struggle for Skemfar (KHM) 196" ng-model="pool.cardPoolString" rows="5"></textarea>
+                            </div>
+        
+                            <button type="submit" class="btn btn-special float-right">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" ng-show="importing"></span>
+                                Import
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="alert alert-success mt-4" role="alert" ng-show="message">
+                            {{message}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

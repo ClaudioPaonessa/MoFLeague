@@ -10,10 +10,11 @@ require_once '../../helper/dbHelper.php';
 
 $tournamentId = getId();
 
-$query = 'SELECT tp.tournament_id, a.account_id AS account_id, a.account_name AS account_name, a.display_name AS display_name
+$query = 'SELECT tp.tournament_id, a.account_id AS account_id, a.account_name AS account_name, a.display_name AS display_name, tp.initial_rank
             FROM tournament_participants AS tp
             INNER JOIN accounts AS a USING(account_id)
-            WHERE (tournament_id = :tournament_id)';
+            WHERE (tournament_id = :tournament_id)
+            ORDER BY tp.initial_rank';
 
 $values = [':tournament_id' => $tournamentId];
 
@@ -28,7 +29,8 @@ while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     $participantItem=array(
         "accountId" => $account_id,
         "accountName" => $account_name,
-        "displayName" => $display_name
+        "displayName" => $display_name,
+        "initialRank" => $initial_rank
     );
 
     array_push($participants["records"], $participantItem);

@@ -207,6 +207,17 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         });
     }
 
+    $scope.shuffleParticipants = function() {
+        $http.get(API_URL + '/api/admin/initializeParticipantRanks.php/' + $scope.selectedTournamentId).then( function ( response ) {
+            $scope.loadAllAccounts();
+            $scope.loadCurrentParticipants();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+
+        });
+    }
+
     $scope.deleteModalTournament = function(row) {
         $scope.selectedTournamentId = row.tournamentId;
         $scope.deleteModalText = "Do you really want to delete the tournament " + row.tournamentName + "?";

@@ -30,6 +30,10 @@ app.config(['$routeProvider',
 			.when('/matchesHistory', {
 				templateUrl: 'templates/matchesHistory.html',
 				controller: 'MatchesHistoryController'
+			})
+			.when('/pool/:tournamentId', {
+				templateUrl: 'templates/pool.html',
+				controller: 'PoolController'
 			});
 }]);
 
