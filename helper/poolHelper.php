@@ -24,6 +24,7 @@ function getCardPool($tournamentId, $accountId) {
             "numberOfCards" => $number_of_cards,
             "cardImageUri" => $card_image_uri,
             "cardTypeLine" => $card_type_line,
+            "cardType" => getCardType($card_type_line),
             "cardManaCost" => $card_mana_cost
         );
     
@@ -31,6 +32,34 @@ function getCardPool($tournamentId, $accountId) {
     }
 
     return $cards;
+}
+
+function getCardType($card_type_line) {
+    if (str_contains($card_type_line, "Land")) {
+        return "Land";
+    }
+
+    if (str_contains($card_type_line, "Creature")) {
+        return "Creature";
+    }
+
+    if (str_contains($card_type_line, "Artifact")) {
+        return "Artifact";
+    }
+
+    if (str_contains($card_type_line, "Enchantment")) {
+        return "Enchantment";
+    }
+
+    if (str_contains($card_type_line, "Instant")) {
+        return "Instant";
+    }
+
+    if (str_contains($card_type_line, "Sorcery")) {
+        return "Sorcery";
+    }
+
+    return "Other";
 }
 
 function addCardToPool($tournamentId, $accountId, $cardName) {

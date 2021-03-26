@@ -22,9 +22,10 @@
                     <div class="col-xl-12">
                         <form ng-submit="importInitialCardPool()" role="form">
                             <div class="form-group">
-                                <label for="tournamentName">Card Pool String from MTG Arena</label>
+                                <label for="tournamentName">Card Pool</label>
                                 <textarea class="form-control" id="cardPoolString"
                                         placeholder="Format: 2 Struggle for Skemfar (KHM) 196" ng-model="pool.cardPoolString" rows="5"></textarea>
+                                <small id="cardPoolStringHelp" class="form-text text-muted">Copy from MTG Arena</small>
                             </div>
         
                             <button type="submit" class="btn btn-special float-right">
@@ -63,12 +64,16 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12">
-                        <ul class="list-group">
-                            <li class="list-group-item item-special align-items-center" ng-repeat="card in pool">
-                              {{card.cardName}} ({{card.cardTypeLine}})
-                              <span class="badge badge-primary badge-pill">{{card.numberOfCards}}</span>
-                            </li>
-                          </ul>
+                        <div ng-repeat="(key, cards) in pool | groupBy: 'cardType'">
+                            <h3 class="mt-4">{{key}}</h3>
+
+                            <ul class="list-group">
+                                <li class="list-group-item item-special align-items-center" ng-repeat="card in cards">
+                                  {{card.cardName}} ({{card.cardTypeLine}}) [{{card.cardManaCost}}]
+                                  <span class="badge badge-primary badge-pill">{{card.numberOfCards}}</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
