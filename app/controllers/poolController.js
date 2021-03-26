@@ -14,7 +14,15 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
     $scope.pool = []
     
     $scope.initPool = function() {
-        
+        $scope.loadingPool = true;
+
+        $http.get(API_URL + '/api/pool/pool.php/' + $scope.tournamentId).then( function ( response ) {
+            $scope.pool = response.data.pool;
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+            $scope.loadingPool = false;
+        });
     }
 
     $scope.importInitialCardPool = function() {

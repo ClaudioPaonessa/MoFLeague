@@ -3,6 +3,36 @@
 require_once '../../helper/errorHelper.php';
 require_once '../../helper/dbHelper.php';
 
+function getCardPool($tournamentId, $accountId) {
+    $cards = array();
+    
+    $query = 'SELECT cp.card_id, mc.card_name, mc.card_image_uri, mc.card_type_line, mc.card_mana_cost, COUNT(*) as number_of_cards
+        FROM initial_card_pool AS cp
+        LEFT JOIN magic_cards mc on (cp.card_id = mc.card_id)
+        WHERE (cp.tournament_id = :tournament_id) AND (cp.account_id = :account_id)
+        GROUP BY cp.card_id';
+
+    $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
+
+    $res = executeSQL($query, $values);
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        $card_item=array(
+            "cardName" => $card_name,
+            "numberOfCards" => $number_of_cards,
+            "cardImageUri" => $card_image_uri,
+            "cardTypeLine" => $card_type_line,
+            "cardManaCost" => $card_mana_cost
+        );
+    
+        array_push($cards, $card_item);
+    }
+
+    return $cards;
+}
+
 function addCardToPool($tournamentId, $accountId, $cardName) {
     $setId = getTournamentSetId($tournamentId);
     $cardId = getCardId($cardName, $setId);
