@@ -21,6 +21,7 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
 
         $http.get(API_URL + '/api/pool/pool.php/' + $scope.tournamentId).then( function ( response ) {
             $scope.pool = response.data.pool;
+            $scope.enrichedPool = []
             
             $scope.pool.forEach(function(card) {
                 var manaRegex = card.cardManaCost.match(regex);
@@ -30,6 +31,7 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
                     typeLine: card.cardTypeLine,
                     numberOfCards: card.numberOfCards,
                     mana: manaRegex ? manaRegex.map(m => m.slice(1, -1).replace('/', '')) : [],
+                    colorIdentity: card.cardColorIdentity,
                     cardType: card.cardType,
                     imageUri: card.cardImageUri,
                     rarity: card.cardRarity,

@@ -14,9 +14,9 @@ $setId = getId();
 
 function loadCards($pdo, $set_id, $url) {
     $stmt = $pdo->prepare('INSERT INTO magic_cards (card_id_scryfall, magic_set_id, card_collector_number, card_name, card_rarity, 
-                            card_type_line, card_image_uri, card_mana_cost, card_name_back, card_type_line_back, card_image_uri_back, card_mana_cost_back) 
-                            VALUES(:card_id_scryfall, :magic_set_id, :card_collector_number, :card_name, :card_rarity, :card_type_line, :card_image_uri, :card_mana_cost, :card_name_back, 
-                            :card_type_line_back, :card_image_uri_back, :card_mana_cost_back)');
+                            card_type_line, card_image_uri, card_mana_cost, card_color_identity, card_name_back, card_type_line_back, card_image_uri_back, card_mana_cost_back) 
+                            VALUES(:card_id_scryfall, :magic_set_id, :card_collector_number, :card_name, :card_rarity, :card_type_line, :card_image_uri, :card_mana_cost, :card_color_identity, 
+                            :card_name_back, :card_type_line_back, :card_image_uri_back, :card_mana_cost_back)');
 
     $jsonCards = getContent($url);
     $cards = json_decode($jsonCards);
@@ -33,6 +33,7 @@ function loadCards($pdo, $set_id, $url) {
 
             $stmt->bindValue(':magic_set_id', $set_id);
             $stmt->bindValue(':card_rarity', $card->rarity);
+            $stmt->bindValue(':card_color_identity', implode($card->color_identity));
 
             if (isset($card->card_faces)) {
                 $card_face_front = $card->card_faces[0];
@@ -40,22 +41,20 @@ function loadCards($pdo, $set_id, $url) {
                 
                 $stmt->bindValue(':card_name', $card_face_front->name);
                 $stmt->bindValue(':card_type_line', $card_face_front->type_line);
-                $stmt->bindValue(':card_image_uri',$card_face_front->image_uris->normal);
+                $stmt->bindValue(':card_image_uri',$card_face_front->image_uris->png);
                 $stmt->bindValue(':card_mana_cost', $card_face_front->mana_cost);
                 
                 $stmt->bindValue(':card_name_back', $card_face_back->name);
                 $stmt->bindValue(':card_type_line_back', $card_face_back->type_line);
-                $stmt->bindValue(':card_image_uri_back',$card_face_back->image_uris->normal);
+                $stmt->bindValue(':card_image_uri_back',$card_face_back->image_uris->png);
                 $stmt->bindValue(':card_mana_cost_back', $card_face_back->mana_cost);
-
-                
             }
             else {
                 $card_face_front = $card;
 
                 $stmt->bindValue(':card_name', $card_face_front->name);
                 $stmt->bindValue(':card_type_line', $card_face_front->type_line);
-                $stmt->bindValue(':card_image_uri',$card_face_front->image_uris->normal);
+                $stmt->bindValue(':card_image_uri',$card_face_front->image_uris->png);
                 $stmt->bindValue(':card_mana_cost', $card_face_front->mana_cost);
 
                 $stmt->bindValue(':card_name_back', "");

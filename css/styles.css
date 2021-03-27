@@ -10454,51 +10454,157 @@ img.inverted {
   box-shadow: 0px 0px 5px #00dbea;
 }
 
+.pool-card {
+  background-color: transparent;
+  color: #ffffff;
+  border: 5px solid #F9ED90;
+}
+
 .common {
-  background-color: #424242 !important;
-  color: #ffffff;
-  border: 1px solid #000000;
+  color: #424242;
 }
-
-.common:hover {
-  background-color: #424242 !important;
-  color: #ffffff;
-  border: 1px solid #000000;
-}
-
 
 .uncommon {
+  color: #A6CADB;
+}
+
+.rare {
+  color: #83703D;
+}
+
+.mythic {
+  color: #EC8501;
+}
+
+.badge-common {
+  background-color: #424242 !important;
+  color: #ffffff;
+  border: 1px solid #000000;
+}
+
+.badge-common:hover {
+  background-color: #424242 !important;
+  color: #ffffff;
+  border: 1px solid #000000;
+}
+
+
+.badge-uncommon {
   background-color: #A6CADB;
   color: #000000;
   border: 1px solid #000000;
 }
 
-.uncommon:hover {
+.badge-uncommon:hover {
   background-color: #474E51;
   color: #ffffff;
   border: 1px solid #000000;
 }
 
-.rare {
+.badge-rare {
   background-color: #83703D;
   color: #ffffff;
   border: 1px solid #000000;
 }
 
-.rare:hover {
+.badge-rare:hover {
   background-color: #D8BB77;
   color: #ffffff;
   border: 1px solid #000000;
 }
 
-.mythic {
+.badge-mythic {
   background-color: #EC8501;
   color: #ffffff;
   border: 1px solid #000000;
 }
 
-.mythic:hover {
+.badge-mythic:hover {
   background-color: #B02911;
   color: #ffffff;
   border: 1px solid #000000;
+}
+
+.color-identity-G {
+  border-color: #9BD3AE !important;
+}
+
+.color-identity-R {
+  border-color: #F9AC90 !important;
+}
+
+.color-identity-W {
+  border-color: #FFFBD6 !important;
+}
+
+.color-identity-U {
+  border-color: #ABE1FA !important;
+}
+
+.color-identity-B {
+  border-color: #3A3232 !important;
+}
+
+.color-identity-WU {
+  border-image: linear-gradient(to right, #ABE1FA, #FFFBD6) 1;
+}
+
+.color-identity-UW {
+  border-image: linear-gradient(to right, #ABE1FA, #FFFBD6) 1;
+}
+
+.color-identity-RG {
+  border-image: linear-gradient(to right, #F9AC90, #9BD3AE) 1;
+}
+
+.color-identity-GR {
+  border-image: linear-gradient(to right, #F9AC90, #9BD3AE) 1;
+}
+
+.color-identity-RW {
+  border-image: linear-gradient(to right, #F9AC90, #FFFBD6) 1;
+}
+
+.color-identity-WR {
+  border-image: linear-gradient(to right, #F9AC90, #FFFBD6) 1;
+}
+
+.color-identity-GW {
+  border-image: linear-gradient(to right, #9BD3AE, #FFFBD6) 1;
+}
+
+.color-identity-WG {
+  border-image: linear-gradient(to right, #9BD3AE, #FFFBD6) 1;
+}
+
+.color-identity-UB {
+  border-image: linear-gradient(to right, #ABE1FA, #3A3232) 1;
+}
+
+.color-identity-BU {
+  border-image: linear-gradient(to right, #ABE1FA, #3A3232) 1;
+}
+
+.color-identity-UR {
+  border-image: linear-gradient(to right, #ABE1FA, #F9AC90) 1;
+}
+
+.color-identity-RU {
+  border-image: linear-gradient(to right, #ABE1FA, #F9AC90) 1;
+}
+
+.color-identity-BG {
+  border-image: linear-gradient(to right, #3A3232, #9BD3AE) 1;
+}
+
+.color-identity-GB {
+  border-image: linear-gradient(to right, #3A3232, #9BD3AE) 1;
+}
+
+.color-identity-WB {
+  border-image: linear-gradient(to right, #FFFBD6, #3A3232) 1;
+}
+
+.color-identity-BW {
+  border-image: linear-gradient(to right, #FFFBD6, #3A3232) 1;
 }
