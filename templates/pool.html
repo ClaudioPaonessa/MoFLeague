@@ -1,5 +1,4 @@
 <h1 class="mt-4">Card Pool</h1>
-<h3 class="mt-2" style="color: #b1b1b1">{{tournamentName}}</h3>
 
 <hr>
 
@@ -64,13 +63,14 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12">
-                        <div ng-repeat="(key, cards) in pool | groupBy: 'cardType'">
+                        <div ng-repeat="(key, cards) in enrichedPool | groupBy: 'cardType'">
                             <h3 class="mt-4">{{key}}</h3>
 
                             <ul class="list-group">
                                 <li class="list-group-item item-special align-items-center" ng-repeat="card in cards">
-                                  {{card.cardName}} ({{card.cardTypeLine}}) [{{card.cardManaCost}}]
-                                  <span class="badge badge-primary badge-pill">{{card.numberOfCards}}</span>
+                                    {{card.name}} ({{card.typeLine}})
+                                    <img class="ml-1" width="20px" src="img/{{m}}.png" ng-repeat="m in card.mana track by $index">
+                                    <span class="badge badge-primary badge-pill">{{card.numberOfCards}}x</span>
                                 </li>
                             </ul>
                         </div>

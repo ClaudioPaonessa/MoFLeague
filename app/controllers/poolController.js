@@ -12,12 +12,30 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
     $scope.ranking = [];
     $scope.alertText = null;
     $scope.pool = []
+    $scope.enrichedPool = []
     
     $scope.initPool = function() {
         $scope.loadingPool = true;
 
+        const regex = /\{(.*?)\}/gm;
+
         $http.get(API_URL + '/api/pool/pool.php/' + $scope.tournamentId).then( function ( response ) {
             $scope.pool = response.data.pool;
+            
+            $scope.pool.forEach(function(card) {
+                var manaRegex = card.cardManaCost.match(regex);
+                
+                var enrichedCard = {
+                    name: card.cardName,
+                    typeLine: card.cardTypeLine,
+                    numberOfCards: card.numberOfCards,
+                    mana: manaRegex ? manaRegex.map(m => m.slice(1, -1).replace('/', '')) : [],
+                    cardType: card.cardType
+                }
+
+                $scope.enrichedPool.push(enrichedCard)
+            });
+
         }, function ( response ) {
             $scope.alertText = response.data.error;
         }).finally(function() {
