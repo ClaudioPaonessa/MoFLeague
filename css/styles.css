@@ -10457,23 +10457,48 @@ img.inverted {
 .common {
   background-color: #424242 !important;
   color: #ffffff;
-  text-shadow: 0 0 4px #000;
+  border: 1px solid #000000;
 }
 
-.uncommon {
-  background-image: linear-gradient(#A6CADB 60%, #474E51 20%);
+.common:hover {
+  background-color: #424242 !important;
   color: #ffffff;
-  text-shadow: 0 0 4px #000;
+  border: 1px solid #000000;
+}
+
+
+.uncommon {
+  background-color: #A6CADB;
+  color: #000000;
+  border: 1px solid #000000;
+}
+
+.uncommon:hover {
+  background-color: #474E51;
+  color: #ffffff;
+  border: 1px solid #000000;
 }
 
 .rare {
-  background-image: linear-gradient(#83703D 60%, #D8BB77 20%);
+  background-color: #83703D;
   color: #ffffff;
-  text-shadow: 0 0 4px #000;
+  border: 1px solid #000000;
+}
+
+.rare:hover {
+  background-color: #D8BB77;
+  color: #ffffff;
+  border: 1px solid #000000;
 }
 
 .mythic {
-  background-image: linear-gradient(#EC8501 60%, #B02911 20%);
+  background-color: #EC8501;
   color: #ffffff;
-  text-shadow: 0 0 4px #000;
+  border: 1px solid #000000;
+}
+
+.mythic:hover {
+  background-color: #B02911;
+  color: #ffffff;
+  border: 1px solid #000000;
 }

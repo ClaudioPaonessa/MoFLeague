@@ -30,7 +30,10 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
                     typeLine: card.cardTypeLine,
                     numberOfCards: card.numberOfCards,
                     mana: manaRegex ? manaRegex.map(m => m.slice(1, -1).replace('/', '')) : [],
-                    cardType: card.cardType
+                    cardType: card.cardType,
+                    imageUri: card.cardImageUri,
+                    rarity: card.cardRarity,
+                    rarityNumeric: card.cardRarityNumeric
                 }
 
                 $scope.enrichedPool.push(enrichedCard)

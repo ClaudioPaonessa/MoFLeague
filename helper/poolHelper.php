@@ -6,7 +6,7 @@ require_once '../../helper/dbHelper.php';
 function getCardPool($tournamentId, $accountId) {
     $cards = array();
     
-    $query = 'SELECT cp.card_id, mc.card_name, mc.card_image_uri, mc.card_type_line, mc.card_mana_cost, COUNT(*) as number_of_cards
+    $query = 'SELECT cp.card_id, mc.card_name, mc.card_image_uri, mc.card_type_line, mc.card_mana_cost, mc.card_rarity, COUNT(*) as number_of_cards
         FROM initial_card_pool AS cp
         LEFT JOIN magic_cards mc on (cp.card_id = mc.card_id)
         WHERE (cp.tournament_id = :tournament_id) AND (cp.account_id = :account_id)
@@ -25,13 +25,32 @@ function getCardPool($tournamentId, $accountId) {
             "cardImageUri" => $card_image_uri,
             "cardTypeLine" => $card_type_line,
             "cardType" => getCardType($card_type_line),
-            "cardManaCost" => $card_mana_cost
+            "cardManaCost" => $card_mana_cost,
+            "cardRarity" => $card_rarity,
+            "cardRarityNumeric" => rarityToNumber($card_rarity)
         );
     
         array_push($cards, $card_item);
     }
 
     return $cards;
+}
+
+function rarityToNumber($cardRarity) {
+    switch ($cardRarity) {
+        case "common":
+            return 0;
+            break;
+        case "uncommon":
+            return 1;
+            break;
+        case "rare":
+            return 2;
+            break;
+        case "mythic":
+            return 3;
+            break;
+    }
 }
 
 function getCardType($card_type_line) {

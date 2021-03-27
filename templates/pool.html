@@ -63,16 +63,18 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12">
-                        <div ng-repeat="(key, cards) in enrichedPool | groupBy: 'cardType'">
+                        <div ng-repeat="(key, cards) in enrichedPool | orderBy:'rarityNumeric' | groupBy: 'cardType'">
                             <h3 class="mt-4">{{key}}</h3>
 
-                            <ul class="list-group">
-                                <li class="list-group-item item-special align-items-center" ng-repeat="card in cards">
-                                    {{card.name}} ({{card.typeLine}})
-                                    <img class="ml-1" width="20px" src="img/{{m}}.png" ng-repeat="m in card.mana track by $index">
-                                    <span class="badge badge-primary badge-pill">{{card.numberOfCards}}x</span>
-                                </li>
-                            </ul>
+                            <div class="d-flex align-content-start flex-wrap">
+                                <button ng-repeat="card in cards" style="white-space: normal;" type="button" class="btn btn-primary p-3 m-2" uib-popover-template="'cardPopover.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary" ng-class="card.rarity">
+                                    {{card.name}} <span class="badge badge-light">{{card.numberOfCards}}x</span>
+                                    <br>
+                                    <span class="small">({{card.typeLine}})</span>
+                                    <img class="ml-1" width="18px" src="img/{{m}}.png" ng-repeat="m in card.mana track by $index">
+                                    <span class="badge badge-primary badge-pill"></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,3 +82,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="cardPopover.html">
+    <div class="popover-content">
+        <img ng-src="{{card.imageUri}}" width="200px" class="img-responsive">
+    </div>
+</script>
