@@ -54,27 +54,27 @@ function rarityToNumber($cardRarity) {
 }
 
 function getCardType($card_type_line) {
-    if (str_contains($card_type_line, "Land")) {
+    if (strpos($card_type_line, "Land") !== false) {
         return "Land";
     }
 
-    if (str_contains($card_type_line, "Creature")) {
+    if (strpos($card_type_line, "Creature") !== false) {
         return "Creature";
     }
 
-    if (str_contains($card_type_line, "Artifact")) {
+    if (strpos($card_type_line, "Artifact") !== false) {
         return "Artifact";
     }
 
-    if (str_contains($card_type_line, "Enchantment")) {
+    if (strpos($card_type_line, "Enchantment") !== false) {
         return "Enchantment";
     }
 
-    if (str_contains($card_type_line, "Instant")) {
+    if (strpos($card_type_line, "Instant") !== false) {
         return "Instant";
     }
 
-    if (str_contains($card_type_line, "Sorcery")) {
+    if (strpos($card_type_line, "Sorcery") !== false) {
         return "Sorcery";
     }
 
