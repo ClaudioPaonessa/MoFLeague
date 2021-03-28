@@ -16,7 +16,8 @@ app.controller("RankingController", function($scope, $routeParams, $http) {
 
         $http.get(API_URL + '/api/tournament/tournamentRanking.php/' + $scope.tournamentId).then( function ( response ) {
             $scope.tournamentName = response.data.tournamentName;
-            $scope.ranking = response.data.ranking;
+            $scope.liveRanking = response.data.liveRanking;
+            $scope.initialRanking = response.data.initialRanking;
         }, function ( response ) {
             $scope.alertText = response.data.error;
         }).finally(function() {

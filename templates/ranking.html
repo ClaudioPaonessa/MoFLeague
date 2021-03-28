@@ -7,7 +7,8 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <a class="btn btn-special mb-4" href="#!tournament/{{tournamentId}}"><i class="fas fa-arrow-left"></i> Back to Tournament Overview</a>
+        <a class="btn btn-special mb-4" href="#!tournament/{{tournamentId}}"><i class="fas fa-arrow-left"></i> Back to
+            Tournament Overview</a>
     </div>
 </div>
 
@@ -18,31 +19,88 @@
                 Current Ranking
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-dark" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th class="align-middle">Rank</th>
-                                <th class="align-middle">Name</th>
-                                <th class="align-middle">Points</th>
-                                <th class="align-middle">Tiebreakers <br> <small>OMP / GWP / OGP</small></th>
-                                <th class="align-middle">Matches <br> <small>Wins / Played (MWP)</small></th>
-                                <th class="align-middle">Games <br> <small>Wins / Played (GWP)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="row in ranking" ng-class="row.you ? 'bg-info' : ''">
-                                <td>{{row.rank}}</td>
-                                <td>
-                                    {{row.displayName}} <span ng-show="row.you" class="badge rounded-pill bg-danger text-light">You</span>
-                                </td>
-                                <td><b>{{row.totalPoints}}</b></td>
-                                <td>{{row.OMP}}% / {{row.GWP}}% / {{row.OGP}}%</td>
-                                <td>{{row.matchesWon}} / {{row.matchesPlayed}} ({{row.MWP}}%)</td>
-                                <td>{{row.gamesWon}} / {{row.gamesPlayed}} ({{row.GWP}}%)</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="initial-tab" data-toggle="tab" data-target="#initial" role="tab"
+                            aria-controls="home" aria-selected="false">Initial Ranks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="r1-tab" data-toggle="tab" data-target="#r1" role="tab"
+                            aria-controls="r1" aria-selected="false">Round 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="live-tab" data-toggle="tab" data-target="#live" role="tab"
+                            aria-controls="live" aria-selected="true"><span style="color: #FF4940;"><i class="fas fa-circle"></i></span> Live Ranks</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade" id="initial" role="tabpanel" aria-labelledby="initial-tab">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-dark" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th class="align-middle">Rank</th>
+                                        <th class="align-middle">Group</th>
+                                        <th class="align-middle">Name</th>
+                                        <th class="align-middle">Points</th>
+                                        <th class="align-middle">Tiebreakers <br> <small>OMP / GWP / OGP</small></th>
+                                        <th class="align-middle">Matches <br> <small>Wins / Played (MWP)</small></th>
+                                        <th class="align-middle">Games <br> <small>Wins / Played (GWP)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in initialRanking" ng-class="row.you ? 'bg-info' : ''">
+                                        <td>{{row.rank}}</td>
+                                        <td>{{row.group}}</td>
+                                        <td>
+                                            {{row.displayName}} <span ng-show="row.you"
+                                                class="badge rounded-pill bg-danger text-light">You</span>
+                                        </td>
+                                        <td><b>{{row.totalPoints}}</b></td>
+                                        <td>{{row.OMP}}% / {{row.GWP}}% / {{row.OGP}}%</td>
+                                        <td>{{row.matchesWon}} / {{row.matchesPlayed}} ({{row.MWP}}%)</td>
+                                        <td>{{row.gamesWon}} / {{row.gamesPlayed}} ({{row.GWP}}%)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="r1" role="tabpanel" aria-labelledby="r1-tab">
+                        R1
+                    </div>
+                    
+                    <div class="tab-pane fade show active" id="live" role="tabpanel" aria-labelledby="live-tab">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-dark" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th class="align-middle">Rank</th>
+                                        <th class="align-middle">Group</th>
+                                        <th class="align-middle">Name</th>
+                                        <th class="align-middle">Points</th>
+                                        <th class="align-middle">Tiebreakers <br> <small>OMP / GWP / OGP</small></th>
+                                        <th class="align-middle">Matches <br> <small>Wins / Played (MWP)</small></th>
+                                        <th class="align-middle">Games <br> <small>Wins / Played (GWP)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="row in liveRanking" ng-class="row.you ? 'bg-info' : ''">
+                                        <td>{{row.rank}}</td>
+                                        <td>{{row.group}}</td>
+                                        <td>
+                                            {{row.displayName}} <span ng-show="row.you"
+                                                class="badge rounded-pill bg-danger text-light">You</span>
+                                        </td>
+                                        <td><b>{{row.totalPoints}}</b></td>
+                                        <td>{{row.OMP}}% / {{row.GWP}}% / {{row.OGP}}%</td>
+                                        <td>{{row.matchesWon}} / {{row.matchesPlayed}} ({{row.MWP}}%)</td>
+                                        <td>{{row.gamesWon}} / {{row.gamesPlayed}} ({{row.GWP}}%)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
