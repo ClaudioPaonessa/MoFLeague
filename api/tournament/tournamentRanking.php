@@ -12,7 +12,7 @@ $tournamentId = getId();
 $rankingData = array();
 
 $rankingData["tournamentName"] = getTournamentName($tournamentId);
-$rankingData["ranking"] = getTournamentMatchResults($tournamentId, $_SESSION["id"]);
+$rankingData["ranking"] = getLiveRanking($tournamentId, $_SESSION["id"]);
 
 http_response_code(200);
 

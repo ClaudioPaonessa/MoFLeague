@@ -157,7 +157,7 @@ function getCurrentMatches($roundId) {
     return $matches;
 }
 
-function getTournamentMatchResults($tournamentId, $accountId) {
+function getLiveRanking($tournamentId, $accountId) {
     $ranking = array();
     $POINTS_FOR_MATCH = 3;
 
