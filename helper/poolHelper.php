@@ -3,7 +3,7 @@
 require_once '../../helper/errorHelper.php';
 require_once '../../helper/dbHelper.php';
 
-function getCardPool($tournamentId, $accountId) {
+function getInitialCardPool($tournamentId, $accountId) {
     $cards = array();
     
     $query = 'SELECT cp.card_id, mc.card_name, mc.card_image_uri, mc.card_type_line, mc.card_mana_cost, mc.card_rarity, mc.card_color_identity, COUNT(*) as number_of_cards

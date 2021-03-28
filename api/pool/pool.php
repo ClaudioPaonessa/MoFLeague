@@ -10,7 +10,7 @@ require_once '../../helper/poolHelper.php';
 $tournamentId = getId();
 
 $cardPool = array();
-$cardPool["pool"] = getCardPool($tournamentId, $_SESSION["id"]);
+$cardPool["pool"] = getInitialCardPool($tournamentId, $_SESSION["id"]);
 
 echo json_encode($cardPool);
 
