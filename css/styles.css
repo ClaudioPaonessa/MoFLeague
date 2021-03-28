@@ -10608,3 +10608,17 @@ img.inverted {
 .color-identity-BW {
   border-image: linear-gradient(to right, #FFFBD6, #3A3232) 1;
 }
+
+.nav-link-special {
+  color: #ffffff !important;
+  background: transparent !important;
+  border: 1px solid #3d3d3d !important;
+}
+
+.nav-link-special.active {
+  color: #00dbea !important;
+  background: transparent !important;
+  border: 2px solid #00dbea !important;
+  text-shadow: 0px 0px 5px #00dbea;
+  box-shadow: 0px 0px 5px #00dbea;
+}

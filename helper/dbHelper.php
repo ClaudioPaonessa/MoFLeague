@@ -13,6 +13,7 @@ function executeSQL($query, $values = null) {
     }
     catch (PDOException $e)
     {
+        echo $e;
         returnError("Error in SQL query.");
     }
 

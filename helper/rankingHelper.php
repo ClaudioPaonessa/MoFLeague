@@ -74,7 +74,7 @@ function getRankingFromRounds($tournamentId, $accountId, $rounds, $groupSize) {
                 LEFT JOIN matches m on mr.match_id = m.match_id
                 LEFT JOIN accounts a on m.player_id_1 = a.account_id
                 LEFT JOIN tournament_rounds tr on m.tournament_round_id  = tr.round_id
-                WHERE (tr.tournament_id = :tournament_id) AND (mr.result_confirmed = true) AND (tr.round_id IN ($in))
+                WHERE (tr.tournament_id = :tournament_id) AND (mr.result_confirmed = true) AND (tr.round_id IN (' . $in . '))
                 
                 UNION
                 
@@ -84,7 +84,7 @@ function getRankingFromRounds($tournamentId, $accountId, $rounds, $groupSize) {
                 LEFT JOIN matches m on mr.match_id = m.match_id
                 LEFT JOIN accounts a on m.player_id_2 = a.account_id
                 LEFT JOIN tournament_rounds tr on m.tournament_round_id  = tr.round_id
-                WHERE (tr.tournament_id = :tournament_id) AND (mr.result_confirmed = true) AND (tr.round_id IN ($in))
+                WHERE (tr.tournament_id = :tournament_id) AND (mr.result_confirmed = true) AND (tr.round_id IN (' . $in . '))
             ) r
             GROUP BY r.player_id
             

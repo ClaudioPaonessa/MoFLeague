@@ -37,6 +37,19 @@ function getCardPool($tournamentId, $accountId) {
     return $cards;
 }
 
+function resetCardPool($tournamentId, $accountId) {
+    $cards = array();
+    
+    $query = 'DELETE FROM initial_card_pool
+        WHERE (tournament_id = :tournament_id) AND (account_id = :account_id)';
+
+    $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
+
+    $res = executeSQL($query, $values);
+
+    return $cards;
+}
+
 function rarityToNumber($cardRarity) {
     switch ($cardRarity) {
         case "common":

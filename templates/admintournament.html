@@ -20,7 +20,7 @@
                     <li class="list-group-item" ng-repeat="round in rounds" ng-class="round.active ? 'active-special' : ''">
                         <b>{{round.name}}</b>: <small>{{round.dateStart | date:'EEE, MMM d yyyy'}} - {{round.dateEnd | date:'EEE, MMM d yyyy'}}</small>
 
-                        <span ng-show="round.completed" class="badge bg-secondary rounded-pill">Completed</span>
+                        <span ng-show="round.completed" class="badge bg-secondary rounded-pill"><i class="fas fa-check"></i> Completed</span>
                         <span ng-show="round.active" class="badge rounded-pill text-dark" style="background-color: #4bc48b;">Active</span>
 
                         <div class="btn-group btn-group-sm float-right" role="group">

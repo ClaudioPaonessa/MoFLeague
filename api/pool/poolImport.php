@@ -20,6 +20,8 @@ $poolImportInfo["importErrors"] = "";
 
 $added = 0;
 
+resetCardPool($tournamentId, $_SESSION["id"]);
+
 foreach ( $lines as $line ) {
     $exploded = explode(" ", $line, 2);
 

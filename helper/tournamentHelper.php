@@ -71,6 +71,88 @@ function getRounds($tournamentId, $currentRoundIndex) {
     return $rounds;
 }
 
+function getAllRounds($tournamentId) {
+    $query = 'SELECT tr.round_id, tr.date_start, tr.date_end, tr.completed
+    FROM tournament_rounds AS tr
+    WHERE (tournament_id = :tournament_id)
+    ORDER BY tr.date_start ASC';
+
+    $values = [':tournament_id' => $tournamentId];
+
+    $res = executeSQL($query, $values);
+
+    $rounds = array();   
+
+    $i = 1;
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        $roundItem=array(
+            "roundId" => $round_id,
+            "name" => "Round " . $i++,
+            "dateStart" =>  (new DateTime($date_start, new DateTimeZone("Europe/Zurich")))->format('Y-m-d'),
+            "dateEnd" => (new DateTime($date_end, new DateTimeZone("Europe/Zurich")))->format('Y-m-d'),
+            "completed" => boolval($completed)
+        );
+
+        array_push($rounds, $roundItem);
+    }
+
+    return $rounds;
+}
+
+function getCompletedRounds($tournamentId) {
+    $query = 'SELECT tr.round_id, tr.date_start, tr.date_end
+    FROM tournament_rounds AS tr
+    WHERE (tournament_id = :tournament_id) AND (completed = TRUE)
+    ORDER BY tr.date_start ASC';
+
+    $values = [':tournament_id' => $tournamentId];
+
+    $res = executeSQL($query, $values);
+
+    $completedRounds = array();
+
+    $i = 1;
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        $roundItem=array(
+            "roundId" => $round_id,
+            "name" => "Round " . $i++,
+            "dateStart" =>  $date_start,
+            "dateEnd" => $date_end
+        );
+
+        array_push($completedRounds, $roundItem);
+    }
+
+    return $completedRounds;
+}
+
+function getPreviousCompletedRounds($tournamentId, $round) {
+    $query = 'SELECT tr.round_id, tr.date_start, tr.date_end, tr.completed
+    FROM tournament_rounds AS tr
+    WHERE (tournament_id = :tournament_id) AND (completed = TRUE) AND (date_end < :round_date_start)
+    ORDER BY tr.date_start ASC';
+
+    $values = [':tournament_id' => $tournamentId, ':round_date_start' => $round["dateStart"]];
+
+    $res = executeSQL($query, $values);
+
+    $previousCompletedRounds = array();
+    array_push($previousCompletedRounds, intval($round["roundId"]));
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+        array_push($previousCompletedRounds, intval($round_id));
+    }
+    
+    return $previousCompletedRounds;
+}
+
 function getRoundsKeyValuePair($rounds) {
     $roundsKeyValuePair = array();
 
@@ -97,6 +179,12 @@ function getCurrentRoundIndex($tournamentId) {
     }
     
     returnError("Tournament not found");
+}
+
+function getCurrentRound($tournamentId, $roundsKeyValuePair) {
+    $roundId = getCurrentRoundIndex($tournamentId);
+    
+    return $roundsKeyValuePair[$roundId];
 }
 
 function getNumberOfRounds($tournamentId) {
