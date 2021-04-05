@@ -35,11 +35,14 @@
                 <div class="row" ng-show="shareStatus.poolPublic">
                     <div class="col-xl-6">
                         You are currently sharing your pool with the PIN: <span class="border"><strong>{{shareStatus.poolPinCode}}</strong></span>
-                        <br>
-                        <small>{{shareStatus.shareUrl}}</small>
                     </div>
                     <div class="col-xl-6">
                         <button class="btn btn-special float-right" ng-click="stopSharePool()"><i class="far fa-stop-circle"></i> Stop Sharing</button>
+                    </div>
+                </div>
+                <div class="row" ng-show="shareStatus.poolPublic">
+                    <div class="col-xl-12">
+                        <small><a href="{{shareStatus.shareUrl}}">{{shareStatus.shareUrl}}</a></small> <button class="btn btn-special btn-xs" ng-click="copyUrlToClipboard()">Copy URL</button>
                     </div>
                 </div>
             </div>

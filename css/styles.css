@@ -10622,3 +10622,9 @@ img.inverted {
   text-shadow: 0px 0px 5px #00dbea;
   box-shadow: 0px 0px 5px #00dbea;
 }
+
+.btn-xs {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.675rem;
+  line-height: 1.5;
+}
