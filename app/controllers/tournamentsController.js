@@ -40,15 +40,15 @@ app.controller("TournamentsController", function($scope, $http) {
     }
 
     $scope.filterRunning = function(tournament) {
-        return convertDate(tournament.startDate) <= now() && convertDate(tournament.endDate) >= now();
+        return tournament.uncompletedRounds > 0 && convertDate(tournament.startDate) <= now();
     }
     
     $scope.filterFuture = function(tournament) {
-        return convertDate(tournament.startDate) > now();
+        return (tournament.uncompletedRounds > 0 && convertDate(tournament.startDate) > now()) || tournament.roundCount == 0;
     }
 
     $scope.filterPast = function(tournament) {
-        return (convertDate(tournament.startDate) < now() && convertDate(tournament.endDate) < now());
+        return tournament.uncompletedRounds == 0;
     }
 
     $scope.closeAlert = function() {
