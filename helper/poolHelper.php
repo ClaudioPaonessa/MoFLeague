@@ -59,7 +59,7 @@ function stopSharingPool($tournamentId, $accountId) {
 }
 
 function getShareStatus($tournamentId, $accountId) {
-    $query = 'SELECT tp.pool_public, tp.pool_pin_code
+    $query = 'SELECT tp.account_id, tp.pool_public, tp.pool_pin_code
             FROM tournament_participants AS tp
             WHERE (tp.tournament_id = :tournament_id) AND (tp.account_id = :account_id)';
     
@@ -72,6 +72,7 @@ function getShareStatus($tournamentId, $accountId) {
         extract($row);
 
         $shareStatus=array(
+            "accountId" => $account_id,
             "poolPublic" => boolval($pool_public),
             "poolPinCode" => $pool_pin_code
         );

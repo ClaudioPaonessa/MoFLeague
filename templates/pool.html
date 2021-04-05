@@ -25,7 +25,7 @@
                                     <input class="form-control" type="text" ng-model="poolSharing.pin" readonly>
                                 </div>
                                 <div class="col">
-                                    <a class="btn btn-special mb-4" ng-click="randomizePin()">Randomize PIN</a>
+                                    <a class="btn btn-sm align-middle btn-special mb-4" ng-click="randomizePin()">Randomize PIN</a>
                                     <button type="submit" class="btn btn-special float-right"><i class="fas fa-share"></i> Share</button>
                                 </div>
                             </div>
@@ -34,7 +34,9 @@
                 </div>
                 <div class="row" ng-show="shareStatus.poolPublic">
                     <div class="col-xl-6">
-                        You are currently sharing your pool with the PIN: <strong>{{shareStatus.poolPinCode}}</strong>
+                        You are currently sharing your pool with the PIN: <span class="border"><strong>{{shareStatus.poolPinCode}}</strong></span>
+                        <br>
+                        <small>{{shareStatus.shareUrl}}</small>
                     </div>
                     <div class="col-xl-6">
                         <button class="btn btn-special float-right" ng-click="stopSharePool()"><i class="far fa-stop-circle"></i> Stop Sharing</button>

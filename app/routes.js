@@ -38,6 +38,10 @@ app.config(['$routeProvider',
 			.when('/pool/:tournamentId', {
 				templateUrl: 'templates/pool.html',
 				controller: 'PoolController'
+			})
+			.when('/participantPool/:tournamentId', {
+				templateUrl: 'templates/participantPool.html',
+				controller: 'ParticipantPoolController'
 			});
 }]);
 

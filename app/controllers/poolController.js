@@ -1,7 +1,11 @@
-var URL = "https://mof-league.com"
+URL = "https://mof-league.com"
 
 if (window.location.hostname == 'localhost') {
     API_URL = "";
+    SHAREURL_PART = "http://localhost";
+}
+else {
+    SHAREURL_PART = URL;
 }
 
 app.controller("PoolController", function($scope, $routeParams, $http) {
@@ -24,6 +28,10 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
             $scope.pool = response.data.pool;
             $scope.shareStatus = response.data.shareStatus;
             $scope.enrichedPool = []
+
+            if ($scope.shareStatus.poolPublic) {
+                $scope.shareStatus.shareUrl = SHAREURL_PART + '/#!participantPool/' + $scope.tournamentId + '?accountId=' + $scope.shareStatus.accountId + '&pin=' + $scope.shareStatus.poolPinCode;
+            }
             
             $scope.pool.forEach(function(card) {
                 var manaRegex = card.cardManaCost.match(regex);
@@ -53,6 +61,10 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
     $scope.initPoolShareStatus = function() {
         $http.get(API_URL + '/api/pool/poolShareStatus.php/' + $scope.tournamentId).then( function ( response ) {
             $scope.shareStatus = response.data.shareStatus;
+
+            if ($scope.shareStatus.poolPublic) {
+                $scope.shareStatus.shareUrl = SHAREURL_PART + '/#!participantPool/' + $scope.tournamentId + '?accountId=' + $scope.shareStatus.accountId + '&pin=' + $scope.shareStatus.poolPinCode;
+            }
         }, function ( response ) {
             $scope.alertText = response.data.error;
         }).finally(function() {
