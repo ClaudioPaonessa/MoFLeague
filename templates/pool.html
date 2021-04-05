@@ -102,7 +102,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div ng-repeat="(key, cards) in enrichedPool | groupBy: 'cardType'">
-                            <h3 class="mt-4">{{key}}</h3>
+                            <h3 class="mt-4">{{key}} ({{cards.length}})</h3>
 
                             <div class="d-flex align-content-start flex-wrap">
                                 <button ng-repeat="card in cards | orderBy:['colorIdentity', '-rarityNumeric']" style="white-space: normal;" type="button" class="btn btn-primary p-3 m-2 pool-card" uib-popover-template="'cardPopover.html'" 

@@ -15,8 +15,13 @@ $poolPinCode = $request->pin;
 $accountId = $request->accountId;
 
 $cardPool = array();
-$cardPool["pin"] = $poolPinCode;
 $cardPool["accountId"] = $accountId;
+
+if (checkPin($tournamentId, $accountId, $poolPinCode)) {
+    $cardPool["pool"] = getInitialCardPool($tournamentId, $accountId);
+} else {
+    returnError("Pool is currently not shared or PIN is wrong.");
+}
 
 echo json_encode($cardPool);
 

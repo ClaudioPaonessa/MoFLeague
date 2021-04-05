@@ -83,6 +83,16 @@ function getShareStatus($tournamentId, $accountId) {
     returnError("Tournament or participant not found.");
 }
 
+function checkPin($tournamentId, $accountId, $pin) {
+    $shareStatus = getShareStatus($tournamentId, $accountId);
+
+    if (!$shareStatus['poolPublic']) {
+        return FALSE;
+    }
+
+    return ($shareStatus['poolPinCode'] == $pin);
+}
+
 function resetCardPool($tournamentId, $accountId) {    
     $query = 'DELETE FROM initial_card_pool
         WHERE (tournament_id = :tournament_id) AND (account_id = :account_id)';
