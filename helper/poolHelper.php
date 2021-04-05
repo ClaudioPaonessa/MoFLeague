@@ -20,6 +20,7 @@ function getInitialCardPool($tournamentId, $accountId) {
         extract($row);
 
         $card_item=array(
+            "cardId" => $card_id,
             "cardName" => $card_name,
             "numberOfCards" => $number_of_cards,
             "cardImageUri" => $card_image_uri,
@@ -37,17 +38,57 @@ function getInitialCardPool($tournamentId, $accountId) {
     return $cards;
 }
 
-function resetCardPool($tournamentId, $accountId) {
-    $cards = array();
+function sharePool($tournamentId, $accountId, $pin) {
+    $query = 'UPDATE tournament_participants 
+            SET pool_public = TRUE, pool_pin_code = :pin
+            WHERE (tournament_id = :tournament_id) AND (account_id = :account_id)';
     
+    $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId, ':pin' => $pin];
+
+    executeSQL($query, $values);
+}
+
+function stopSharingPool($tournamentId, $accountId) {
+    $query = 'UPDATE tournament_participants 
+            SET pool_public = False
+            WHERE (tournament_id = :tournament_id) AND (account_id = :account_id)';
+    
+    $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
+
+    executeSQL($query, $values);
+}
+
+function getShareStatus($tournamentId, $accountId) {
+    $query = 'SELECT tp.pool_public, tp.pool_pin_code
+            FROM tournament_participants AS tp
+            WHERE (tp.tournament_id = :tournament_id) AND (tp.account_id = :account_id)';
+    
+    $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
+    
+    $res = executeSQL($query, $values);
+    $row = $res->fetch(PDO::FETCH_ASSOC);
+
+    if (is_array($row)) {
+        extract($row);
+
+        $shareStatus=array(
+            "poolPublic" => boolval($pool_public),
+            "poolPinCode" => $pool_pin_code
+        );
+
+        return $shareStatus;
+    }
+
+    returnError("Tournament or participant not found.");
+}
+
+function resetCardPool($tournamentId, $accountId) {    
     $query = 'DELETE FROM initial_card_pool
         WHERE (tournament_id = :tournament_id) AND (account_id = :account_id)';
 
     $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
 
-    $res = executeSQL($query, $values);
-
-    return $cards;
+    executeSQL($query, $values);
 }
 
 function rarityToNumber($cardRarity) {

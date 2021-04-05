@@ -12,6 +12,7 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
     $scope.ranking = [];
     $scope.alertText = null;
     $scope.pool = []
+    $scope.poolSharing = []
     $scope.enrichedPool = []
     
     $scope.initPool = function() {
@@ -21,6 +22,7 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
 
         $http.get(API_URL + '/api/pool/pool.php/' + $scope.tournamentId).then( function ( response ) {
             $scope.pool = response.data.pool;
+            $scope.shareStatus = response.data.shareStatus;
             $scope.enrichedPool = []
             
             $scope.pool.forEach(function(card) {
@@ -48,6 +50,16 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
         });
     }
 
+    $scope.initPoolShareStatus = function() {
+        $http.get(API_URL + '/api/pool/poolShareStatus.php/' + $scope.tournamentId).then( function ( response ) {
+            $scope.shareStatus = response.data.shareStatus;
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+            
+        });
+    }
+
     $scope.importInitialCardPool = function() {
         $scope.importing = true;
 
@@ -70,9 +82,46 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
         });
     }
 
+    $scope.sharePool = function() {
+        var params = {
+            poolPinCode: $scope.poolSharing.pin
+        }
+
+        $http.post(API_URL + '/api/pool/poolShare.php/' + $scope.tournamentId, params).then( function ( response ) {
+            $scope.initPoolShareStatus();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+            
+        });
+    }
+
+    $scope.stopSharePool = function() {
+        $http.post(API_URL + '/api/pool/poolStopShare.php/' + $scope.tournamentId).then( function ( response ) {
+            $scope.initPoolShareStatus();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+            
+        });
+    }
+
+    $scope.randomizePin = function() {
+        var characters = ['A','B','C','D','E','F','G','H', 'K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        var randomPin = '';
+
+        for (var i=0; i<4; i++) {
+            var rlet = Math.floor(Math.random()*characters.length);
+            randomPin += characters[rlet];
+        }
+        
+        $scope.poolSharing.pin = randomPin;
+    }
+
     $scope.closeAlert = function() {
         $scope.alertText = null;
     }
 
     $scope.initPool();
+    $scope.randomizePin();
 });

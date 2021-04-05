@@ -11,7 +11,40 @@
 </div>
 
 <div class="row">
-    <div class="col-xl-12">
+    <div class="col-xl-6">
+        <div class="card card-special mb-4">
+            <div class="card-header bg-1 text-center">
+                Card Pool Management
+            </div>
+            <div class="card-body">
+                <div class="row" ng-hide="shareStatus.poolPublic">
+                    <div class="col-xl-12" >
+                        <form ng-submit="sharePool()" role="form">
+                            <div class="form-row">
+                                <div class="col">
+                                    <input class="form-control" type="text" ng-model="poolSharing.pin" readonly>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-special mb-4" ng-click="randomizePin()">Randomize PIN</a>
+                                    <button type="submit" class="btn btn-special float-right"><i class="fas fa-share"></i> Share</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row" ng-show="shareStatus.poolPublic">
+                    <div class="col-xl-6">
+                        You are currently sharing your pool with the PIN: <strong>{{shareStatus.poolPinCode}}</strong>
+                    </div>
+                    <div class="col-xl-6">
+                        <button class="btn btn-special float-right" ng-click="stopSharePool()"><i class="far fa-stop-circle"></i> Stop Sharing</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
         <div class="card card-special mb-4">
             <div class="card-header bg-1 text-center">
                 Manage Initial Pool
@@ -21,7 +54,7 @@
                     <div class="col-xl-12">
                         <form ng-submit="importInitialCardPool()" role="form">
                             <div class="form-group">
-                                <label for="tournamentName">Card Pool</label>
+                                <label for="tournamentName">Card Pool String</label>
                                 <textarea class="form-control" id="cardPoolString"
                                         placeholder="Format: 2 Struggle for Skemfar (KHM) 196" ng-model="pool.cardPoolString" rows="5"></textarea>
                                 <small id="cardPoolStringHelp" class="form-text text-muted">Copy from MTG Arena. Your current initial card pool will be overwritten when you import a new one.</small>

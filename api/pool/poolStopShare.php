@@ -9,11 +9,7 @@ require_once '../../helper/poolHelper.php';
 
 $tournamentId = getId();
 
-$cardPool = array();
-$cardPool["pool"] = getInitialCardPool($tournamentId, $_SESSION["id"]);
-$cardPool["shareStatus"] = getShareStatus($tournamentId, $_SESSION["id"]);
-
-echo json_encode($cardPool);
+stopSharingPool($tournamentId, $_SESSION["id"]);
 
 http_response_code(200);
 
