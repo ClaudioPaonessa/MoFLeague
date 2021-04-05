@@ -3,7 +3,11 @@ var app =  angular.module('mfoApp', ['ngRoute', 'datatables', 'angular.filter', 
 app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
-	        when('/', {
+			when('/', {
+				templateUrl: 'templates/home.html',
+				controller: 'HomeController'
+			})
+	        .when('/tournaments', {
 	            templateUrl: 'templates/home.html',
 	            controller: 'TournamentsController'
 	        })

@@ -35,7 +35,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="#!tournaments">
                 Mansion of Fire
             </a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
@@ -61,7 +61,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Overview</div>
-                            <a class="nav-link" href="/">
+                            <a class="nav-link" href="#!tournaments">
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Tournaments
                             </a>
@@ -139,6 +139,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <script src="app/routes.js"></script>
         <script src="app/helper/angularHelper.js"></script>
 
+        <script src="app/controllers/homeController.js"></script>
         <script src="app/controllers/tournamentsController.js"></script>
         <script src="app/controllers/tournamentController.js"></script>
         <script src="app/controllers/rankingController.js"></script>
