@@ -10438,6 +10438,19 @@ img.inverted {
   border-radius: 20px !important;
 }
 
+.btn-special2 {
+  color: #000000;
+  background: transparent;
+  border-width: 0px;
+  border-radius: 6px !important;
+}
+
+.btn-special2:hover {
+  border: 2px solid #00dbea;
+  text-shadow: 0px 0px 5px #00dbea;
+  box-shadow: 0px 0px 5px #00dbea;
+}
+
 .btn-special:hover {
   color: #00dbea;
   font-weight: 600;
