@@ -10414,9 +10414,6 @@ img.inverted {
 .popover {
   color:#004085 !important;
   opacity: 100% !important;
-  border: 2px solid #00dbea;
-  box-shadow: 0px 0px 5px #00dbea;
-  border-radius: 12px !important;
   background-color: #000000;
 }
 
@@ -10424,6 +10421,9 @@ img.inverted {
   width: 250px !important;
   border: 0px !important;
   background-color: transparent;
+  border: 2px solid #00dbea;
+  box-shadow: 0px 0px 5px #00dbea;
+  border-radius: 12px !important;
 }
 
 .popover-double-wide {
