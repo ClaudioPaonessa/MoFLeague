@@ -10420,9 +10420,13 @@ img.inverted {
 }
 
 .popover-content {
-  /*width: 100px !important;*/
+  width: 250px !important;
   border: 0px !important;
   background-color: transparent;
+}
+
+.popover-double-wide {
+  width: 500px !important;
 }
 
 .btn-special {
@@ -10631,4 +10635,8 @@ img.inverted {
 
 .mb-alot {
   margin-bottom: 11rem !important;
+}
+
+.card-rounded {
+  border-radius: 6px;
 }

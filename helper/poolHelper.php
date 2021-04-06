@@ -6,7 +6,7 @@ require_once '../../helper/dbHelper.php';
 function getInitialCardPool($tournamentId, $accountId) {
     $cards = array();
     
-    $query = 'SELECT cp.card_id, mc.card_name, mc.card_image_uri, mc.card_type_line, mc.card_mana_cost, mc.card_rarity, mc.card_color_identity, COUNT(*) as number_of_cards
+    $query = 'SELECT cp.card_id, mc.card_name, mc.card_image_uri, mc.card_image_uri_back, mc.card_image_uri_low, mc.card_image_uri_low_back, mc.card_type_line, mc.card_mana_cost, mc.card_rarity, mc.card_color_identity, COUNT(*) as number_of_cards
         FROM initial_card_pool AS cp
         LEFT JOIN magic_cards mc on (cp.card_id = mc.card_id)
         WHERE (cp.tournament_id = :tournament_id) AND (cp.account_id = :account_id)
@@ -24,6 +24,9 @@ function getInitialCardPool($tournamentId, $accountId) {
             "cardName" => $card_name,
             "numberOfCards" => $number_of_cards,
             "cardImageUri" => $card_image_uri,
+            "cardImageUriLow" => $card_image_uri_low,
+            "cardImageUriBack" => $card_image_uri_back,
+            "cardImageUriLowBack" => $card_image_uri_low_back,
             "cardTypeLine" => $card_type_line,
             "cardType" => getCardType($card_type_line),
             "cardManaCost" => $card_mana_cost,

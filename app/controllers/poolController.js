@@ -44,6 +44,9 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
                     colorIdentity: card.cardColorIdentity,
                     cardType: card.cardType,
                     imageUri: card.cardImageUri,
+                    imageUriLow: card.cardImageUriLow,
+                    imageUriBack: card.cardImageUriBack,
+                    imageUriLowBack: card.cardImageUriLowBack,
                     rarity: card.cardRarity,
                     rarityNumeric: card.cardRarityNumeric
                 }
