@@ -10457,7 +10457,7 @@ img.inverted {
 .pool-card {
   background-color: transparent;
   color: #ffffff;
-  border: 5px solid #F9ED90;
+  border: 2px solid #000000;
 }
 
 .common {
@@ -10627,4 +10627,8 @@ img.inverted {
   padding: 0.25rem 0.5rem;
   font-size: 0.675rem;
   line-height: 1.5;
+}
+
+.mb-alot {
+  margin-bottom: 11rem !important;
 }

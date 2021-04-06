@@ -142,6 +142,24 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
         document.body.removeChild(el);
     }
 
+    $scope.filterItemsRarity = {
+        'common': true,
+        'uncommon': true,
+        'rare': true,
+        'mythic': true
+      };
+
+    $scope.itemsRarity = [
+        { name: 'common' }, 
+        { name: 'uncommon'}, 
+        { name: 'rare' },
+        { name: 'mythic'}
+    ];
+
+    $scope.rarityFilter = function (card) {
+        return $scope.filterItemsRarity[card.rarity];
+    };
+
     $scope.closeAlert = function() {
         $scope.alertText = null;
     }
