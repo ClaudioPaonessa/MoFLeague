@@ -143,21 +143,21 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
     }
 
     $scope.filterItemsRarity = {
-        'common': true,
-        'uncommon': true,
-        'rare': true,
-        'mythic': true
+        'common': false,
+        'uncommon': false,
+        'rare': false,
+        'mythic': false
       };
 
     $scope.itemsRarity = [
-        { name: 'common' }, 
-        { name: 'uncommon'}, 
-        { name: 'rare' },
-        { name: 'mythic'}
+        { name: 'common', displayName: 'Common' }, 
+        { name: 'uncommon', displayName: 'Uncommon' }, 
+        { name: 'rare', displayName: 'Rare' },
+        { name: 'mythic', displayName: 'Mythic' }
     ];
 
     $scope.rarityFilter = function (card) {
-        return $scope.filterItemsRarity[card.rarity];
+        return Object.values($scope.filterItemsRarity).every(v => v === false) || $scope.filterItemsRarity[card.rarity];
     };
 
     $scope.closeAlert = function() {
