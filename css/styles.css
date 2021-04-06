@@ -10416,7 +10416,8 @@ img.inverted {
   opacity: 100% !important;
   border: 2px solid #00dbea;
   box-shadow: 0px 0px 5px #00dbea;
-  border-radius: 10px !important;
+  border-radius: 12px !important;
+  background-color: #000000;
 }
 
 .popover-content {
