@@ -95,7 +95,7 @@
     </div>
 </div>
 
-<div class="row mb-alot" ng-hide="loadingPool">
+<div class="row" ng-hide="loadingPool">
     <div class="col-xl-12">
         <div class="card card-special mb-4">
             <div class="card-header bg-2 text-center">
@@ -131,6 +131,40 @@
                                     <span class="badge-corner" ng-show="card.numberOfCards > 1">{{card.numberOfCards}}x</span>
                                 </button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-alot" ng-hide="loadingPool">
+    <div class="col-xl-12">
+        <div class="card card-special mb-4">
+            <div class="card-header bg-1 text-center">
+                <i class="fas fa-people-arrows"></i> Your Trades
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <h3><i class="fas fa-sign-in-alt"></i> Incoming Cards</h3>
+                        <div class="d-flex align-content-start flex-wrap">
+                            <button ng-repeat="card in enrichedIncomingTrades" style="white-space: normal;" type="button" class="btn btn-special2 p-0 m-2 pool-card includer" uib-popover-template="'cardPopover.html'" 
+                            popover-placement="bottom" popover-trigger="'mouseenter'">
+                                <img ng-src="{{card.imageUriLow}}" width="120px" class="img-responsive card-rounded">
+                                <img ng-show="card.imageUriLowBack" ng-src="{{card.imageUriLowBack}}" width="90px" class="img-responsive card-rounded">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <h3><i class="fas fa-sign-out-alt"></i> Outgoing Cards</h3>
+                        <div class="d-flex align-content-start flex-wrap">
+                            <button ng-repeat="card in enrichedOutgoingTrades" style="white-space: normal;" type="button" class="btn btn-special2 p-0 m-2 pool-card includer" uib-popover-template="'cardPopover.html'" 
+                            popover-placement="bottom" popover-trigger="'mouseenter'">
+                                <img ng-src="{{card.imageUriLow}}" width="120px" class="img-responsive card-rounded">
+                                <img ng-show="card.imageUriLowBack" ng-src="{{card.imageUriLowBack}}" width="90px" class="img-responsive card-rounded">
+                            </button>
                         </div>
                     </div>
                 </div>

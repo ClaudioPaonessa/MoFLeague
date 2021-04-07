@@ -18,6 +18,8 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
     $scope.pool = []
     $scope.poolSharing = []
     $scope.enrichedPool = []
+    $scope.enrichedIncomingTrades = []
+    $scope.enrichedOutgoingTrades = []
     
     $scope.initPool = function() {
         $scope.loadingPool = true;
@@ -26,6 +28,9 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
 
         $http.get(API_URL + '/api/pool/pool.php/' + $scope.tournamentId).then( function ( response ) {
             $scope.pool = response.data.pool;
+            $scope.incomingTrades = response.data.incomingTrades;
+            $scope.outgoingTrades = response.data.outgoingTrades;
+
             $scope.shareStatus = response.data.shareStatus;
             $scope.enrichedPool = []
 
@@ -34,6 +39,10 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
             }
             
             $scope.pool.forEach(function(card) {
+                if (card.numberOfCards < 1) {
+                    return;
+                }
+                
                 var manaRegex = card.cardManaCost.match(regex);
                 
                 var enrichedCard = {
@@ -52,6 +61,36 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
                 }
 
                 $scope.enrichedPool.push(enrichedCard)
+            });
+
+            $scope.incomingTrades.forEach(function(card) {                
+                var enrichedCard = {
+                    name: card.cardName,
+                    cardType: card.cardType,
+                    imageUri: card.cardImageUri,
+                    imageUriLow: card.cardImageUriLow,
+                    imageUriBack: card.cardImageUriBack,
+                    imageUriLowBack: card.cardImageUriLowBack,
+                    rarity: card.cardRarity,
+                    rarityNumeric: card.cardRarityNumeric
+                }
+
+                $scope.enrichedIncomingTrades.push(enrichedCard)
+            });
+
+            $scope.outgoingTrades.forEach(function(card) {
+                var enrichedCard = {
+                    name: card.cardName,
+                    cardType: card.cardType,
+                    imageUri: card.cardImageUri,
+                    imageUriLow: card.cardImageUriLow,
+                    imageUriBack: card.cardImageUriBack,
+                    imageUriLowBack: card.cardImageUriLowBack,
+                    rarity: card.cardRarity,
+                    rarityNumeric: card.cardRarityNumeric
+                }
+
+                $scope.enrichedOutgoingTrades.push(enrichedCard)
             });
 
         }, function ( response ) {
