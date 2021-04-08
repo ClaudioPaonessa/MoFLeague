@@ -12,9 +12,10 @@ $request = json_decode($postdata);
 $tournamentName = $request->name;
 $setId = $request->set;
 $groupSize = $request->groupSize;
+$matchesPerRound = $request->matchesPerRound;
 
-$query = 'INSERT INTO tournaments (tournament_name, set_id, group_size) VALUES (:tournament_name, :set_id, :group_size)';
-$values = [':tournament_name' => $tournamentName, ':set_id' => $setId, ':group_size' => $groupSize];
+$query = 'INSERT INTO tournaments (tournament_name, set_id, group_size, matches_per_round) VALUES (:tournament_name, :set_id, :group_size, :matches_per_round)';
+$values = [':tournament_name' => $tournamentName, ':set_id' => $setId, ':group_size' => $groupSize, ':matches_per_round' => $matchesPerRound];
 
 executeSQL($query, $values);
 

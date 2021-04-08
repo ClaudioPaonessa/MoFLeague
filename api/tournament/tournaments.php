@@ -9,7 +9,7 @@ require_once '../../helper/dbHelper.php';
 $tournaments = array();
 $tournaments["records"] = array();
 
-$query = 'SELECT t.tournament_id, t.tournament_name, t.group_size, COUNT(DISTINCT p.account_id) AS participant_count, COUNT(DISTINCT you.account_id) AS you_participate, s.set_name AS set_name, 
+$query = 'SELECT t.tournament_id, t.tournament_name, t.group_size, t.matches_per_round, COUNT(DISTINCT p.account_id) AS participant_count, COUNT(DISTINCT you.account_id) AS you_participate, s.set_name AS set_name, 
             COUNT(DISTINCT tr.round_id) AS round_count, SUM(tr.completed = 0) AS uncompleted_rounds, MIN(tr.date_start) AS start_date, MAX(tr.date_end) AS end_date
             FROM tournaments AS t
             INNER JOIN magic_sets AS s USING(set_id)
@@ -31,6 +31,7 @@ while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         "tournamentName" => $tournament_name,
         "setName" => $set_name,
         "groupSize" => $group_size,
+        "matchesPerRound" => $matches_per_round,
         "participantCount" => $participant_count,
         "roundCount" => $round_count,
         "startDate" => $start_date,
