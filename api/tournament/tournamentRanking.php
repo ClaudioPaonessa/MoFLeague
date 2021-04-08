@@ -23,7 +23,7 @@ $completedRounds = getCompletedRounds($tournamentId);
 $rankingData["completedRounds"] = array();
 
 foreach ($completedRounds as &$completedRound) {
-    $previousCompletedRounds = getPreviousCompletedRounds($tournamentId, $completedRound);
+    $previousCompletedRounds = getPreviousCompletedRoundsForRanking($tournamentId, $completedRound);
 
     $completedRanking = getRankingFromRounds($tournamentId, $_SESSION["id"], $previousCompletedRounds, $groupSize);
 

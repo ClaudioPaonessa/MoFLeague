@@ -30,6 +30,10 @@ app.controller("ParticipantPoolController", function($scope, $routeParams, $loca
             $scope.enrichedPool = []
             
             $scope.pool.forEach(function(card) {
+                if (card.numberOfCards < 1) {
+                    return;
+                }
+
                 var manaRegex = card.cardManaCost.match(regex);
                 
                 var enrichedCard = {

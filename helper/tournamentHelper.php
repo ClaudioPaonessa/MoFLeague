@@ -132,7 +132,7 @@ function getCompletedRounds($tournamentId) {
     return $completedRounds;
 }
 
-function getPreviousCompletedRounds($tournamentId, $round) {
+function getPreviousCompletedRoundsForRanking($tournamentId, $round) {
     $query = 'SELECT tr.round_id, tr.date_start, tr.date_end, tr.completed
     FROM tournament_rounds AS tr
     WHERE (tournament_id = :tournament_id) AND (completed = TRUE) AND (date_end < :round_date_start)
@@ -144,6 +144,44 @@ function getPreviousCompletedRounds($tournamentId, $round) {
 
     $previousCompletedRounds = array();
     array_push($previousCompletedRounds, intval($round["roundId"]));
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+        array_push($previousCompletedRounds, intval($round_id));
+    }
+    
+    return $previousCompletedRounds;
+}
+
+function getRoundStartDate($roundId) {
+    $query = 'SELECT tr.round_id, tr.date_start
+            FROM tournament_rounds AS tr
+            WHERE tr.round_id = :round_id';
+    
+    $values = [':round_id' => $roundId];
+
+    $res = executeSQL($query, $values);
+    $row = $res->fetch(PDO::FETCH_ASSOC);
+    
+    if (is_array($row)) {
+        extract($row);
+        return $date_start;
+    }
+    
+    returnError("Round not found");
+}
+
+function getPreviousCompletedRounds($tournamentId, $roundDateStart) {
+    $query = 'SELECT tr.round_id, tr.date_start, tr.date_end, tr.completed
+    FROM tournament_rounds AS tr
+    WHERE (tournament_id = :tournament_id) AND (completed = TRUE) AND (date_end < :round_date_start)
+    ORDER BY tr.date_start ASC';
+
+    $values = [':tournament_id' => $tournamentId, ':round_date_start' => $roundDateStart];
+
+    $res = executeSQL($query, $values);
+
+    $previousCompletedRounds = array();
 
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         extract($row);

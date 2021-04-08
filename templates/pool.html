@@ -34,7 +34,8 @@
                 </div>
                 <div class="row" ng-show="shareStatus.poolPublic">
                     <div class="col-xl-8">
-                        You are currently sharing your pool with the PIN: <span class="border"><strong>{{shareStatus.poolPinCode}}</strong></span>
+                        You are currently sharing your pool with the PIN: <br><br>
+                        <span class="border" style="letter-spacing: 4px; padding: 5px;"><strong>{{shareStatus.poolPinCode}}</strong></span>
                     </div>
                     <div class="col-xl-4">
                         <button class="btn btn-special float-right" ng-click="stopSharePool()"><i class="far fa-stop-circle"></i> Stop Sharing</button>
@@ -140,15 +141,14 @@
 </div>
 
 <div class="row mb-alot" ng-hide="loadingPool">
-    <div class="col-xl-12">
+    <div class="col-xl-6">
         <div class="card card-special mb-4">
             <div class="card-header bg-1 text-center">
-                <i class="fas fa-people-arrows"></i> Your Trades
+                <i class="fas fa-people-arrows"></i> Trading - <i class="fas fa-sign-in-alt"></i> Incoming Cards
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-xl-6">
-                        <h3><i class="fas fa-sign-in-alt"></i> Incoming Cards</h3>
+                    <div class="col-xl-12">
                         <div class="d-flex align-content-start flex-wrap">
                             <button ng-repeat="card in enrichedIncomingTrades" style="white-space: normal;" type="button" class="btn btn-special2 p-0 m-2 pool-card includer" uib-popover-template="'cardPopover.html'" 
                             popover-placement="bottom" popover-trigger="'mouseenter'">
@@ -157,8 +157,18 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col-xl-6">
-                        <h3><i class="fas fa-sign-out-alt"></i> Outgoing Cards</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card card-special mb-4">
+            <div class="card-header bg-1 text-center">
+                <i class="fas fa-people-arrows"></i> Trading - <i class="fas fa-sign-out-alt"></i> Outgoing Cards
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-12">
                         <div class="d-flex align-content-start flex-wrap">
                             <button ng-repeat="card in enrichedOutgoingTrades" style="white-space: normal;" type="button" class="btn btn-special2 p-0 m-2 pool-card includer" uib-popover-template="'cardPopover.html'" 
                             popover-placement="bottom" popover-trigger="'mouseenter'">

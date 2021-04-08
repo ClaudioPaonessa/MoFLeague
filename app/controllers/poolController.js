@@ -161,10 +161,11 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
     }
 
     $scope.randomizePin = function() {
+        var LENGTH = 8;
         var characters = ['A','B','C','D','E','F','G','H', 'K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
         var randomPin = '';
 
-        for (var i=0; i<4; i++) {
+        for (var i=0; i<LENGTH; i++) {
             var rlet = Math.floor(Math.random()*characters.length);
             randomPin += characters[rlet];
         }
