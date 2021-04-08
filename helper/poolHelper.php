@@ -228,30 +228,30 @@ function rarityToNumber($cardRarity) {
 
 function getCardType($card_type_line) {
     if (strpos($card_type_line, "Land") !== false) {
-        return "Land";
+        return "Lands";
     }
 
     if (strpos($card_type_line, "Creature") !== false) {
-        return "Creature";
+        return "Creatures";
     }
 
     if (strpos($card_type_line, "Artifact") !== false) {
-        return "Artifact";
+        return "Artifacts";
     }
 
     if (strpos($card_type_line, "Enchantment") !== false) {
-        return "Enchantment";
+        return "Enchantments";
     }
 
     if (strpos($card_type_line, "Instant") !== false) {
-        return "Instant";
+        return "Instants";
     }
 
     if (strpos($card_type_line, "Sorcery") !== false) {
-        return "Sorcery";
+        return "Sorceries";
     }
 
-    return "Other";
+    return "Others";
 }
 
 function addCardToPool($tournamentId, $accountId, $cardName) {
