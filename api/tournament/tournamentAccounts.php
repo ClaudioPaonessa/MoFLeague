@@ -10,7 +10,7 @@ require_once '../../helper/dbHelper.php';
 
 $tournamentId = getId();
 
-$query = 'SELECT  a.account_id AS account_id, a.account_name AS account_name, a.display_name AS display_name
+$query = 'SELECT  a.account_id AS account_id, a.display_name AS display_name
             FROM accounts AS a
             WHERE NOT EXISTS (
             SELECT *
@@ -30,7 +30,6 @@ while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
 
     $participant_item=array(
         "accountId" => $account_id,
-        "accountName" => $account_name,
         "displayName" => $display_name
     );
 

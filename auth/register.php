@@ -12,17 +12,21 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 require '../db/pdo.php';
  
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $display_name = $mtg_arena_name = "";
-$username_err = $password_err = $confirm_password_err = $display_name_err = "";
+$email = $password = $confirm_password = $display_name = $mtg_arena_name = "";
+$email_err = $password_err = $confirm_password_err = $display_name_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
-    // Check if username is empty
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter username.";
+    
+    $email = $_POST["email"];
+
+    // Check if email is empty
+    if(empty(trim($email))){
+        $email_err = "Please enter email address.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $emailErr = "Invalid email address";
     } else{
-        $username = trim($_POST["username"]);
+        $email = trim($email);
     }
     
     // Check if password is empty
@@ -46,11 +50,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $mtg_arena_name = trim($_POST["mtg_arena_name"]);
     
     // Validate credentials
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($display_name_err)){
+    if(empty($email_err) && empty($password_err) && empty($confirm_password_err) && empty($display_name_err)){
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = 'INSERT INTO accounts (account_name, display_name, mtg_arena_name, account_passwd) VALUES (:username, :display_name, :mtg_arena_name, :passwd)';
-        $values = [':username' => $username, ':display_name' => $display_name, ':mtg_arena_name' => $mtg_arena_name, ':passwd' => $hash];
+        $sql = 'INSERT INTO accounts (email, display_name, mtg_arena_name, account_passwd) VALUES (:email, :display_name, :mtg_arena_name, :passwd)';
+        $values = [':email' => $email, ':display_name' => $display_name, ':mtg_arena_name' => $mtg_arena_name, ':passwd' => $hash];
 
         try
         {
@@ -61,8 +65,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
         catch (PDOException $e)
         {
-            $username_err = "Username " . $username . " already taken";
-            $username = "";
+            $email_err = "Email " . $email . " already taken";
+            $email = "";
         }
     }
 }
@@ -96,10 +100,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-row">
                                                 <div class="col-md-6">
-                                                    <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                                                        <label class="small mb-1" for="username">Username</label>
-                                                        <input class="form-control py-4" name="username" id="username" type="text" value="<?php echo $username; ?>" placeholder="Enter username" />
-                                                        <span class="help-block"><?php echo $username_err; ?></span>
+                                                    <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
+                                                        <label class="small mb-1" for="email">Email address</label>
+                                                        <input class="form-control py-4" name="email" id="email" type="email" value="<?php echo $email; ?>" placeholder="Enter email address" />
+                                                        <span class="help-block"><?php echo $email_err; ?></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">

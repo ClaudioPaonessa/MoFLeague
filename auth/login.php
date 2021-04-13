@@ -35,8 +35,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $query = 'SELECT * FROM accounts WHERE (account_name = :name)';
-        $values = [':name' => $username];
+        $query = 'SELECT * FROM accounts WHERE (email = :email)';
+        $values = [':email' => $username];
 
         try
         {
@@ -61,7 +61,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Store data in session variables
                 $_SESSION["loggedin"] = true;
                 $_SESSION["id"] = $row['account_id'];
-                $_SESSION["username"] = $username;
+                $_SESSION["email"] = $row['email'];
                 $_SESSION["displayName"] = $row['display_name'];
                 $_SESSION["admin"] = $row['admin_privilege'];                       
                 
@@ -103,8 +103,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     <div class="card-body">
                                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-                                                <label class="small mb-1" for="username">Username</label>
-                                                <input class="form-control py-4" name="username" id="username" type="text" value="<?php echo $username; ?>" placeholder="Enter username" />
+                                                <label class="small mb-1" for="username">Email address</label>
+                                                <input class="form-control py-4" name="username" id="username" type="text" value="<?php echo $username; ?>" placeholder="Enter email address" />
                                                 <span class="help-block"><?php echo $username_err; ?></span>
                                             </div>
                                             <div class="form-group">
