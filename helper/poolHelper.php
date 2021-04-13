@@ -65,17 +65,70 @@ function getInitialCardPool($tournamentId, $accountId) {
     return $cards;
 }
 
-function getIncomingTrades($tournamentId, $accountId) {
+function getIncomingTrades($tournamentId, $accountId, $completed) {
+    $cards = array();
+
+    if ($completed) {
+        $query = 'SELECT mc.card_id,
+                mc.card_name, mc.card_image_uri, mc.card_image_uri_back, mc.card_image_uri_low, 
+                mc.card_image_uri_low_back, mc.card_type_line, mc.card_mana_cost, mc.card_rarity, mc.card_color_identity
+                FROM card_trades as ct
+                LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
+                LEFT JOIN matches m on (ct.match_id = m.match_id)
+                LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
+                WHERE (tr.tournament_id = :tournament_id) AND (tr.completed = TRUE) AND (ct.receiver_account_id = :account_id) AND (ct.trade_confirmed = TRUE)';
+
+        $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
+    } else {
+        $query = 'SELECT mc.card_id,
+                mc.card_name, mc.card_image_uri, mc.card_image_uri_back, mc.card_image_uri_low, 
+                mc.card_image_uri_low_back, mc.card_type_line, mc.card_mana_cost, mc.card_rarity, mc.card_color_identity
+                FROM card_trades as ct
+                LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
+                LEFT JOIN matches m on (ct.match_id = m.match_id)
+                LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
+                WHERE (tr.tournament_id = :tournament_id) AND (ct.receiver_account_id = :account_id) AND (ct.trade_confirmed = TRUE)';
+
+        $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
+    }
+
+    $res = executeSQL($query, $values);
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        $card_item=array(
+            "cardId" => $card_id,
+            "cardName" => $card_name,
+            "cardImageUri" => $card_image_uri,
+            "cardImageUriLow" => $card_image_uri_low,
+            "cardImageUriBack" => $card_image_uri_back,
+            "cardImageUriLowBack" => $card_image_uri_low_back,
+            "cardTypeLine" => $card_type_line,
+            "cardType" => getCardType($card_type_line),
+            "cardManaCost" => $card_mana_cost,
+            "cardColorIdentity" => $card_color_identity,
+            "cardRarity" => $card_rarity,
+            "cardRarityNumeric" => rarityToNumber($card_rarity)
+        );
+    
+        array_push($cards, $card_item);
+    }
+
+    return $cards;
+}
+
+function getIncomingTradesPlanned($tournamentId, $accountId) {
     $cards = array();
 
     $query = 'SELECT mc.card_id,
-            mc.card_name, mc.card_image_uri, mc.card_image_uri_back, mc.card_image_uri_low, 
-            mc.card_image_uri_low_back, mc.card_type_line, mc.card_mana_cost, mc.card_rarity, mc.card_color_identity
-            FROM card_trades as ct
-            LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
-            LEFT JOIN matches m on (ct.match_id = m.match_id)
-            LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
-            WHERE (tr.tournament_id = :tournament_id) AND (ct.receiver_account_id = :account_id) AND (ct.trade_confirmed = TRUE)';
+                mc.card_name, mc.card_image_uri, mc.card_image_uri_back, mc.card_image_uri_low, 
+                mc.card_image_uri_low_back, mc.card_type_line, mc.card_mana_cost, mc.card_rarity, mc.card_color_identity
+                FROM card_trades as ct
+                LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
+                LEFT JOIN matches m on (ct.match_id = m.match_id)
+                LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
+                WHERE (tr.tournament_id = :tournament_id) AND (tr.completed = FALSE) AND (ct.receiver_account_id = :account_id) AND (ct.trade_confirmed = TRUE)';
 
     $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
 
@@ -123,7 +176,60 @@ function getDisplayName($accountId) {
     return "";
 }
 
-function getOutgoingTrades($tournamentId, $accountId) {
+function getOutgoingTrades($tournamentId, $accountId, $completed) {
+    $cards = array();
+
+    if ($completed) {
+        $query = 'SELECT mc.card_id,
+            mc.card_name, mc.card_image_uri, mc.card_image_uri_back, mc.card_image_uri_low, 
+            mc.card_image_uri_low_back, mc.card_type_line, mc.card_mana_cost, mc.card_rarity, mc.card_color_identity
+            FROM card_trades as ct
+            LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
+            LEFT JOIN matches m on (ct.match_id = m.match_id)
+            LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
+            WHERE (tr.tournament_id = :tournament_id) AND (tr.completed = TRUE) AND ((m.player_id_1 = :account_id) OR (m.player_id_2 = :account_id)) AND (ct.receiver_account_id != :account_id) AND (ct.trade_confirmed = TRUE)';
+
+        $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
+    } else {
+        $query = 'SELECT mc.card_id,
+            mc.card_name, mc.card_image_uri, mc.card_image_uri_back, mc.card_image_uri_low, 
+            mc.card_image_uri_low_back, mc.card_type_line, mc.card_mana_cost, mc.card_rarity, mc.card_color_identity
+            FROM card_trades as ct
+            LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
+            LEFT JOIN matches m on (ct.match_id = m.match_id)
+            LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
+            WHERE (tr.tournament_id = :tournament_id) AND ((m.player_id_1 = :account_id) OR (m.player_id_2 = :account_id)) AND (ct.receiver_account_id != :account_id) AND (ct.trade_confirmed = TRUE)';
+
+        $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
+    }
+
+    $res = executeSQL($query, $values);
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        $card_item=array(
+            "cardId" => $card_id,
+            "cardName" => $card_name,
+            "cardImageUri" => $card_image_uri,
+            "cardImageUriLow" => $card_image_uri_low,
+            "cardImageUriBack" => $card_image_uri_back,
+            "cardImageUriLowBack" => $card_image_uri_low_back,
+            "cardTypeLine" => $card_type_line,
+            "cardType" => getCardType($card_type_line),
+            "cardManaCost" => $card_mana_cost,
+            "cardColorIdentity" => $card_color_identity,
+            "cardRarity" => $card_rarity,
+            "cardRarityNumeric" => rarityToNumber($card_rarity)
+        );
+    
+        array_push($cards, $card_item);
+    }
+
+    return $cards;
+}
+
+function getOutgoingTradesPlanned($tournamentId, $accountId) {
     $cards = array();
 
     $query = 'SELECT mc.card_id,
@@ -133,7 +239,7 @@ function getOutgoingTrades($tournamentId, $accountId) {
             LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
             LEFT JOIN matches m on (ct.match_id = m.match_id)
             LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
-            WHERE (tr.tournament_id = :tournament_id) AND ((m.player_id_1 = :account_id) OR (m.player_id_2 = :account_id)) AND (ct.receiver_account_id != :account_id) AND (ct.trade_confirmed = TRUE)';
+            WHERE (tr.tournament_id = :tournament_id) AND (tr.completed = FALSE) AND ((m.player_id_1 = :account_id) OR (m.player_id_2 = :account_id)) AND (ct.receiver_account_id != :account_id) AND (ct.trade_confirmed = TRUE)';
 
     $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
 

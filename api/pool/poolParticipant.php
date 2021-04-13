@@ -20,8 +20,9 @@ $cardPool["accountId"] = $accountId;
 if (checkPin($tournamentId, $accountId, $poolPinCode)) {
     $cardPool["displayName"] = getDisplayName($accountId);
     $cardPool["initialPool"] = getInitialCardPool($tournamentId, $accountId);
-    $cardPool["incomingTrades"] = getIncomingTrades($tournamentId, $accountId);
-    $cardPool["outgoingTrades"] = getOutgoingTrades($tournamentId, $accountId);
+    // You cannot trade stuff which is not yet transferred
+    $cardPool["incomingTrades"] = getIncomingTrades($tournamentId, $accountId, TRUE);
+    $cardPool["outgoingTrades"] = getOutgoingTrades($tournamentId, $accountId, FALSE);
     $cardPool["pool"] = getCurrentCardPool($cardPool["initialPool"], $cardPool["incomingTrades"], $cardPool["outgoingTrades"]);
 } else {
     returnError("Pool is currently not shared or PIN is wrong.");
