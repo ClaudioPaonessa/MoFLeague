@@ -105,6 +105,24 @@ function getIncomingTrades($tournamentId, $accountId) {
     return $cards;
 }
 
+function getDisplayName($accountId) {
+    $query = 'SELECT a.display_name
+            FROM accounts as a
+            WHERE (a.account_id = :account_id)';
+
+    $values = [':account_id' => $accountId];
+
+    $res = executeSQL($query, $values);
+    $row = $res->fetch(PDO::FETCH_ASSOC);
+
+    if (is_array($row)) {
+        extract($row);
+        return $display_name;
+    }
+    
+    return "";
+}
+
 function getOutgoingTrades($tournamentId, $accountId) {
     $cards = array();
 

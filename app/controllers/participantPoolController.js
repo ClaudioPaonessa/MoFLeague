@@ -27,6 +27,7 @@ app.controller("ParticipantPoolController", function($scope, $routeParams, $loca
 
         $http.post(API_URL + '/api/pool/poolParticipant.php/' + $scope.tournamentId, params).then( function ( response ) {
             $scope.pool = response.data.pool;
+            $scope.displayName = response.data.displayName;
             $scope.enrichedPool = []
             
             $scope.pool.forEach(function(card) {

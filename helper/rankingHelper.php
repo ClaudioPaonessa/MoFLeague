@@ -1,7 +1,7 @@
 <?php
 
 function getLiveRanking($tournamentId, $accountId, $groupSize) {
-    $POINTS_FOR_MATCH = 3;
+    $POINTS_FOR_MATCH = 1;
 
     $query = 'SELECT ra.player_id AS player_id, matches_won * :points_for_match AS total_points, ra.display_name AS display_name, SUM(matches_played) AS matches_played, 
             SUM(matches_won) AS matches_won, SUM(games_played) AS games_played, SUM(games_won) AS games_won,

@@ -18,6 +18,7 @@ $cardPool = array();
 $cardPool["accountId"] = $accountId;
 
 if (checkPin($tournamentId, $accountId, $poolPinCode)) {
+    $cardPool["displayName"] = getDisplayName($accountId);
     $cardPool["initialPool"] = getInitialCardPool($tournamentId, $accountId);
     $cardPool["incomingTrades"] = getIncomingTrades($tournamentId, $accountId);
     $cardPool["outgoingTrades"] = getOutgoingTrades($tournamentId, $accountId);
