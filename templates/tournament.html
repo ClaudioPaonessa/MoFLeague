@@ -91,7 +91,9 @@
             </div>
         </div>
     </div>
+</div>
 
+<div class="row mb-alot" ng-show="currentRound">
     <div class="col-xl-6">
         <div class="card card-special mb-4">
             <div class="card-header bg-2">
@@ -319,12 +321,12 @@
 
 <script type="text/ng-template" id="tplTradeToP1.html">
     <div class="popover-content">
-        <img ng-src="{{row.tradedToP1Images[$index]}}" width="200px" class="img-responsive">
+        <img ng-src="{{row.tradedToP1Images[$index]}}" width="100%" class="img-responsive">
     </div>
 </script>
 
 <script type="text/ng-template" id="tplTradeToP2.html">
     <div class="popover-content">
-        <img ng-src="{{row.tradedToP2Images[$index]}}" width="200px" class="img-responsive">
+        <img ng-src="{{row.tradedToP2Images[$index]}}" width="100%" class="img-responsive">
     </div>
 </script>
