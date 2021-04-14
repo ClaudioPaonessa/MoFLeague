@@ -17,11 +17,13 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
     $scope.alertText = null;
     $scope.pool = []
     $scope.poolSharing = []
+
     $scope.enrichedPool = []
     $scope.enrichedIncomingTrades = []
     $scope.enrichedOutgoingTrades = []
     $scope.enrichedIncomingTradesPlanned = []
     $scope.enrichedOutgoingTradesPlanned = []
+    $scope.enrichedReceivedCardPacks = []
     
     $scope.initPool = function() {
         $scope.loadingPool = true;
@@ -39,6 +41,8 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
 
             $scope.shareStatus = response.data.shareStatus;
             $scope.enrichedPool = []
+
+            $scope.receivedCardPacks = response.data.receivedCardPacks;
 
             if ($scope.shareStatus.poolPublic) {
                 $scope.shareStatus.shareUrl = SHAREURL_PART + '/#!participantPool/' + $scope.tournamentId + '?accountId=' + $scope.shareStatus.accountId + '&pin=' + $scope.shareStatus.poolPinCode;
@@ -127,6 +131,22 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
                 }
 
                 $scope.enrichedOutgoingTradesPlanned.push(enrichedCard)
+            });
+
+            $scope.receivedCardPacks.forEach(function(card) {
+                var enrichedCard = {
+                    roundName: card.roundName,
+                    name: card.cardName,
+                    cardType: card.cardType,
+                    imageUri: card.cardImageUri,
+                    imageUriLow: card.cardImageUriLow,
+                    imageUriBack: card.cardImageUriBack,
+                    imageUriLowBack: card.cardImageUriLowBack,
+                    rarity: card.cardRarity,
+                    rarityNumeric: card.cardRarityNumeric
+                }
+
+                $scope.enrichedReceivedCardPacks.push(enrichedCard)
             });
 
         }, function ( response ) {
