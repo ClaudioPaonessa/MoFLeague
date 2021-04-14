@@ -18,13 +18,15 @@ $cardPool["incomingTrades"] = getIncomingTrades($tournamentId, $_SESSION["id"], 
 $cardPool["outgoingTrades"] = getOutgoingTrades($tournamentId, $_SESSION["id"], TRUE);
 $cardPool["incomingTradesPlanned"] = getIncomingTradesPlanned($tournamentId, $_SESSION["id"]);
 $cardPool["outgoingTradesPlanned"] = getOutgoingTradesPlanned($tournamentId, $_SESSION["id"]);
-$cardPool["pool"] = getCurrentCardPool($cardPool["initialPool"], $cardPool["incomingTrades"], $cardPool["outgoingTrades"]);
 
 $rounds = getRounds($tournamentId, 0);
 $tournamentData["rounds"] = $rounds;
 $roundsKeyValuePair = getRoundsKeyValuePair($rounds);
-
 $cardPool["receivedCardPacks"] = getReceivedCardPacks($tournamentId, $_SESSION["id"], $roundsKeyValuePair);
+
+$cardPool["pool"] = getCurrentCardPool($cardPool["initialPool"], $cardPool["incomingTrades"], $cardPool["outgoingTrades"], $cardPool["receivedCardPacks"]);
+
+
 
 $cardPool["shareStatus"] = getShareStatus($tournamentId, $_SESSION["id"]);
 

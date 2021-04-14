@@ -139,7 +139,8 @@ function getReceivedCardPacks($tournamentId, $accountId, $roundsKeyValuePair) {
             "cardManaCost" => $card_mana_cost,
             "cardColorIdentity" => $card_color_identity,
             "cardRarity" => $card_rarity,
-            "cardRarityNumeric" => rarityToNumber($card_rarity)
+            "cardRarityNumeric" => rarityToNumber($card_rarity),
+            "numberOfCards" => 1
         );
     
         array_push($cards, $card_item);

@@ -4,7 +4,7 @@ require_once '../../helper/errorHelper.php';
 require_once '../../helper/dbHelper.php';
 require_once '../../helper/magicCardHelper.php';
 
-function getCurrentCardPool($initialCardPool, $incomingTrades, $outGoingTrades) {
+function getCurrentCardPool($initialCardPool, $incomingTrades, $outGoingTrades, $receivedCardPacks) {
     $currentCardPool = $initialCardPool;
     
     foreach ($incomingTrades as &$card) {
@@ -22,6 +22,16 @@ function getCurrentCardPool($initialCardPool, $incomingTrades, $outGoingTrades) 
         
         if ($key) {
             $currentCardPool[$key]["numberOfCards"] = $currentCardPool[$key]["numberOfCards"] - 1;
+        }
+    }
+
+    foreach ($receivedCardPacks as &$card) {
+        $key = array_search($card["cardId"], array_column($currentCardPool, 'cardId'));
+        
+        if ($key) {
+            $currentCardPool[$key]["numberOfCards"] = $currentCardPool[$key]["numberOfCards"] + 1;
+        } else {
+            array_push($currentCardPool, $card);
         }
     }
 
