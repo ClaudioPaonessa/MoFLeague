@@ -8,7 +8,9 @@ app.controller("AdminTournamentController", function($scope, $routeParams, $http
     
     $scope.tournamentId = $routeParams.tournamentId;
     $scope.loadingTournament = true;
-    $scope.matches = []
+    $scope.matches = [];
+    $scope.participantPacks = [];
+    $scope.newPack = [];
     $scope.alertText = null;
     
     $scope.initTournament = function() {
@@ -65,6 +67,39 @@ app.controller("AdminTournamentController", function($scope, $routeParams, $http
         }).finally(function() {
 
         });
+    }
+
+    $scope.loadPacksForRound = function() {
+        $scope.loadingTournament = true;
+
+        $http.get(API_URL + '/api/admin/getPacksForRound.php/' + $scope.selectedRound).then( function ( response ) {
+            $scope.participantPacks = response.data.participantPacks
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+            $scope.loadingTournament = false;
+        });
+    }
+
+    $scope.addPack = function(accountId, idx) {
+        let packInfo = {
+            packString: $scope.newPack.packString[idx]
+        };
+
+        $http.post(API_URL + '/api/admin/addPack.php/' + $scope.selectedRound + '/' + accountId, packInfo).then( function ( response ) {
+            $scope.loadPacksForRound();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+
+        });
+    }
+
+    $scope.addPacksModal = function(round) {
+        $scope.selectedRound = round.roundId;
+        $scope.loadPacksForRound();
+
+        $("#addPacks").modal("show");
     }
 
     $scope.filterPlayedAndConfirmed = function(match) {

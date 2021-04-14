@@ -22,23 +22,27 @@
 
                         <span ng-show="round.completed" class="badge bg-secondary rounded-pill"><i class="fas fa-check"></i> Completed</span>
                         <span ng-show="round.active" class="badge rounded-pill text-dark" style="background-color: #4bc48b;">Active</span>
-
-                        <div class="btn-group btn-group-sm float-right" role="group">
-                            <button class="btn btn-secondary" ng-hide="round.completed" ng-click="changeRoundCompleted(round.roundId, true)">
-                                <i class="fas fa-check-square"></i> End round
-                            </button>
-
-                            <button class="btn btn-secondary" ng-show="round.completed" ng-click="changeRoundCompleted(round.roundId, false)">
-                                <i class="far fa-square"></i> Open round
-                            </button>
-
-                            <button class="btn btn-danger" ng-show="round.active" ng-click="resetActiveRound()">
-                                <i class="far fa-square"></i> Deactivate
-                            </button>
-                            
-                            <button class="btn btn-success" ng-hide="round.active" ng-click="setActiveRound(round.roundId)">
-                                <i class="far fa-caret-square-right"></i> Switch Active
-                            </button>
+                        
+                        <div class="float-right">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button class="btn btn-secondary" ng-hide="round.completed" ng-click="changeRoundCompleted(round.roundId, true)">
+                                    <i class="fas fa-check-square"></i> End round
+                                </button>
+    
+                                <button class="btn btn-secondary" ng-show="round.completed" ng-click="changeRoundCompleted(round.roundId, false)">
+                                    <i class="far fa-square"></i> Open round
+                                </button>
+    
+                                <button class="btn btn-danger" ng-show="round.active" ng-click="resetActiveRound()">
+                                    <i class="far fa-square"></i> Deactivate
+                                </button>
+                                
+                                <button class="btn btn-success" ng-hide="round.active" ng-click="setActiveRound(round.roundId)">
+                                    <i class="far fa-caret-square-right"></i> Switch Active
+                                </button>
+                            </div>
+    
+                            <button class="btn-sm btn-special ml-3" ng-click="addPacksModal(round)">Add Card Packs</button>
                         </div>
                     </li>
                 </ul>
@@ -196,6 +200,40 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-special" id="addPacks" tabindex="-1" role="dialog" aria-labelledby="addPacksModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPacksModal">Manage packs for round TODO</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item item-special" ng-repeat="participant in participantPacks">
+                        <b>{{participant.displayName}}</b> [{{participant.packCards.length}} cards]
+                        
+                        <div ng-hide="participant.packCards.length > 0">
+                            <form ng-submit="addPack(participant.accountId, $index)" class="form-inline" role="form">
+                                <input class="form-control" type="text" ng-model="newPack.packString[$index]">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </form>
+                        </div>
+
+                        <div class="d-flex align-content-start flex-wrap" ng-show="participant.packCards.length > 0">
+                            <img ng-repeat="card in participant.packCards" ng-src="{{card.cardImageUriLow}}" style="white-space: normal;" width="90px" class="img-responsive card-rounded">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
