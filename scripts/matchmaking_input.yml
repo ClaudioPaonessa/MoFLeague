@@ -1,0 +1,17 @@
+ranking:
+  - 3
+  - 5
+  - 1
+  - 0
+  - 8
+  - 198
+  - 12
+  - 9
+  - 110
+  - 27
+group_size: 3
+matches_per_round: 4
+already_played:
+  - 27;12
+  - 3;5
+  - 1;110
