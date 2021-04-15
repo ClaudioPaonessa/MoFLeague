@@ -9,6 +9,7 @@ require_once '../../helper/tournamentHelper.php';
 require_once '../../helper/rankingHelper.php';
 
 $tournamentId = getId();
+$roundId = getId();
 
 $rankingData = array();
 

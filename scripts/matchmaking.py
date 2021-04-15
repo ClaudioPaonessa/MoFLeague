@@ -113,13 +113,14 @@ if __name__ == "__main__":
 
     ALREADY_PLAYED = np.zeros((PLAYERS, PLAYERS), dtype=int)
     
-    for m in settings['already_played']:
-        p1, p2 = m.strip().split(';', maxsplit=2)
-        p1 = int(p1.strip())
-        p2 = int(p2.strip())
+    if settings['already_played'] is not None:
+        for m in settings['already_played']:
+            p1, p2 = m.strip().split(';', maxsplit=2)
+            p1 = int(p1.strip())
+            p2 = int(p2.strip())
 
-        ALREADY_PLAYED[player_dict[p1], player_dict[p2]] += 1
-        ALREADY_PLAYED[player_dict[p2], player_dict[p1]] += 1
+            ALREADY_PLAYED[player_dict[p1], player_dict[p2]] += 1
+            ALREADY_PLAYED[player_dict[p2], player_dict[p1]] += 1
 
     successes = 0
     tries = 1000
@@ -137,9 +138,10 @@ if __name__ == "__main__":
     print(f'{successes} / {tries}: {successes / tries *100}%')
     ratings = np.array(ratings)
     print(f'Mean: {ratings.mean()}, Min: {ratings.min()}, Max: {ratings.max()}')
-    print(f'Min index: {ratings.argmin()}')
     
     print(f'\nBest matchmaking:')
+    print(f'Copy lines between START and END')
+    print('----------------------------- START')
     best_pairings = successfull_pairings[ratings.argmin()]
 
     for p1 in range(PLAYERS):
@@ -147,3 +149,5 @@ if __name__ == "__main__":
             if p1 < p2:
                 if best_pairings[p1, p2] == 1:
                     print(f'{player_ids[p1]};{player_ids[p2]}')
+    
+    print('----------------------------- END')

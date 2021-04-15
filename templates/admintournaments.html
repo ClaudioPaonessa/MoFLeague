@@ -222,28 +222,58 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form ng-submit="createPairing()" role="form">
-                    <div class="form-group">
-                        <label for="player1">Player 1</label>
-                        <select class="form-control" ng-model="newPairing.accountId1" id="player1">
-                            <option ng-repeat="participant in participants" value="{{participant.accountId}}">{{participant.displayName}}</option>
-                          </select>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <h4>Automatic pairings</h4>
+                        <div class="form-group">
+                            <label>Matchmaking Input <small>(copy this to external matchmaker)</small></label>
+                            <textarea class="form-control" rows="4" readonly>{{matchmakingString}}</textarea>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="player2">Player 2</label>
-                        <select class="form-control" ng-model="newPairing.accountId2" id="player2">
-                            <option ng-repeat="participant in participants" value="{{participant.accountId}}">{{participant.displayName}}</option>
-                          </select>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <form ng-submit="createPairings()" role="form">
+                            <div class="form-group">
+                                <label>Pairings String (paste output from external matchmaker)</label>
+                                <textarea class="form-control" rows="4" ng-model="newPairings.pairingsString"></textarea>
+                            </div>
+        
+                            <button type="submit" class="btn btn-primary">Add Pairings</button>
+                        </form>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Add</button>
-                </form>
+                </div>
 
                 <hr>
 
+                <div class="row">
+                    <div class="col-xl-12">
+                        <h4>Manual pairings</h4>
+                        <form ng-submit="createPairing()" role="form">
+                            <div class="form-group">
+                                <label for="player1">Player 1</label>
+                                <select class="form-control" ng-model="newPairing.accountId1" id="player1">
+                                    <option ng-repeat="participant in participants" value="{{participant.accountId}}">{{participant.displayName}}</option>
+                                  </select>
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="player2">Player 2</label>
+                                <select class="form-control" ng-model="newPairing.accountId2" id="player2">
+                                    <option ng-repeat="participant in participants" value="{{participant.accountId}}">{{participant.displayName}}</option>
+                                  </select>
+                            </div>
+        
+                            <button type="submit" class="btn btn-primary">Add Pairing</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <hr>
+
                 <li class="list-group-item" ng-repeat="pairing in pairings">
-                    <b>{{pairing.matchId}}</b>: {{pairing.displayName1}} vs {{pairing.displayName2}}
+                    {{pairing.displayName1}} vs. {{pairing.displayName2}}
                     <button type="button" class="btn btn-danger" ng-click="removePairing(pairing.matchId)">Delete</button>
                 </li>
             </div>

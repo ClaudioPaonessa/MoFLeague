@@ -113,6 +113,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         $scope.selectedRound = round;
 
         $scope.loadPairings(round.roundId);
+        $scope.loadMatchmakingString(round.roundId);
         $scope.loadCurrentParticipants();
 
         $("#managePairings").modal("show");
@@ -123,6 +124,19 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
             $scope.loadRounds();
             $scope.loadPairings($scope.selectedRound.roundId);
             $scope.initTournaments();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+
+        });
+    }
+
+    $scope.createPairings = function() {
+        $http.post(API_URL + '/api/admin/createPairings.php/' + $scope.selectedRound.roundId, $scope.newPairings).then( function ( response ) {
+            $scope.loadRounds();
+            $scope.loadPairings($scope.selectedRound.roundId);
+            $scope.initTournaments();
+            $scope.newPairings.pairingsString = "";
         }, function ( response ) {
             $scope.alertText = response.data.error;
         }).finally(function() {
@@ -174,8 +188,22 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     }
 
     $scope.loadPairings = function(roundId) {
+        $scope.pairings = [];
+        
         $http.get(API_URL + '/api/tournament/tournamentRoundPairings.php/' + roundId).then( function ( response ) {
             $scope.pairings = response.data.records;
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+
+        });
+    }
+
+    $scope.loadMatchmakingString = function(roundId) {
+        $scope.matchmakingString = "";
+        
+        $http.get(API_URL + '/api/admin/getMatchMakingInputString.php/' + roundId).then( function ( response ) {
+            $scope.matchmakingString = response.data.yamlString;
         }, function ( response ) {
             $scope.alertText = response.data.error;
         }).finally(function() {

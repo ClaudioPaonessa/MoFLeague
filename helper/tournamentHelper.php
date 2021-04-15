@@ -39,6 +39,42 @@ function getTournamentGroupSize($tournamentId) {
     returnError("Tournament not found");
 }
 
+function getTournamentFromRound($roundId) {
+    $query = 'SELECT tr.tournament_id
+        FROM tournament_rounds AS tr
+        WHERE (tr.round_id = :round_id)';
+
+    $values = [':round_id' => $roundId];
+
+    $res = executeSQL($query, $values);
+    $row = $res->fetch(PDO::FETCH_ASSOC);
+    
+    if (is_array($row)) {
+        extract($row);
+        return intval($tournament_id);
+    }
+    
+    returnError("Round not found");
+}
+
+function getTournamentMatchesPerRound($tournamentId) {
+    $query = 'SELECT t.matches_per_round
+        FROM tournaments AS t
+        WHERE (t.tournament_id = :tournament_id)';
+
+    $values = [':tournament_id' => $tournamentId];
+
+    $res = executeSQL($query, $values);
+    $row = $res->fetch(PDO::FETCH_ASSOC);
+    
+    if (is_array($row)) {
+        extract($row);
+        return intval($matches_per_round);
+    }
+    
+    returnError("Tournament not found");
+}
+
 function getRounds($tournamentId, $currentRoundIndex) {
     $query = 'SELECT tr.round_id, tr.date_start, tr.date_end, tr.completed
     FROM tournament_rounds AS tr

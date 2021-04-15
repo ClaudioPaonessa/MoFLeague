@@ -52,6 +52,8 @@ function getRankingFromRounds($tournamentId, $accountId, $rounds, $groupSize) {
     $in = "";
     $i = 0;
 
+    //$in_params = array();
+
     foreach ($rounds as $item)
     {
         $key = ":id".$i++;
