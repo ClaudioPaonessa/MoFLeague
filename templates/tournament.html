@@ -106,10 +106,15 @@
                 <div class="list-group list-group-flush">
                     <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in matches | filter : filterPlayedNotConfirmed">
                         <div class="d-flex w-100 justify-content-between">
-                          <h5 class="mb-1">{{row.p1DisplayName}} vs. {{row.p2DisplayName}}</h5>
+                          <h5 class="mb-1">
+                              {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
+                          </h5>
                           <small>
-                            <span class="badge bg-primary text-light">{{row.player1GamesWon}} :
-                                {{row.player2GamesWon}}</span>
+                            <span class="badge bg-primary text-light">
+                                {{row.player1GamesWon}} : {{row.player2GamesWon}}
+                            </span>
+                            <span ng-show="row.winnerYou" class="badge rounded-pill bg-success text-light">You Won</span>
+                            <span ng-hide="row.winnerYou" class="badge rounded-pill bg-danger text-light">You Lost</span>
                             <span ng-show="row.reporterYou" class="badge rounded-pill bg-warning text-dark">Opponent
                                 pending</span>
                             <span ng-hide="row.reporterYou" class="badge rounded-pill bg-danger text-light">You
@@ -176,6 +181,8 @@
                               <h5 class="mb-1">{{row.p1DisplayName}} vs. {{row.p2DisplayName}}</h5>
                               <small>
                                 <span class="badge bg-primary text-light">{{row.player1GamesWon}} : {{row.player2GamesWon}}</span>
+                                <span ng-show="row.winnerYou" class="badge rounded-pill bg-success text-light">You Won</span>
+                                <span ng-hide="row.winnerYou" class="badge rounded-pill bg-danger text-light">You Lost</span>
                               </small>
                             </div>
                             <p class="mb-1 small">

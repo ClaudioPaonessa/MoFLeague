@@ -425,6 +425,14 @@ function getCurrentMatchesFiltered($roundId, $accountId) {
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         extract($row);
 
+        $won = FALSE;
+        
+        if ($player_id_1 == $accountId) {
+            $won = $player_1_games_won > $player_2_games_won;
+        } else {
+            $won = $player_2_games_won > $player_1_games_won;
+        }
+
         $match_item=array(
             "matchId" => $match_id,
             "playerId1" => $player_id_1,
@@ -442,7 +450,8 @@ function getCurrentMatchesFiltered($roundId, $accountId) {
             "tradedToP1Rarities" => explode(";", $cards_traded_to_p1_rarities),
             "tradedToP2Rarities" => explode(";", $cards_traded_to_p2_rarities),
             "resultConfirmed" => boolval($result_confirmed),
-            "reporterYou" => $reporter_account_id == $accountId
+            "reporterYou" => $reporter_account_id == $accountId,
+            "winnerYou" => $won
         );
     
         array_push($matches, $match_item);
@@ -482,6 +491,14 @@ function getMatchesFiltered($tournamentId, $accountId, $roundsKeyValuePair) {
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         extract($row);
 
+        $won = FALSE;
+        
+        if ($player_id_1 == $accountId) {
+            $won = $player_1_games_won > $player_2_games_won;
+        } else {
+            $won = $player_2_games_won > $player_1_games_won;
+        }
+
         $match_item=array(
             "matchId" => $match_id,
             "playerId1" => $player_id_1,
@@ -500,7 +517,8 @@ function getMatchesFiltered($tournamentId, $accountId, $roundsKeyValuePair) {
             "tradedToP1Rarities" => explode(";", $cards_traded_to_p1_rarities),
             "tradedToP2Rarities" => explode(";", $cards_traded_to_p2_rarities),
             "resultConfirmed" => boolval($result_confirmed),
-            "reporterYou" => $reporter_account_id == $accountId
+            "reporterYou" => $reporter_account_id == $accountId,
+            "winnerYou" => $won
         );
     
         array_push($matches, $match_item);

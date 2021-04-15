@@ -47,7 +47,7 @@ function getLiveRanking($tournamentId, $accountId, $groupSize) {
 }
 
 function getRankingFromRounds($tournamentId, $accountId, $rounds, $groupSize) {
-    $POINTS_FOR_MATCH = 3;
+    $POINTS_FOR_MATCH = 1;
 
     $in = "";
     $i = 0;
