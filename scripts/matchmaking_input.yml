@@ -1,9 +1,10 @@
 group_size: 2
 matches_per_round: 2
 already_played:
+  - 1;4
 ranking:
-  - 12
-  - 4
   - 1
+  - 4
   - 10
   - 11
+  - 12

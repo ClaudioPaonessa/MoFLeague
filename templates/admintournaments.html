@@ -200,7 +200,7 @@
                 <hr>
 
                 <li class="list-group-item" ng-repeat="round in rounds">
-                    <b>{{round.name}}</b>: {{round.dateStart}} to {{round.dateEnd}}
+                    <b>{{round.name}}</b>: {{round.dateStart}} to {{round.dateEnd}} [{{round.matches}} matches]
                     <button type="button" class="btn btn-danger" ng-click="removeRound(round.roundId)">Delete</button>
                     <button type="button" class="btn btn-primary" ng-click="managePairingsModal(round)">Pairings</button>
                 </li>
@@ -272,10 +272,16 @@
                 
                 <hr>
 
-                <li class="list-group-item" ng-repeat="pairing in pairings">
-                    {{pairing.displayName1}} vs. {{pairing.displayName2}}
-                    <button type="button" class="btn btn-danger" ng-click="removePairing(pairing.matchId)">Delete</button>
-                </li>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <h4>Pairings [{{pairings.length}}]</h4>
+                        <li class="list-group-item" ng-repeat="pairing in pairings">
+                            {{pairing.displayName1}} vs. {{pairing.displayName2}}
+                            <button type="button" class="btn btn-danger" ng-click="removePairing(pairing.matchId)">Delete</button>
+                        </li>
+                    </div>
+                </div>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

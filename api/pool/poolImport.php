@@ -20,7 +20,10 @@ $poolImportInfo["importErrors"] = "";
 
 $added = 0;
 
-resetCardPool($tournamentId, $_SESSION["id"]);
+
+$setId = getTournamentSetId($tournamentId);
+$errors = FALSE;
+$cardIds = array();
 
 foreach ( $lines as $line ) {
     $exploded = explode(" ", $line, 2);
@@ -31,12 +34,24 @@ foreach ( $lines as $line ) {
         $cardName = $splittedCard[0];
         
         for ($i = 0; $i < $cardCount; $i++) {
-            if (addCardToPool($tournamentId, $_SESSION["id"], $cardName)) {
-                $added++;
+            $cardId = getCardId($cardName, $setId);
+            
+            if ($cardId > 0) {
+                array_push($cardIds, $cardId);
             } else {
                 $poolImportInfo["importErrors"] .= "failed to add " . $cardName . "; ";
+                $errors = TRUE;
             }
         }
+    }
+}
+
+if (!$errors) {
+    resetCardPool($tournamentId, $_SESSION["id"]);
+
+    foreach ($cardIds as $cardId) {
+        $added++;
+        addCardToPool($tournamentId, $_SESSION["id"], $cardId);
     }
 }
 

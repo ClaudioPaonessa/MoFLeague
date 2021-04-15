@@ -344,10 +344,7 @@ function resetCardPool($tournamentId, $accountId) {
     executeSQL($query, $values);
 }
 
-function addCardToPool($tournamentId, $accountId, $cardName) {
-    $setId = getTournamentSetId($tournamentId);
-    $cardId = getCardId($cardName, $setId);
-
+function addCardToPool($tournamentId, $accountId, $cardId) {
     if ($cardId > 0) {
         $query = 'INSERT INTO initial_card_pool (tournament_id, account_id, card_id) VALUES (:tournament_id, :account_id, :card_id)';
         $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId, ':card_id' => $cardId];

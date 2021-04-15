@@ -40,7 +40,13 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
             $scope.outgoingTradesPlanned = response.data.outgoingTradesPlanned;
 
             $scope.shareStatus = response.data.shareStatus;
+            
             $scope.enrichedPool = []
+            $scope.enrichedIncomingTrades = []
+            $scope.enrichedOutgoingTrades = []
+            $scope.enrichedIncomingTradesPlanned = []
+            $scope.enrichedOutgoingTradesPlanned = []
+            $scope.enrichedReceivedCardPacks = []
 
             $scope.receivedCardPacks = response.data.receivedCardPacks;
 
