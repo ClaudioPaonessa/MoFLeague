@@ -24,6 +24,8 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
     $scope.enrichedIncomingTradesPlanned = []
     $scope.enrichedOutgoingTradesPlanned = []
     $scope.enrichedReceivedCardPacks = []
+
+    $scope.reimport = false;
     
     $scope.initPool = function() {
         $scope.loadingPool = true;
@@ -233,6 +235,10 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
         }
         
         $scope.poolSharing.pin = randomPin;
+    }
+
+    $scope.reimportAllowed = function() {
+        $scope.reimport = true;
     }
 
     $scope.copyUrlToClipboard = function() {

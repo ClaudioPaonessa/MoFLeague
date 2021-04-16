@@ -32,15 +32,16 @@
                         </form>
                     </div>
                 </div>
+
                 <div class="row" ng-show="shareStatus.poolPublic">
                     <div class="col-xl-8">
-                        You are currently sharing your pool with the PIN: <br><br>
-                        <span class="border" style="letter-spacing: 4px; padding: 5px;"><strong>{{shareStatus.poolPinCode}}</strong></span>
+                        You are currently sharing your pool. With the following link someone can access your Pool.
                     </div>
                     <div class="col-xl-4">
                         <button class="btn btn-special float-right" ng-click="stopSharePool()"><i class="far fa-stop-circle"></i> Stop Sharing</button>
                     </div>
                 </div>
+
                 <div class="row" ng-show="shareStatus.poolPublic">
                     <div class="col-xl-10">
                         <small><a href="{{shareStatus.shareUrl}}">{{shareStatus.shareUrl}}</a></small> 
@@ -49,11 +50,20 @@
                         <button class="btn btn-special btn-xs float-right" ng-click="copyUrlToClipboard()">Copy URL</button>
                     </div>
                 </div>
+
+                <div class="row mt-4" ng-hide="enrichedPool.length == 0">
+                    <div class="col-xl-8">
+                        <small>You want to reimport your initial pool?</small>
+                    </div>
+                    <div class="col-xl-4">
+                        <button class="btn btn-special btn-xs float-right" ng-click="reimportAllowed()">Open Import</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="col-xl-6">
+    <div class="col-xl-6" ng-show="enrichedPool.length == 0 || reimport">
         <div class="card card-special mb-4">
             <div class="card-header bg-1 text-center">
                 Manage Initial Pool
