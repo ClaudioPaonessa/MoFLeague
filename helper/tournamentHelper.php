@@ -273,7 +273,7 @@ function getCurrentRound($tournamentId, $roundsKeyValuePair) {
     if (array_key_exists($roundId, $roundsKeyValuePair)) {
         return $roundsKeyValuePair[$roundId];
     } else {
-        return "Final Standing";
+        return "None";
     }
 }
 
@@ -283,7 +283,7 @@ function getCurrentRoundVisible($tournamentId, $roundsVisibleKeyValuePair) {
     if (array_key_exists($roundId, $roundsVisibleKeyValuePair)) {
         return $roundsVisibleKeyValuePair[$roundId];
     } else {
-        return "Final Standing";
+        return "None";
     }
 }
 

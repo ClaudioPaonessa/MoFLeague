@@ -40,14 +40,15 @@ foreach ($completedRounds as &$completedRound) {
 
 $rankingData["liveRoundName"] = getCurrentRound($tournamentId, $roundsKeyValuePair);
 
-if (getCurrentRoundVisible($tournamentId, $roundsVisibleKeyValuePair)) {
-    $rankingData["liveRanking"] = getLiveRanking($tournamentId, $_SESSION["id"], $groupSize);
-} else {
-    $rankingData["liveRanking"] = array();
+if ($rankingData["liveRoundName"] != "None") {
+    if (getCurrentRoundVisible($tournamentId, $roundsVisibleKeyValuePair)) {
+        $rankingData["liveRanking"] = getLiveRanking($tournamentId, $_SESSION["id"], $groupSize);
+    } else {
+        $rankingData["liveRanking"] = array();
+    }
 }
 
 $rankingData["initialRanking"] = getInitialRanking($tournamentId, $_SESSION["id"], $groupSize);
-
 
 http_response_code(200);
 

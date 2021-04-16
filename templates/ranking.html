@@ -25,10 +25,10 @@
                             aria-controls="home" aria-selected="false">Initial Ranking</a>
                     </li>
                     <li class="nav-item" ng-repeat="completedRound in completedRounds">
-                        <a class="nav-link ml-2 nav-link-special" id="{{completedRound.roundId}}-tab" data-toggle="tab" data-target="#{{completedRound.roundId}}" role="tab"
+                        <a class="nav-link ml-2 nav-link-special" ng-class="((liveRoundName == 'None') && ($last)) ? 'active' : ''" id="{{completedRound.roundId}}-tab" data-toggle="tab" data-target="#{{completedRound.roundId}}" role="tab"
                             aria-controls="{{completedRound.roundId}}" aria-selected="false">{{completedRound.untilRound}} <small>(Final Ranking)</small></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" ng-hide="liveRoundName == 'None'">
                         <a class="nav-link ml-2 nav-link-special active" id="live-tab" data-toggle="tab" data-target="#live" role="tab"
                             aria-controls="live" aria-selected="true"><span style="color: #FF4940;"><i class="fas fa-circle"></i></span> {{liveRoundName}} <small>(Live Ranking)</small></a>
                     </li>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     
-                    <div class="tab-pane fade" ng-repeat="completedRound in completedRounds" id="{{completedRound.roundId}}" role="tabpanel" aria-labelledby="{{completedRound.roundId}}-tab">
+                    <div class="tab-pane fade" ng-repeat="completedRound in completedRounds" ng-class="((liveRoundName == 'None') && ($last)) ? 'show active' : ''" id="{{completedRound.roundId}}" role="tabpanel" aria-labelledby="{{completedRound.roundId}}-tab">
                         <div class="table-responsive">
                             <table class="table table-striped table-dark" width="100%" cellspacing="0">
                                 <thead>
@@ -98,8 +98,12 @@
                         </div>
                     </div>
                     
-                    <div ng-show="liveRanking.length > 0" class="tab-pane fade show active" id="live" role="tabpanel" aria-labelledby="live-tab">
-                        <div class="table-responsive">
+                    <div ng-hide="liveRoundName == 'None'" class="tab-pane fade show active" id="live" role="tabpanel" aria-labelledby="live-tab">
+                        <span ng-hide="liveRanking.length > 0">
+                            The ranking of this round is hidden.
+                        </span>
+                        
+                        <div class="table-responsive" ng-show="liveRanking.length > 0">
                             <table class="table table-striped table-dark" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
@@ -128,10 +132,6 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-
-                    <div ng-hide="liveRanking.length > 0" class="tab-pane fade show active" id="live" role="tabpanel" aria-labelledby="live-tab">
-                        The ranking of this round is hidden.
                     </div>
                 </div>
             </div>
