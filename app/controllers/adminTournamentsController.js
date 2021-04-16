@@ -202,7 +202,7 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
     $scope.loadMatchmakingString = function(roundId) {
         $scope.matchmakingString = "";
         
-        $http.get(API_URL + '/api/admin/getMatchMakingInputString.php/' + roundId).then( function ( response ) {
+        $http.get(API_URL + '/api/admin/getMatchmakingInputString.php/' + roundId).then( function ( response ) {
             $scope.matchmakingString = response.data.yamlString;
         }, function ( response ) {
             $scope.alertText = response.data.error;
