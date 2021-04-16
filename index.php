@@ -63,11 +63,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Tournaments
                             </a>
-                            <div class="sb-sidenav-menu-heading">History</div>
-                            <a class="nav-link" href="#!matchesHistory">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Matches
-                            </a>
                             <?php if ($_SESSION["admin"]): ?>
                             <div class="sb-sidenav-menu-heading">Admin</div>
                             <a class="nav-link" href="#!admin_sets">
