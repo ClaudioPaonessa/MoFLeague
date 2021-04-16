@@ -12,6 +12,8 @@ app.controller("AdminTournamentController", function($scope, $routeParams, $http
     $scope.participantPacks = [];
     $scope.newPack = [];
     $scope.alertText = null;
+
+    $scope.isActive = false;
     
     $scope.initTournament = function() {
         $scope.loadingTournament = true;
@@ -61,6 +63,26 @@ app.controller("AdminTournamentController", function($scope, $routeParams, $http
 
     $scope.resetActiveRound = function() {
         $http.get(API_URL + '/api/admin/resetActiveRound.php/' + $scope.tournamentId).then( function ( response ) {
+            $scope.initTournament();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+
+        });
+    }
+
+    $scope.hideRoundRanking = function(roundId) {
+        $http.get(API_URL + '/api/admin/hideRoundRanking.php/' + roundId).then( function ( response ) {
+            $scope.initTournament();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+
+        });
+    }
+
+    $scope.displayRoundRanking = function(roundId) {
+        $http.get(API_URL + '/api/admin/displayRoundRanking.php/' + roundId).then( function ( response ) {
             $scope.initTournament();
         }, function ( response ) {
             $scope.alertText = response.data.error;

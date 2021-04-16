@@ -41,7 +41,12 @@
                                     <i class="far fa-caret-square-right"></i> Switch Active
                                 </button>
                             </div>
-    
+
+                            <span ng-show="round.rankingVisible" class="ml-3"><i class="far fa-eye"></i> Visible Live Ranking</span>
+                            <span ng-hide="round.rankingVisible" class="ml-3"><i class="far fa-eye-slash"></i> Hidden Live Ranking</span>
+                            <button ng-show="round.rankingVisible" class="btn-sm btn-special" ng-click="hideRoundRanking(round.roundId)">Hide</button>
+                            <button ng-hide="round.rankingVisible" class="btn-sm btn-special" ng-click="displayRoundRanking(round.roundId)">Unhide</button>
+                            
                             <button class="btn-sm btn-special ml-3" ng-click="addPacksModal(round)">Add Card Packs</button>
                         </div>
                     </li>
@@ -114,7 +119,7 @@
                 <p ng-show='outstandingMatches.length == 0' class="text-center">No outstanding matches <i class="far fa-thumbs-up"></i></p>
 
                 <div ng-repeat="(key, value) in outstandingMatches = (allMatches | filter : filterNotPlayed | groupBy: 'roundName')">
-                    <h4>{{key}}</h4>
+                    <h4>{{key}} ({{value.length}})</h4>
                     <ul class="list-group list-group-flush" >
                         <li class="list-group-item item-special d-flex justify-content-between align-items-center" 
                         ng-repeat="row in value">
