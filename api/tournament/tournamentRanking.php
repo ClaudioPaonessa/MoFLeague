@@ -18,6 +18,7 @@ $groupSize = getTournamentGroupSize($tournamentId);
 
 $rounds = getAllRounds($tournamentId);
 $roundsKeyValuePair = getRoundsKeyValuePair($rounds);
+$roundsVisibleKeyValuePair = getRoundsVisibleKeyValuePair($rounds);
 
 $completedRounds = getCompletedRounds($tournamentId);
 
@@ -39,7 +40,12 @@ foreach ($completedRounds as &$completedRound) {
 
 $rankingData["liveRoundName"] = getCurrentRound($tournamentId, $roundsKeyValuePair);
 
-$rankingData["liveRanking"] = getLiveRanking($tournamentId, $_SESSION["id"], $groupSize);
+if (getCurrentRoundVisible($tournamentId, $roundsVisibleKeyValuePair)) {
+    $rankingData["liveRanking"] = getLiveRanking($tournamentId, $_SESSION["id"], $groupSize);
+} else {
+    $rankingData["liveRanking"] = array();
+}
+
 $rankingData["initialRanking"] = getInitialRanking($tournamentId, $_SESSION["id"], $groupSize);
 
 

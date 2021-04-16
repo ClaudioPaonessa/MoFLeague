@@ -239,6 +239,16 @@ function getRoundsKeyValuePair($rounds) {
     return $roundsKeyValuePair;
 }
 
+function getRoundsVisibleKeyValuePair($rounds) {
+    $roundsKeyValuePair = array();
+
+    foreach ($rounds as &$round) {
+        $roundsKeyValuePair[intval($round["roundId"])] = $round["rankingVisible"];
+    }
+
+    return $roundsKeyValuePair;
+}
+
 function getCurrentRoundIndex($tournamentId) {
     $query = 'SELECT t.active_round_id
         FROM tournaments AS t
@@ -260,7 +270,21 @@ function getCurrentRoundIndex($tournamentId) {
 function getCurrentRound($tournamentId, $roundsKeyValuePair) {
     $roundId = getCurrentRoundIndex($tournamentId);
     
-    return $roundsKeyValuePair[$roundId];
+    if (array_key_exists($roundId, $roundsKeyValuePair)) {
+        return $roundsKeyValuePair[$roundId];
+    } else {
+        return "Final Standing";
+    }
+}
+
+function getCurrentRoundVisible($tournamentId, $roundsVisibleKeyValuePair) {
+    $roundId = getCurrentRoundIndex($tournamentId);
+    
+    if (array_key_exists($roundId, $roundsVisibleKeyValuePair)) {
+        return $roundsVisibleKeyValuePair[$roundId];
+    } else {
+        return "Final Standing";
+    }
 }
 
 function getNumberOfRounds($tournamentId) {
