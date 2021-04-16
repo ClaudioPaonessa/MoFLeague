@@ -1,4 +1,4 @@
-var URL = "https://mof-league.com"
+var API_URL = "https://mof-league.com"
 
 if (window.location.hostname == 'localhost') {
     API_URL = "";
