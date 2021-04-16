@@ -13,7 +13,7 @@ $query = 'SELECT tr.round_id, tr.date_start, tr.date_end, COUNT(m.match_id) as m
             FROM tournament_rounds AS tr
             LEFT JOIN matches m ON (tr.round_id = m.tournament_round_id)
             WHERE (tournament_id = :tournament_id)
-            GROUP BY m.tournament_round_id
+            GROUP BY tr.round_id
             ORDER BY tr.date_start ASC';
 
 $values = [':tournament_id' => $tournamentId];
