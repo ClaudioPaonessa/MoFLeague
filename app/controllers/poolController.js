@@ -25,6 +25,8 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
     $scope.enrichedOutgoingTradesPlanned = []
     $scope.enrichedReceivedCardPacks = []
 
+    $scope.copyMessage = "";
+
     $scope.reimport = false;
     
     $scope.initPool = function() {
@@ -241,9 +243,33 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
         $scope.reimport = true;
     }
 
+    $scope.arenaExport = function() {
+        $http.get(API_URL + '/api/pool/poolExport.php/' + $scope.tournamentId).then( function ( response ) {
+            $scope.arenaString = response.data.arenaString;
+            $scope.copyDeckToClipboard();
+            $scope.copyMessage = "Deck copied to clipboard!";
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+            
+        });
+    }
+
     $scope.copyUrlToClipboard = function() {
         const el = document.createElement('textarea');
         el.value = $scope.shareStatus.shareUrl;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+    }
+
+    $scope.copyDeckToClipboard = function() {
+        const el = document.createElement('textarea');
+        el.value = $scope.arenaString;
         el.setAttribute('readonly', '');
         el.style.position = 'absolute';
         el.style.left = '-9999px';

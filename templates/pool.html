@@ -115,6 +115,13 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12">
+                        <button class="btn btn-special float-right" ng-click="arenaExport()"><i class="fas fa-file-export"></i> Export for Arena</button>
+                        <span class="badge badge-success float-right mr-4" ng-show="copyMessage">{{copyMessage}}</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-12">
                         <h2 class="mt-4">Filters</h2>
 
                         <div class="d-flex align-content-start flex-wrap">
