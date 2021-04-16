@@ -223,6 +223,26 @@ app.controller('AdminTournamentsController', function($scope, $http, DTOptionsBu
         });
     }
 
+    $scope.setPayed = function(accountId) {
+        $http.get(API_URL + '/api/admin/setParticipationPayed.php/' + $scope.selectedTournamentId + '/' + accountId).then( function ( response ) {
+            $scope.loadCurrentParticipants();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+
+        });
+    }
+
+    $scope.unsetPayed = function(accountId) {
+        $http.get(API_URL + '/api/admin/setParticipationNotPayed.php/' + $scope.selectedTournamentId + '/' + accountId).then( function ( response ) {
+            $scope.loadCurrentParticipants();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+
+        });
+    }
+
     $scope.removeParticipant = function(accountId) {
         $http.get(API_URL + '/api/admin/removeParticipant.php/' + $scope.selectedTournamentId + '/' + accountId).then( function ( response ) {
             $scope.loadAllAccounts();

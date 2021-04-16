@@ -156,6 +156,9 @@
                             <li class="list-group-item" ng-repeat="participant in participants | filter: filterParticipants">
                                 <button type="button" class="btn btn-danger" ng-click="removeParticipant(participant.accountId)"><i class="fas fa-arrow-left mr-1"></i> Remove</button>
                                 {{participant.displayName}} ([{{participant.initialRank}}])
+                                <span ng-show="participant.payed" style="color:rgb(94, 155, 119)"><i class="fas fa-money-bill-wave"></i></span>
+                                <button ng-hide="participant.payed" type="button" class="btn btn-sm btn-special" ng-click="setPayed(participant.accountId)"><i class="fas fa-hand-holding-usd"></i> Set Payed</button>
+                                <button ng-show="participant.payed" type="button" class="btn btn-sm btn-special" ng-click="unsetPayed(participant.accountId)">Reset Payed</button>
                             </li>
                         </ul>
                     </div>
