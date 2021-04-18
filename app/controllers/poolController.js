@@ -301,6 +301,12 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
         $scope.alertText = null;
     }
 
+    $scope.sum = function(items, prop) {
+        return items.reduce( function(a, b){
+            return parseInt(a) + parseInt(b[prop]);
+        }, 0);
+    }
+
     $scope.initPool();
     $scope.randomizePin();
 });
