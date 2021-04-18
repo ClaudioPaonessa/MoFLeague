@@ -42,6 +42,10 @@ function getCardType($card_type_line) {
         return "Sorceries";
     }
 
+    if (strpos($card_type_line, "Planeswalker") !== false) {
+        return "Planeswalkers";
+    }
+
     return "Others";
 }
 
