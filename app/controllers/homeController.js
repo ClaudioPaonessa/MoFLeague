@@ -27,6 +27,10 @@ app.controller("HomeController", function($scope, $http, $window) {
                 $window.location.href = '/#!/tournaments';
             }
         }, function ( response ) {
+            if (response.status == 401) {
+                $window.location.href = '/auth/login.php';
+            }
+
             $scope.alertText = response.data.error;
         }).finally(function() {
             

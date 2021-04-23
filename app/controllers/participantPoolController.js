@@ -4,7 +4,7 @@ if (window.location.hostname == 'localhost') {
     API_URL = "";
 }
 
-app.controller("ParticipantPoolController", function($scope, $routeParams, $location, $http) {
+app.controller("ParticipantPoolController", function($scope, $routeParams, $location, $http, $window) {
     
     $scope.tournamentId = $routeParams.tournamentId;
     $scope.accountId = $location.search().accountId;
@@ -56,6 +56,10 @@ app.controller("ParticipantPoolController", function($scope, $routeParams, $loca
             });
 
         }, function ( response ) {
+            if (response.status == 401) {
+                $window.location.href = '/auth/login.php';
+            }
+
             $scope.alertText = response.data.error;
         }).finally(function() {
             $scope.loadingPool = false;

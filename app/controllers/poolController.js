@@ -8,7 +8,7 @@ else {
     SHAREURL_PART = URL;
 }
 
-app.controller("PoolController", function($scope, $routeParams, $http) {
+app.controller("PoolController", function($scope, $routeParams, $http, $window) {
     
     $scope.tournamentId = $routeParams.tournamentId;
     $scope.loadingPool = true;
@@ -160,6 +160,10 @@ app.controller("PoolController", function($scope, $routeParams, $http) {
             });
 
         }, function ( response ) {
+            if (response.status == 401) {
+                $window.location.href = '/auth/login.php';
+            }
+
             $scope.alertText = response.data.error;
         }).finally(function() {
             $scope.loadingPool = false;
