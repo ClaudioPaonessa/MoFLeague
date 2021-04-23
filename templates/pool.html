@@ -137,9 +137,19 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row mt-4">
+                    <div class="col-xl-4">
+                        <div class="form-group">
+                            <label for="cardQuery">Card Name</label>
+                            <input class="form-control" type="text" id="cardQuery" placeholder="Filter by card name..." aria-label="Search" ng-model="cardQuery">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-xl-12">
-                        <div ng-repeat="(key, cards) in enrichedPool | filter: rarityFilter | groupBy: 'cardType'">
+                        <div ng-repeat="(key, cards) in enrichedPool | filter: rarityFilter | filter: { name: cardQuery } | groupBy: 'cardType'">
                             <h3 class="mt-4">{{key}} ({{sum(cards, 'numberOfCards')}})</h3>
 
                             <div class="d-flex align-content-start flex-wrap">
