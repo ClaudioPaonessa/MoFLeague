@@ -13,6 +13,7 @@ function getCurrentCardPool($initialCardPool, $incomingTrades, $outGoingTrades, 
         if ($key !== false) {
             $currentCardPool[$key]["numberOfCards"] = $currentCardPool[$key]["numberOfCards"] + 1;
         } else {
+            $card["numberOfCards"] = 1;
             array_push($currentCardPool, $card);
         }
     }
@@ -31,6 +32,7 @@ function getCurrentCardPool($initialCardPool, $incomingTrades, $outGoingTrades, 
         if ($key !== false) {
             $currentCardPool[$key]["numberOfCards"] = $currentCardPool[$key]["numberOfCards"] + 1;
         } else {
+            $card["numberOfCards"] = 1;
             array_push($currentCardPool, $card);
         }
     }
