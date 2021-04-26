@@ -29,7 +29,7 @@ if (checkPin($tournamentId, $accountId, $poolPinCode)) {
     $rounds = getRounds($tournamentId, 0);
     $tournamentData["rounds"] = $rounds;
     $roundsKeyValuePair = getRoundsKeyValuePair($rounds);
-    $cardPool["receivedCardPacks"] = getReceivedCardPacks($tournamentId, $_SESSION["id"], $roundsKeyValuePair);
+    $cardPool["receivedCardPacks"] = getReceivedCardPacks($tournamentId, $accountId, $roundsKeyValuePair);
 
     $cardPool["pool"] = getCurrentCardPool($cardPool["initialPool"], $cardPool["incomingTrades"], $cardPool["outgoingTrades"], $cardPool["receivedCardPacks"]);
 } else {
