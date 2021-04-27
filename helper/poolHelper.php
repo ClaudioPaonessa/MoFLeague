@@ -18,14 +18,6 @@ function getCurrentCardPool($initialCardPool, $incomingTrades, $outGoingTrades, 
         }
     }
 
-    foreach ($outGoingTrades as &$card) {
-        $key = array_search($card["cardId"], array_column($currentCardPool, 'cardId'));
-        
-        if ($key !== false) {
-            $currentCardPool[$key]["numberOfCards"] = $currentCardPool[$key]["numberOfCards"] - 1;
-        }
-    }
-
     foreach ($receivedCardPacks as &$card) {
         $key = array_search($card["cardId"], array_column($currentCardPool, 'cardId'));
         
@@ -34,6 +26,14 @@ function getCurrentCardPool($initialCardPool, $incomingTrades, $outGoingTrades, 
         } else {
             $card["numberOfCards"] = 1;
             array_push($currentCardPool, $card);
+        }
+    }
+
+    foreach ($outGoingTrades as &$card) {
+        $key = array_search($card["cardId"], array_column($currentCardPool, 'cardId'));
+        
+        if ($key !== false) {
+            $currentCardPool[$key]["numberOfCards"] = $currentCardPool[$key]["numberOfCards"] - 1;
         }
     }
 
