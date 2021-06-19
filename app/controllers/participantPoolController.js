@@ -30,6 +30,8 @@ app.controller("ParticipantPoolController", function($scope, $routeParams, $loca
             $scope.displayName = response.data.displayName;
             $scope.enrichedPool = []
             
+            var cardIdx = 0;
+
             $scope.pool.forEach(function(card) {
                 if (card.numberOfCards < 1) {
                     return;
@@ -49,7 +51,9 @@ app.controller("ParticipantPoolController", function($scope, $routeParams, $loca
                     imageUriBack: card.cardImageUriBack,
                     imageUriLowBack: card.cardImageUriLowBack,
                     rarity: card.cardRarity,
-                    rarityNumeric: card.cardRarityNumeric
+                    rarityNumeric: card.cardRarityNumeric,
+                    marked: false,
+                    idx: cardIdx++
                 }
 
                 $scope.enrichedPool.push(enrichedCard)
@@ -83,6 +87,10 @@ app.controller("ParticipantPoolController", function($scope, $routeParams, $loca
     $scope.rarityFilter = function (card) {
         return Object.values($scope.filterItemsRarity).every(v => v === false) || $scope.filterItemsRarity[card.rarity];
     };
+
+    $scope.toggleMarkCard = function(cardIdxSearch) {
+        $scope.enrichedPool[cardIdxSearch].marked = !$scope.enrichedPool[cardIdxSearch].marked;
+    }
 
     $scope.closeAlert = function() {
         $scope.alertText = null;

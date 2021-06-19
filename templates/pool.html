@@ -153,7 +153,7 @@
                             <h3 class="mt-4">{{key}} ({{sum(cards, 'numberOfCards')}})</h3>
 
                             <div class="d-flex align-content-start flex-wrap">
-                                <button ng-repeat="card in cards | orderBy:['colorIdentity', '-rarityNumeric']" style="white-space: normal;" type="button" class="btn btn-special2 p-0 m-2 pool-card includer" uib-popover-template="'cardPopover.html'" 
+                                <button ng-repeat="card in cards | orderBy:['colorIdentity', '-rarityNumeric']" ng-click="toggleMarkCard(card.idx)" ng-class="card.marked ? 'card-marked' : ''" style="white-space: normal;" type="button" class="btn btn-special2 p-0 m-2 pool-card includer" uib-popover-template="'cardPopover.html'" 
                                 popover-placement="bottom" popover-trigger="'mouseenter'">
                                     <img ng-src="{{card.imageUriLow}}" width="120px" class="img-responsive card-rounded">
                                     <img ng-show="card.imageUriLowBack" ng-src="{{card.imageUriLowBack}}" width="90px" class="img-responsive card-rounded">

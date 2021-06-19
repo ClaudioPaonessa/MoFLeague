@@ -10672,6 +10672,10 @@ img.inverted {
   padding-top: 3px;
 }
 
+.card-marked {
+  border: 5px solid yellow !important;
+}
+
 .opacity-10 {
   opacity: 0.1; }
 
