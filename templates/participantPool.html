@@ -19,7 +19,25 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-12">
-                        <h2 class="mt-4">Filters</h2>
+                        <h2 class="mt-4">Color Filter</h2>
+
+                        <div class="d-flex align-content-start flex-wrap">
+                            <div ng-repeat="item in itemsColorIdentity" class="mr-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" ng-model="filterItemsColorIdentity[item.name]">
+                                    <label class="form-check-label">
+                                        <img src="/img/{{item.name}}.png" width="20">
+                                        {{item.displayName}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-xl-12">
+                        <h2 class="mt-4">Rarity Filter</h2>
 
                         <div class="d-flex align-content-start flex-wrap">
                             <div ng-repeat="item in itemsRarity" class="mr-4">
@@ -45,7 +63,7 @@
 
                 <div class="row">
                     <div class="col-xl-12">
-                        <div ng-repeat="(key, cards) in enrichedPool | filter: rarityFilter | filter: { name: cardQuery } | groupBy: 'cardType'">
+                        <div ng-repeat="(key, cards) in enrichedPool | filter: rarityFilter | filter: colorIdentityFilter | filter: { name: cardQuery } | groupBy: 'cardType'">
                             <h3 class="mt-4">{{key}} ({{sum(cards, 'numberOfCards')}})</h3>
 
                             <div class="d-flex align-content-start flex-wrap">

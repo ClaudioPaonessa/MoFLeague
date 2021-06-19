@@ -66,12 +66,15 @@ app.controller("PoolController", function($scope, $routeParams, $http, $window) 
                 }
                 
                 var manaRegex = card.cardManaCost.match(regex);
+
+                console.log(card.cardColorIdentity);
                 
                 var enrichedCard = {
                     name: card.cardName,
                     typeLine: card.cardTypeLine,
                     numberOfCards: card.numberOfCards,
                     mana: manaRegex ? manaRegex.map(m => m.slice(1, -1).replace('/', '')) : [],
+                    manaStr: card.cardManaCost,
                     colorIdentity: card.cardColorIdentity,
                     cardType: card.cardType,
                     imageUri: card.cardImageUri,
@@ -81,7 +84,13 @@ app.controller("PoolController", function($scope, $routeParams, $http, $window) 
                     rarity: card.cardRarity,
                     rarityNumeric: card.cardRarityNumeric,
                     marked: false,
-                    idx: cardIdx++
+                    idx: cardIdx++,
+                    identityW: card.cardColorIdentity.includes("W"),
+                    identityU: card.cardColorIdentity.includes("U"),
+                    identityB: card.cardColorIdentity.includes("B"),
+                    identityR: card.cardColorIdentity.includes("R"),
+                    identityG: card.cardColorIdentity.includes("G"),
+                    identityC: card.cardColorIdentity.length == 0
                 }
 
                 $scope.enrichedPool.push(enrichedCard)
@@ -292,7 +301,7 @@ app.controller("PoolController", function($scope, $routeParams, $http, $window) 
         'uncommon': false,
         'rare': false,
         'mythic': false
-      };
+    };
 
     $scope.itemsRarity = [
         { name: 'common', displayName: 'Common' }, 
@@ -301,8 +310,36 @@ app.controller("PoolController", function($scope, $routeParams, $http, $window) 
         { name: 'mythic', displayName: 'Mythic' }
     ];
 
+    $scope.filterItemsColorIdentity = {
+        'W': false,
+        'U': false,
+        'B': false,
+        'R': false,
+        'G': false,
+        'C': false
+    };
+
+    $scope.itemsColorIdentity = [
+        { name: 'W', displayName: 'Plains' }, 
+        { name: 'U', displayName: 'Island' }, 
+        { name: 'B', displayName: 'Swamp' },
+        { name: 'R', displayName: 'Mountain' },
+        { name: 'G', displayName: 'Forest' },
+        { name: 'C', displayName: 'None' }
+    ];
+
     $scope.rarityFilter = function (card) {
         return Object.values($scope.filterItemsRarity).every(v => v === false) || $scope.filterItemsRarity[card.rarity];
+    };
+
+    $scope.colorIdentityFilter = function (card) {
+        return Object.values($scope.filterItemsColorIdentity).every(v => v === false) || 
+            (card.identityW && $scope.filterItemsColorIdentity["W"]) ||
+            (card.identityU && $scope.filterItemsColorIdentity["U"]) ||
+            (card.identityB && $scope.filterItemsColorIdentity["B"]) ||
+            (card.identityR && $scope.filterItemsColorIdentity["R"]) ||
+            (card.identityG && $scope.filterItemsColorIdentity["G"]) ||
+            (card.identityC && $scope.filterItemsColorIdentity["C"]);
     };
 
     $scope.toggleMarkCard = function(cardIdxSearch) {
