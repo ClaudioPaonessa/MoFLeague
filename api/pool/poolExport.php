@@ -36,6 +36,8 @@ foreach ($cardPool["pool"] as &$card) {
     }
 }
 
+$cardPoolExport["arenaString"] .= "20 Plains\n" . "20 Island\n" . "20 Swamp\n" . "20 Mountain\n" . "20 Forest\n";
+
 echo json_encode($cardPoolExport);
 
 http_response_code(200);
