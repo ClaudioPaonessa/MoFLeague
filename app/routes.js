@@ -23,6 +23,10 @@ app.config(['$routeProvider',
 	            templateUrl: 'templates/admintournament.html',
 	            controller: 'AdminTournamentController'
 	        })
+			.when('/admin_ranking/:tournamentId', {
+				templateUrl: 'templates/adminranking.html',
+				controller: 'AdminRankingController'
+			})
 			.when('/tournament/:tournamentId', {
 				templateUrl: 'templates/tournament.html',
 				controller: 'TournamentController'

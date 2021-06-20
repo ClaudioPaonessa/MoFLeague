@@ -143,5 +143,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <script src="app/controllers/adminSetsController.js"></script>
         <script src="app/controllers/adminTournamentsController.js"></script>
         <script src="app/controllers/adminTournamentController.js"></script>
+        <script src="app/controllers/adminRankingController.js"></script>
     </body>
 </html>
