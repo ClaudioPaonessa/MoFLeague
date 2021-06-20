@@ -25,17 +25,19 @@ $completedRounds = getCompletedRounds($tournamentId);
 $rankingData["completedRounds"] = array();
 
 foreach ($completedRounds as &$completedRound) {
-    $previousCompletedRounds = getPreviousCompletedRoundsForRanking($tournamentId, $completedRound);
+    if (!$completedRound["hidden"]) {
+        $previousCompletedRounds = getPreviousCompletedRoundsForRanking($tournamentId, $completedRound);
 
-    $completedRanking = getRankingFromRounds($tournamentId, $_SESSION["id"], $previousCompletedRounds, $groupSize);
+        $completedRanking = getRankingFromRounds($tournamentId, $_SESSION["id"], $previousCompletedRounds, $groupSize);
 
-    $roundItem=array(
-        "roundId" => "r" . $completedRound["roundId"],
-        "untilRound" => $completedRound["name"],
-        "ranking" => $completedRanking
-    );
+        $roundItem=array(
+            "roundId" => "r" . $completedRound["roundId"],
+            "untilRound" => $completedRound["name"],
+            "ranking" => $completedRanking
+        );
 
-    array_push($rankingData["completedRounds"], $roundItem);
+        array_push($rankingData["completedRounds"], $roundItem);
+    }
 }
 
 $rankingData["liveRoundName"] = getCurrentRound($tournamentId, $roundsKeyValuePair);

@@ -141,7 +141,7 @@ function getAllRounds($tournamentId) {
 }
 
 function getCompletedRounds($tournamentId) {
-    $query = 'SELECT tr.round_id, tr.date_start, tr.date_end
+    $query = 'SELECT tr.round_id, tr.date_start, tr.date_end, tr.hide_ranking
     FROM tournament_rounds AS tr
     WHERE (tournament_id = :tournament_id) AND (completed = TRUE)
     ORDER BY tr.date_start ASC';
@@ -161,7 +161,8 @@ function getCompletedRounds($tournamentId) {
             "roundId" => $round_id,
             "name" => "Round " . $i++,
             "dateStart" =>  $date_start,
-            "dateEnd" => $date_end
+            "dateEnd" => $date_end,
+            "hidden" => boolval($hide_ranking)
         );
 
         array_push($completedRounds, $roundItem);
