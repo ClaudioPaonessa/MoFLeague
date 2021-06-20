@@ -80,9 +80,9 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center"
                         ng-repeat="row in outstandingMatches = (matches | filter : filterNotPlayed)">
-                        <span><b>{{row.p1DisplayName}}</b> <span
+                        <span><a ng-href="#!profile/{{row.playerId1}}"><b>{{row.p1DisplayName}}</b></a> <span
                                 ng-if="row.p1MTGArenaName">({{row.p1MTGArenaName}})</span> vs.
-                            <b>{{row.p2DisplayName}}</b> <span
+                                <a ng-href="#!profile/{{row.playerId2}}"><b>{{row.p2DisplayName}}</b></a> <span
                                 ng-if="row.p2MTGArenaName">({{row.p2MTGArenaName}})</span></span>
 
                         <button class="btn btn-special" ng-click="reportMatchResultModal(row)">Report Result</button>
@@ -107,7 +107,7 @@
                     <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in matches | filter : filterPlayedNotConfirmed">
                         <div class="d-flex w-100 justify-content-between">
                           <h5 class="mb-1">
-                              {{row.p1DisplayName}} vs. {{row.p2DisplayName}}
+                            <a ng-href="#!profile/{{row.playerId1}}">{{row.p1DisplayName}}</a> vs. <a ng-href="#!profile/{{row.playerId2}}">{{row.p2DisplayName}}</a>
                           </h5>
                           <small>
                             <span class="badge bg-primary text-light">
@@ -178,7 +178,9 @@
                     <div class="list-group list-group-flush">
                         <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in value">
                             <div class="d-flex w-100 justify-content-between">
-                              <h5 class="mb-1">{{row.p1DisplayName}} vs. {{row.p2DisplayName}}</h5>
+                              <h5 class="mb-1">
+                                  <a ng-href="#!profile/{{row.playerId1}}">{{row.p1DisplayName}}</a> vs. <a ng-href="#!profile/{{row.playerId2}}">{{row.p2DisplayName}}</a>
+                              </h5>
                               <small>
                                 <span class="badge bg-primary text-light">{{row.player1GamesWon}} : {{row.player2GamesWon}}</span>
                                 <span ng-show="row.winnerYou" class="badge rounded-pill bg-success text-light">You Won</span>

@@ -8,7 +8,6 @@ app.controller("RankingController", function($scope, $routeParams, $http, $windo
     
     $scope.tournamentId = $routeParams.tournamentId;
     $scope.loadingRanking = true;
-    $scope.ranking = [];
     $scope.alertText = null;
     
     $scope.initRanking = function() {

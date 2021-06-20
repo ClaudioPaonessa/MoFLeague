@@ -53,8 +53,10 @@
                                         <td>{{row.rank}}</td>
                                         <td>{{row.group}}</td>
                                         <td>
-                                            {{row.displayName}} <span ng-show="row.you"
+                                            <a ng-href="#!profile/{{row.playerId}}">
+                                                {{row.displayName}} <span ng-show="row.you"
                                                 class="badge rounded-pill bg-danger text-light">You</span>
+                                            </a>
                                         </td>
                                         <td><b>{{row.totalPoints}}</b></td>
                                         <td>{{row.OMP}}% / {{row.GWP}}% / {{row.OGP}}%</td>
@@ -85,8 +87,10 @@
                                         <td>{{row.rank}}</td>
                                         <td>{{row.group}}</td>
                                         <td>
-                                            {{row.displayName}} <span ng-show="row.you"
-                                                class="badge rounded-pill bg-danger text-light">You</span>
+                                            <a ng-href="#!profile/{{row.playerId}}">
+                                                {{row.displayName}} <span ng-show="row.you"
+                                                    class="badge rounded-pill bg-danger text-light">You</span>
+                                            </a>
                                         </td>
                                         <td><b>{{row.totalPoints}}</b></td>
                                         <td>{{row.OMP}}% / {{row.GWP}}% / {{row.OGP}}%</td>
@@ -121,8 +125,10 @@
                                         <td>{{row.rank}}</td>
                                         <td>{{row.group}}</td>
                                         <td>
-                                            {{row.displayName}} <span ng-show="row.you"
-                                                class="badge rounded-pill bg-danger text-light">You</span>
+                                            <a ng-href="#!profile/{{row.playerId}}">
+                                                {{row.displayName}} <span ng-show="row.you"
+                                                    class="badge rounded-pill bg-danger text-light">You</span>
+                                            </a>
                                         </td>
                                         <td><b>{{row.totalPoints}}</b></td>
                                         <td>{{row.OMP}}% / {{row.GWP}}% / {{row.OGP}}%</td>

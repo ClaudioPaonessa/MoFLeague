@@ -97,7 +97,7 @@
                         <td>{{row.roundCount}} rounds ({{row.startDate}} to {{row.endDate}})</td>
                         <td>
                             <div class="d-flex align-items-start">
-                                <a href="#!admin_tournament/{{row.tournamentId}}" class="btn btn-special-filled m-2">Dashboard</a>
+                                <a ng-href="#!admin_tournament/{{row.tournamentId}}" class="btn btn-special-filled m-2">Dashboard</a>
                                 <button class="btn btn-special m-2" ng-click="manageParticipantsModal(row)">Manage participants</button>
                                 <button class="btn btn-special m-2" ng-click="manageRoundsModal(row)">Manage rounds</button>
                                 <button class="btn btn-danger m-2" ng-click="deleteModalTournament(row)">Delete</button>
