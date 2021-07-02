@@ -1,18 +1,24 @@
 <?php
 
 function getLiveRanking($tournamentId, $accountId, $groupSize) {
-    $POINTS_FOR_MATCH = 1;
+    if ($tournamentId == 1) {
+        $POINTS_FOR_MATCH_WIN = 1;
+        $POINTS_FOR_MATCH_CLOSE_LOST = 0;
+    } else {
+        $POINTS_FOR_MATCH_WIN = 3;
+        $POINTS_FOR_MATCH_CLOSE_LOST = 1;
+    } 
 
-    $query = 'SELECT ra.player_id AS player_id, matches_won * :points_for_match AS total_points, ra.display_name AS display_name, SUM(matches_played) AS matches_played, 
-            SUM(matches_won) AS matches_won, SUM(games_played) AS games_played, SUM(games_won) AS games_won,
+    $query = 'SELECT ra.player_id AS player_id, ((matches_won * :points_for_match) + (matches_close_lost * :points_for_match_close)) AS total_points, ra.display_name AS display_name, SUM(matches_played) AS matches_played, 
+            SUM(matches_won) AS matches_won, SUM(matches_close_lost) AS matches_close_lost, SUM(games_played) AS games_played, SUM(games_won) AS games_won,
             SUM(matches_won) / SUM(matches_played) AS MWP, SUM(games_won) / SUM(games_played) AS GWP, opponents AS opponents
         FROM (
             SELECT r.player_id AS player_id, r.display_name AS display_name, COUNT(r.match_id) AS matches_played, 
-            SUM(r.match_won) AS matches_won, SUM(player_games) + SUM(opponent_games) AS games_played,
+            SUM(r.match_won) AS matches_won, SUM(r.match_close_lost) AS matches_close_lost, SUM(player_games) + SUM(opponent_games) AS games_played,
             SUM(player_games) AS games_won, GROUP_CONCAT(r.opponent_id) as opponents
             FROM (
                 SELECT mr.match_id, m.player_id_1 AS player_id, m.player_id_2 AS opponent_id, mr.player_1_games_won AS player_games, mr.player_2_games_won AS opponent_games,
-                    a.display_name AS display_name, mr.player_1_games_won > mr.player_2_games_won AS match_won
+                    a.display_name AS display_name, mr.player_1_games_won > mr.player_2_games_won AS match_won, mr.player_1_games_won = 1 AS match_close_lost
                 FROM match_results AS mr
                 LEFT JOIN matches m on mr.match_id = m.match_id
                 LEFT JOIN accounts a on m.player_id_1 = a.account_id
@@ -22,7 +28,7 @@ function getLiveRanking($tournamentId, $accountId, $groupSize) {
                 UNION
                 
                 SELECT mr.match_id, m.player_id_2 AS player_id, m.player_id_1 AS opponent_id, mr.player_2_games_won AS player_games, mr.player_1_games_won AS opponent_games,
-                    a.display_name AS display_name, mr.player_2_games_won > mr.player_1_games_won AS match_won
+                    a.display_name AS display_name, mr.player_2_games_won > mr.player_1_games_won AS match_won, mr.player_2_games_won = 1 AS match_close_lost
                 FROM match_results AS mr
                 LEFT JOIN matches m on mr.match_id = m.match_id
                 LEFT JOIN accounts a on m.player_id_2 = a.account_id
@@ -33,7 +39,7 @@ function getLiveRanking($tournamentId, $accountId, $groupSize) {
             
             UNION
             
-            SELECT DISTINCT tp.account_id AS player_id, a.display_name AS display_name, 0 AS matches_played, 0 AS matches_won, 0 AS games_played, 0 AS games_won, "" AS opponents
+            SELECT DISTINCT tp.account_id AS player_id, a.display_name AS display_name, 0 AS matches_played, 0 AS matches_won, 0 AS matches_close_lost, 0 AS games_played, 0 AS games_won, "" AS opponents
             FROM tournament_participants AS tp
             LEFT JOIN accounts a ON tp.account_id = a.account_id
             WHERE (tp.tournament_id = :tournament_id)
@@ -41,13 +47,19 @@ function getLiveRanking($tournamentId, $accountId, $groupSize) {
         GROUP BY ra.player_id
         ORDER BY total_points DESC';
 
-    $values = [':tournament_id' => $tournamentId, ':points_for_match' => $POINTS_FOR_MATCH];
+    $values = [':tournament_id' => $tournamentId, ':points_for_match' => $POINTS_FOR_MATCH_WIN, ':points_for_match_close' => $POINTS_FOR_MATCH_CLOSE_LOST];
 
     return getRanking($accountId, $query, $values, $groupSize);
 }
 
 function getRankingFromRounds($tournamentId, $accountId, $rounds, $groupSize) {
-    $POINTS_FOR_MATCH = 1;
+    if ($tournamentId == 1) {
+        $POINTS_FOR_MATCH_WIN = 1;
+        $POINTS_FOR_MATCH_CLOSE_LOST = 0;
+    } else {
+        $POINTS_FOR_MATCH_WIN = 3;
+        $POINTS_FOR_MATCH_CLOSE_LOST = 1;
+    }    
 
     $in = "";
     $i = 0;
@@ -62,16 +74,16 @@ function getRankingFromRounds($tournamentId, $accountId, $rounds, $groupSize) {
     }
     $in = rtrim($in,","); // :id0,:id1,:id2
 
-    $query = 'SELECT ra.player_id AS player_id, matches_won * :points_for_match AS total_points, ra.display_name AS display_name, SUM(matches_played) AS matches_played, 
-            SUM(matches_won) AS matches_won, SUM(games_played) AS games_played, SUM(games_won) AS games_won,
+    $query = 'SELECT ra.player_id AS player_id, ((matches_won * :points_for_match) + (matches_close_lost * :points_for_match_close)) AS total_points, ra.display_name AS display_name, SUM(matches_played) AS matches_played, 
+            SUM(matches_won) AS matches_won, SUM(matches_close_lost) AS matches_close_lost, SUM(games_played) AS games_played, SUM(games_won) AS games_won,
             SUM(matches_won) / SUM(matches_played) AS MWP, SUM(games_won) / SUM(games_played) AS GWP, opponents AS opponents
         FROM (
             SELECT r.player_id AS player_id, r.display_name AS display_name, COUNT(r.match_id) AS matches_played, 
-            SUM(r.match_won) AS matches_won, SUM(player_games) + SUM(opponent_games) AS games_played,
+            SUM(r.match_won) AS matches_won, SUM(r.match_close_lost) AS matches_close_lost, SUM(player_games) + SUM(opponent_games) AS games_played,
             SUM(player_games) AS games_won, GROUP_CONCAT(r.opponent_id) as opponents
             FROM (
                 SELECT mr.match_id, m.player_id_1 AS player_id, m.player_id_2 AS opponent_id, mr.player_1_games_won AS player_games, mr.player_2_games_won AS opponent_games,
-                    a.display_name AS display_name, mr.player_1_games_won > mr.player_2_games_won AS match_won
+                    a.display_name AS display_name, mr.player_1_games_won > mr.player_2_games_won AS match_won, mr.player_1_games_won = 1 AS match_close_lost
                 FROM match_results AS mr
                 LEFT JOIN matches m on mr.match_id = m.match_id
                 LEFT JOIN accounts a on m.player_id_1 = a.account_id
@@ -81,7 +93,7 @@ function getRankingFromRounds($tournamentId, $accountId, $rounds, $groupSize) {
                 UNION
                 
                 SELECT mr.match_id, m.player_id_2 AS player_id, m.player_id_1 AS opponent_id, mr.player_2_games_won AS player_games, mr.player_1_games_won AS opponent_games,
-                    a.display_name AS display_name, mr.player_2_games_won > mr.player_1_games_won AS match_won
+                    a.display_name AS display_name, mr.player_2_games_won > mr.player_1_games_won AS match_won, mr.player_2_games_won = 1 AS match_close_lost
                 FROM match_results AS mr
                 LEFT JOIN matches m on mr.match_id = m.match_id
                 LEFT JOIN accounts a on m.player_id_2 = a.account_id
@@ -92,7 +104,7 @@ function getRankingFromRounds($tournamentId, $accountId, $rounds, $groupSize) {
             
             UNION
             
-            SELECT DISTINCT tp.account_id AS player_id, a.display_name AS display_name, 0 AS matches_played, 0 AS matches_won, 0 AS games_played, 0 AS games_won, "" AS opponents
+            SELECT DISTINCT tp.account_id AS player_id, a.display_name AS display_name, 0 AS matches_played, 0 AS matches_won, 0 AS matches_close_lost, 0 AS games_played, 0 AS games_won, "" AS opponents
             FROM tournament_participants AS tp
             LEFT JOIN accounts a ON tp.account_id = a.account_id
             WHERE (tp.tournament_id = :tournament_id)
@@ -100,7 +112,7 @@ function getRankingFromRounds($tournamentId, $accountId, $rounds, $groupSize) {
         GROUP BY ra.player_id
         ORDER BY total_points DESC';
 
-    $values = [':tournament_id' => $tournamentId, ':points_for_match' => $POINTS_FOR_MATCH];
+    $values = [':tournament_id' => $tournamentId, ':points_for_match' => $POINTS_FOR_MATCH_WIN, ':points_for_match_close' => $POINTS_FOR_MATCH_CLOSE_LOST];
     $values = array_merge($values, $in_params);
 
     return getRanking($accountId, $query, $values, $groupSize);
