@@ -63,6 +63,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Tournaments
                             </a>
+                            <div class="sb-sidenav-menu-heading">Info</div>
+                            <a class="nav-link" href="#!rules">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                                Rules
+                            </a>
                             <?php if ($_SESSION["admin"]): ?>
                             <div class="sb-sidenav-menu-heading">Admin</div>
                             <a class="nav-link" href="#!admin_sets">
@@ -136,7 +141,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <script src="app/controllers/tournamentsController.js"></script>
         <script src="app/controllers/tournamentController.js"></script>
         <script src="app/controllers/rankingController.js"></script>
-        <script src="app/controllers/matchesHistoryController.js"></script>
+        <script src="app/controllers/rulesController.js"></script>
         <script src="app/controllers/poolController.js"></script>
         <script src="app/controllers/participantPoolController.js"></script>
         <script src="app/controllers/profileController.js"></script>

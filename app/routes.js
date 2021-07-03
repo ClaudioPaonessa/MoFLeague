@@ -35,9 +35,9 @@ app.config(['$routeProvider',
 				templateUrl: 'templates/ranking.html',
 				controller: 'RankingController'
 			})
-			.when('/matchesHistory', {
-				templateUrl: 'templates/matchesHistory.html',
-				controller: 'MatchesHistoryController'
+			.when('/rules', {
+				templateUrl: 'templates/rules.html',
+				controller: 'RulesController'
 			})
 			.when('/pool/:tournamentId', {
 				templateUrl: 'templates/pool.html',

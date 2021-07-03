@@ -10,6 +10,7 @@ require_once '../../helper/profileHelper.php';
 $accountId = getId();
 
 $profileData = getProfile($accountId);
+$profileData["stats"] = getPlayerStats($accountId);
 
 echo json_encode($profileData);
 

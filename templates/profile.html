@@ -1,12 +1,53 @@
 <h1 class="mt-4">{{profile.displayName}}</h1>
-<h3 class="mt-2" style="color: #b1b1b1">Profile</h3>
+<h3 class="mt-2" style="color: #b1b1b1">{{profile.mtgArenaName}}</h3>
 
 <hr>
 
 <div ng-include src="'partials/errormessage.html'"></div>
 
 <div class="row">
-    <div class="col-xl-12">
-        {{profile.mtgArenaName}}
+    <div class="col-xl-3">
+        <div class="card card-special">
+            <div class="card-header bg-3">
+                Rank
+            </div>
+            <div class="card-body">
+              <div style="text-align: center;">
+                <span style="font-size: 24pt; font-family: 'Bebas Neue';">Soon...</span>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3">
+        <div class="card card-special">
+            <div class="card-header bg-1">
+                Matches
+            </div>
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">Matches Win Percentage: {{profile.stats.matchesWinPercentage}}%</h6>
+              <div class="card-text">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{profile.stats.matchesWinPercentage}}%;" aria-valuenow="{{profile.stats.matchesWonCount}}" aria-valuemin="0" aria-valuemax="{{profile.stats.matchesCount}}">{{profile.stats.matchesWonCount}} / {{profile.stats.matchesCount}} ({{profile.stats.matchesWinPercentage}}%)</div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3">
+        <div class="card card-special">
+            <div class="card-header bg-1">
+                Games
+            </div>
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">Games Win Percentage: {{profile.stats.gamesWinPercentage}}%</h6>
+              <div class="card-text">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{profile.stats.gamesWinPercentage}}%;" aria-valuenow="{{profile.stats.gamesWonCount}}" aria-valuemin="0" aria-valuemax="{{profile.stats.gamesCount}}">{{profile.stats.gamesWonCount}} / {{profile.stats.gamesCount}} ({{profile.stats.gamesWinPercentage}}%)</div>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -101,11 +101,11 @@ app.controller("ParticipantPoolController", function($scope, $routeParams, $loca
     };
 
     $scope.itemsColorIdentity = [
-        { name: 'W', displayName: 'Plains' }, 
-        { name: 'U', displayName: 'Island' }, 
-        { name: 'B', displayName: 'Swamp' },
-        { name: 'R', displayName: 'Mountain' },
-        { name: 'G', displayName: 'Forest' },
+        { name: 'W', displayName: 'White' }, 
+        { name: 'U', displayName: 'Blue' }, 
+        { name: 'B', displayName: 'Black' },
+        { name: 'R', displayName: 'Red' },
+        { name: 'G', displayName: 'Green' },
         { name: 'C', displayName: 'None' }
     ];
 
