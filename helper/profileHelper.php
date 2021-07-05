@@ -29,7 +29,7 @@ function getProfile($accountId) {
     returnError("Profile not found");
 }
 
-function getPlayerStats($accountId) {
+function getPlayerStats($accountId, $lastRanking) {
     $query = 'SELECT m.match_id, m.player_id_1, m.player_id_2, 
         mr.player_1_games_won AS player_1_games_won, mr.player_2_games_won AS player_2_games_won,
         mr.result_confirmed AS result_confirmed
@@ -77,10 +77,33 @@ function getPlayerStats($accountId) {
         "gamesCount" => $gamesCount,
         "gamesWonCount" => $gamesWonCount,
         "matchesWinPercentage" => round($matchesWonCount / $matchesCount * 100),
-        "gamesWinPercentage" => round($gamesWonCount / $gamesCount * 100)
+        "gamesWinPercentage" => round($gamesWonCount / $gamesCount * 100),
+        "rank" => getRank($accountId, $lastRanking)
     );
 
     return $stats;
+}
+
+function getRank($accountId, $lastRanking) {
+    $key = array_search($accountId, array_column($lastRanking, "playerId"));
+    
+    if (false !== $key)
+    {
+        if ($key == 0) {
+            return "mythic";
+        } else {
+            $count = count($lastRanking);
+            $maxRareRank = intval(($count-1) * 0.4);
+            
+            if ($key <= $maxRareRank) {
+                return "rare";
+            } else{
+                return "uncommon";
+            }
+        }
+    }
+
+    return "common";
 }
 
 ?>
