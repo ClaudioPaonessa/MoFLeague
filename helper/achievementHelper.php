@@ -3,6 +3,49 @@
 require_once '../../helper/errorHelper.php';
 require_once '../../helper/dbHelper.php';
 
+function getSelectableAchievements($tournamentId, $accountId) {
+    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.difficulty, ad.name as difficulty_name, ad.points
+    FROM achievements AS ac
+    LEFT JOIN achievements_difficulties ad on (ac.difficulty = ad.achievements_difficultiy_id)
+    WHERE ac.active = TRUE';
+
+    $res = executeSQL($query);
+
+    $selectableAchievements = array();
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        $achievementItem=array(
+            "achievementId" => $achievement_id,
+            "name" => $name,
+            "description" => $description,
+            "difficultyName" => $difficulty_name,
+            "points" => $points
+        );
+
+        array_push($selectableAchievements, $achievementItem);
+    }
+
+    $receivedAchievements = getAddedAchievements($tournamentId, $accountId);
+
+    foreach ($receivedAchievements as &$ach) {
+        if (($key = array_search($ach["achievementId"], $selectableAchievements)) !== false) {
+            unset($selectableAchievements[$key]);
+        }
+    }
+
+    return $selectableAchievements;
+}
+
+function addAchievement($matchId, $achievementId, $accountId) {
+    $query = 'INSERT INTO achievements_receivers (match_id, account_id, achievement_id) 
+            VALUES (:match_id, :account_id, :achievement_id)';
+    $values = [':match_id' => $matchId, ':account_id' => $accountId, ':achievement_id' => $achievementId];
+
+    executeSQL($query, $values);
+}
+
 function getReceivedAchievements($tournamentId, $accountId) {
     $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.difficulty, ad.name as difficulty_name, ad.points
     FROM achievements_receivers AS ar
@@ -10,8 +53,41 @@ function getReceivedAchievements($tournamentId, $accountId) {
     LEFT JOIN matches m on (mr.match_id = m.match_id)
     LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
     LEFT JOIN achievements ac on (ar.achievement_id = ac.achievement_id)
-    LEFT JOIN achievements_difficulties ad on (ac.difficulty = ad.achievements_difficultiy_id )
+    LEFT JOIN achievements_difficulties ad on (ac.difficulty = ad.achievements_difficultiy_id)
     WHERE (ar.account_id = :account_id) AND (tr.tournament_id = :tournament_id) AND (mr.result_confirmed = TRUE)';
+
+    $values = [':account_id' => $accountId, ':tournament_id' => $tournamentId];
+
+    $res = executeSQL($query, $values);
+
+    $receivedAchievements = array();
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        $achievementItem=array(
+            "achievementId" => $achievement_id,
+            "name" => $name,
+            "description" => $description,
+            "difficultyName" => $difficulty_name,
+            "points" => $points
+        );
+
+        array_push($receivedAchievements, $achievementItem);
+    }
+
+    return $receivedAchievements;
+}
+
+function getAddedAchievements($tournamentId, $accountId) {
+    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.difficulty, ad.name as difficulty_name, ad.points
+    FROM achievements_receivers AS ar
+    LEFT JOIN match_results mr on (ar.match_id = mr.match_id)
+    LEFT JOIN matches m on (mr.match_id = m.match_id)
+    LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
+    LEFT JOIN achievements ac on (ar.achievement_id = ac.achievement_id)
+    LEFT JOIN achievements_difficulties ad on (ac.difficulty = ad.achievements_difficultiy_id)
+    WHERE (ar.account_id = :account_id) AND (tr.tournament_id = :tournament_id)';
 
     $values = [':account_id' => $accountId, ':tournament_id' => $tournamentId];
 

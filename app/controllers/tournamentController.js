@@ -41,7 +41,9 @@ app.controller("TournamentController", function($scope, $routeParams, $http, $wi
             player1GamesWon: player1GamesWon,
             player2GamesWon: player2GamesWon,
             tradesP1toP2: $scope.tradesP1toP2,
-            tradesP2toP1: $scope.tradesP2toP1
+            tradesP2toP1: $scope.tradesP2toP1,
+            achievementsP1: $scope.achievementsP1,
+            achievementsP2: $scope.achievementsP2,
         };
         
         $http.post(API_URL + '/api/match/matchRecordResult.php/' + matchId, matchResult).then( function ( response ) {
@@ -88,6 +90,26 @@ app.controller("TournamentController", function($scope, $routeParams, $http, $wi
         });
     }
 
+    $scope.loadSelectableAchievementsP1 = function(playerId) {
+        $http.get(API_URL + '/api/tournament/tournamentSelectableAchievements.php/' + $scope.tournamentId + '/' + playerId).then( function ( response ) {
+            $scope.selectableAchievementsP1 = response.data.selectable;
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+            
+        });
+    }
+
+    $scope.loadSelectableAchievementsP2 = function(playerId) {
+        $http.get(API_URL + '/api/tournament/tournamentSelectableAchievements.php/' + $scope.tournamentId + '/' + playerId).then( function ( response ) {
+            $scope.selectableAchievementsP2 = response.data.selectable;
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+            
+        });
+    }
+
     $scope.reportMatchResultModal = function(row) {
         $scope.selectedMatchId = row.matchId;
         $scope.selectedMatchP1Name = row.p1DisplayName;
@@ -96,7 +118,12 @@ app.controller("TournamentController", function($scope, $routeParams, $http, $wi
         $scope.tradesP1toP2 = [];
         $scope.tradesP2toP1 = [];
         $scope.loadCards();
-        
+
+        $scope.achievementsP1 = [];
+        $scope.achievementsP2 = [];
+
+        $scope.loadSelectableAchievementsP1(row.playerId1);
+        $scope.loadSelectableAchievementsP2(row.playerId2);
 
         $("#reportMatchResult").modal("show");
     }
@@ -115,6 +142,22 @@ app.controller("TournamentController", function($scope, $routeParams, $http, $wi
 
     $scope.removeTradeCardP2 = function(idx) {
         $scope.tradesP1toP2.splice(idx, 1);
+    }
+
+    $scope.addAchievementToP1 = function(achievementId, achievementName) {
+        $scope.achievementsP1.push({id: achievementId, name: achievementName})
+    }
+
+    $scope.removeAchievementP1 = function(idx) {
+        $scope.achievementsP1.splice(idx, 1);
+    }
+
+    $scope.addAchievementToP2 = function(achievementId, achievementName) {
+        $scope.achievementsP2.push({id: achievementId, name: achievementName})
+    }
+
+    $scope.removeAchievementP2 = function(idx) {
+        $scope.achievementsP2.splice(idx, 1);
     }
 
     $scope.filterPlayedAndConfirmed = function(match) {

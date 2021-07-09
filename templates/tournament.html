@@ -80,10 +80,10 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center"
                         ng-repeat="row in outstandingMatches = (matches | filter : filterNotPlayed)">
-                        <span><a ng-href="#!profile/{{row.playerId1}}"><b>{{row.p1DisplayName}}</b></a> <span
-                                ng-if="row.p1MTGArenaName">({{row.p1MTGArenaName}})</span> <img class="rank-badge" ng-src="/img/rank_{{row.p1Rank}}.png"> vs.
-                                <a ng-href="#!profile/{{row.playerId2}}"><b>{{row.p2DisplayName}}</b></a> <span
-                                ng-if="row.p2MTGArenaName">({{row.p2MTGArenaName}})</span> <img class="rank-badge" ng-src="/img/rank_{{row.p2Rank}}.png"></span>
+                        <span><a ng-href="#!profile/{{row.playerId1}}"><b>{{row.p1DisplayName}}</b></a> <img class="rank-badge" ng-src="/img/rank_{{row.p1Rank}}.png"> <small
+                                ng-if="row.p1MTGArenaName">({{row.p1MTGArenaName}})</small> vs.
+                                <a ng-href="#!profile/{{row.playerId2}}"><b>{{row.p2DisplayName}}</b></a> <img class="rank-badge" ng-src="/img/rank_{{row.p2Rank}}.png"> <small
+                                ng-if="row.p2MTGArenaName">({{row.p2MTGArenaName}})</small></span>
 
                         <button class="btn btn-special" ng-click="reportMatchResultModal(row)">Report Result</button>
                     </li>
@@ -335,6 +335,89 @@
                                         <li class="list-group-item" ng-repeat="card in tradesP1toP2">
                                             {{card.name}}
                                             <button class="btn btn-sm btn-danger float-right" ng-click="removeTradeCardP2($index)"><i class="fas fa-minus-square"></i></button>
+                                        </li>
+                                      </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-xl-12">
+                        <div class="form" role="form">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <h4>Achievements</h4>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropdownAch2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Add completed achievements for {{selectedMatchP1Name}}
+                                        </button>
+                                        <div class="dropdown-menu w-100" aria-labelledby="dropdownAch2">
+                                            <div class="form-group has-search">
+                                                <span class="fa fa-search form-control-feedback"></span>
+                                                <input class="form-control" type="text" placeholder="Search" aria-label="Search"
+                                                    ng-model="queryAch1">
+                                            </div>
+
+                                            <button class="dropdown-item" ng-repeat='ach in selectableAchievementsP1 | filter:queryAch1' ng-click="addAchievementToP1(ach.achievementId, ach.name)">
+                                                <span style="color: #25af30;"><i class="fas fa-plus-square"></i></span> 
+                                                <b>{{ach.name}}</b>
+                                                <small>{{ach.description}} </small>
+                                                <span class="badge badge-pill badge-success">+{{ach.points}} Points</span>
+                                            </button>
+                                            </ul>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <ul class="list-group">
+                                        <li class="list-group-item" ng-repeat="ach in achievementsP1">
+                                            {{ach.name}}
+                                            <button class="btn btn-sm btn-danger float-right" ng-click="removeAchievementP1($index)"><i class="fas fa-minus-square"></i></button>
+                                        </li>
+                                      </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="dropdownAch1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Add completed achievements for {{selectedMatchP2Name}}
+                                        </button>
+                                        <div class="dropdown-menu w-100" aria-labelledby="dropdownAch1">
+                                            <div class="form-group has-search">
+                                                <span class="fa fa-search form-control-feedback"></span>
+                                                <input class="form-control" type="text" placeholder="Search" aria-label="Search"
+                                                    ng-model="queryAch2">
+                                            </div>
+
+                                            <button class="dropdown-item" ng-repeat='ach in selectableAchievementsP2 | filter:queryAch2' ng-click="addAchievementToP2(ach.achievementId, ach.name)">
+                                                <span style="color: #25af30;"><i class="fas fa-plus-square"></i></span>
+                                                <b>{{ach.name}}</b>
+                                                <small>{{ach.description}} </small>
+                                                <span class="badge badge-pill badge-success">+{{ach.points}} Points</span>
+                                            </button>
+                                            </ul>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <ul class="list-group">
+                                        <li class="list-group-item" ng-repeat="ach in achievementsP2">
+                                            {{ach.name}}
+                                            <button class="btn btn-sm btn-danger float-right" ng-click="removeAchievementP2($index)"><i class="fas fa-minus-square"></i></button>
                                         </li>
                                       </ul>
                                 </div>
