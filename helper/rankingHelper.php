@@ -1,12 +1,14 @@
 <?php
 
+require_once '../../helper/achievementHelper.php';
+
 function getLiveRanking($tournamentId, $accountId, $groupSize) {
     if ($tournamentId == 1) {
-        $POINTS_FOR_MATCH_WIN = 1;
-        $POINTS_FOR_MATCH_CLOSE_LOST = 0;
+        $POINTS_FOR_MATCH_WIN = 1.0;
+        $POINTS_FOR_MATCH_CLOSE_LOST = 0.0;
     } else {
-        $POINTS_FOR_MATCH_WIN = 3;
-        $POINTS_FOR_MATCH_CLOSE_LOST = 1;
+        $POINTS_FOR_MATCH_WIN = 3.0;
+        $POINTS_FOR_MATCH_CLOSE_LOST = 1.0;
     } 
 
     $query = 'SELECT ra.player_id AS player_id, ((matches_won * :points_for_match) + (matches_close_lost * :points_for_match_close)) AS total_points, ra.display_name AS display_name, SUM(matches_played) AS matches_played, 
@@ -49,22 +51,20 @@ function getLiveRanking($tournamentId, $accountId, $groupSize) {
 
     $values = [':tournament_id' => $tournamentId, ':points_for_match' => $POINTS_FOR_MATCH_WIN, ':points_for_match_close' => $POINTS_FOR_MATCH_CLOSE_LOST];
 
-    return getRanking($accountId, $query, $values, $groupSize);
+    return getRanking($accountId, $tournamentId, $query, $values, $groupSize);
 }
 
 function getRankingFromRounds($tournamentId, $accountId, $rounds, $groupSize) {
     if ($tournamentId == 1) {
-        $POINTS_FOR_MATCH_WIN = 1;
-        $POINTS_FOR_MATCH_CLOSE_LOST = 0;
+        $POINTS_FOR_MATCH_WIN = 1.0;
+        $POINTS_FOR_MATCH_CLOSE_LOST = 0.0;
     } else {
-        $POINTS_FOR_MATCH_WIN = 3;
-        $POINTS_FOR_MATCH_CLOSE_LOST = 1;
+        $POINTS_FOR_MATCH_WIN = 3.0;
+        $POINTS_FOR_MATCH_CLOSE_LOST = 1.0;
     }    
 
     $in = "";
     $i = 0;
-
-    //$in_params = array();
 
     foreach ($rounds as $item)
     {
@@ -115,10 +115,10 @@ function getRankingFromRounds($tournamentId, $accountId, $rounds, $groupSize) {
     $values = [':tournament_id' => $tournamentId, ':points_for_match' => $POINTS_FOR_MATCH_WIN, ':points_for_match_close' => $POINTS_FOR_MATCH_CLOSE_LOST];
     $values = array_merge($values, $in_params);
 
-    return getRanking($accountId, $query, $values, $groupSize);
+    return getRanking($accountId, $tournamentId, $query, $values, $groupSize);
 }
 
-function getRanking($accountId, $query, $values, $groupSize) {
+function getRanking($accountId, $tournamentId, $query, $values, $groupSize, $rounds=NULL) {
     $groupNames = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
     $ranking = array();
 
@@ -133,11 +133,19 @@ function getRanking($accountId, $query, $values, $groupSize) {
         else {
             $opponentsArray = [];
         }
+        
+        if ($rounds == NULL) {
+            $receivedAchievementsPoints = getReceivedAchievementsPoints($tournamentId, $player_id);
+        } else {
+            $receivedAchievementsPoints = getReceivedAchievementsPointsFromRounds($tournamentId, $player_id, $rounds);
+        }
 
         $ranking_item=array(
             "playerId" => $player_id,
             "displayName" => $display_name,
-            "totalPoints" => $total_points,
+            "matchesPoints" => $total_points,
+            "achievementsPoints" => $receivedAchievementsPoints,
+            "totalPoints" => $total_points + $receivedAchievementsPoints,
             "matchesPlayed" => $matches_played,
             "matchesWon" => $matches_won,
             "gamesPlayed" => $games_played,

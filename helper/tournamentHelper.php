@@ -356,9 +356,7 @@ function getCurrentMatches($roundId) {
             "p2DisplayName" => $p2_display_name,
             "player1GamesWon" => $player_1_games_won,
             "player2GamesWon" => $player_2_games_won,
-            "resultConfirmed" => boolval($result_confirmed),
-            "p1Rank" => getAccountRank($player_id_1),
-            "p2Rank" => getAccountRank($player_id_2)
+            "resultConfirmed" => boolval($result_confirmed)
         );
     
         array_push($matches, $match_item);
@@ -416,9 +414,7 @@ function getTournamentMatches($tournamentId, $roundsKeyValuePair) {
             "tradedToP2Images" => explode(";", $cards_traded_to_p2_images),
             "tradedToP1Rarities" => explode(";", $cards_traded_to_p1_rarities),
             "tradedToP2Rarities" => explode(";", $cards_traded_to_p2_rarities),
-            "resultConfirmed" => boolval($result_confirmed),
-            "p1Rank" => getAccountRank($player_id_1),
-            "p2Rank" => getAccountRank($player_id_2)
+            "resultConfirmed" => boolval($result_confirmed)
         );
     
         array_push($matches, $match_item);
@@ -454,6 +450,9 @@ function getCurrentMatchesFiltered($roundId, $accountId) {
 
     $res = executeSQL($query, $values);
 
+    $lastRanking = getLiveRanking(1, $accountId, 1);
+    $yourRank = getRank($accountId, $lastRanking);
+
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         extract($row);
 
@@ -461,8 +460,12 @@ function getCurrentMatchesFiltered($roundId, $accountId) {
         
         if ($player_id_1 == $accountId) {
             $won = $player_1_games_won > $player_2_games_won;
+            $p1Rank = $yourRank;
+            $p2Rank = getRank($player_id_2, $lastRanking);
         } else {
             $won = $player_2_games_won > $player_1_games_won;
+            $p1Rank = getRank($player_id_1, $lastRanking);
+            $p2Rank = $yourRank;
         }
 
         $match_item=array(
@@ -484,8 +487,8 @@ function getCurrentMatchesFiltered($roundId, $accountId) {
             "resultConfirmed" => boolval($result_confirmed),
             "reporterYou" => $reporter_account_id == $accountId,
             "winnerYou" => $won,
-            "p1Rank" => getAccountRank($player_id_1),
-            "p2Rank" => getAccountRank($player_id_2)
+            "p1Rank" => $p1Rank,
+            "p2Rank" => $p2Rank
         );
     
         array_push($matches, $match_item);
@@ -522,6 +525,9 @@ function getMatchesFiltered($tournamentId, $accountId, $roundsKeyValuePair) {
 
     $res = executeSQL($query, $values);
 
+    $lastRanking = getLiveRanking(1, $accountId, 1);
+    $yourRank = getRank($accountId, $lastRanking);
+
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
         extract($row);
 
@@ -529,8 +535,12 @@ function getMatchesFiltered($tournamentId, $accountId, $roundsKeyValuePair) {
         
         if ($player_id_1 == $accountId) {
             $won = $player_1_games_won > $player_2_games_won;
+            $p1Rank = $yourRank;
+            $p2Rank = getRank($player_id_2, $lastRanking);
         } else {
             $won = $player_2_games_won > $player_1_games_won;
+            $p1Rank = getRank($player_id_1, $lastRanking);
+            $p2Rank = $yourRank;
         }
 
         $match_item=array(
@@ -553,8 +563,8 @@ function getMatchesFiltered($tournamentId, $accountId, $roundsKeyValuePair) {
             "resultConfirmed" => boolval($result_confirmed),
             "reporterYou" => $reporter_account_id == $accountId,
             "winnerYou" => $won,
-            "p1Rank" => getAccountRank($player_id_1),
-            "p2Rank" => getAccountRank($player_id_2)
+            "p1Rank" => $p1Rank,
+            "p2Rank" => $p2Rank
         );
     
         array_push($matches, $match_item);

@@ -107,28 +107,4 @@ function getRank($accountId, $lastRanking) {
     return "common";
 }
 
-function getAccountRank($accountId) {
-    $lastRanking = getLiveRanking(1, $accountId, 1);
-
-    $key = array_search($accountId, array_column($lastRanking, "playerId"));
-    
-    if (false !== $key)
-    {
-        if ($key == 0) {
-            return "mythic";
-        } else {
-            $count = count($lastRanking);
-            $maxRareRank = intval(($count-1) * 0.4);
-            
-            if ($key <= $maxRareRank) {
-                return "rare";
-            } else{
-                return "uncommon";
-            }
-        }
-    }
-
-    return "common";
-}
-
 ?>
