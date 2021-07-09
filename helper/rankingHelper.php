@@ -230,6 +230,8 @@ function getInitialRanking($tournamentId, $accountId, $groupSize) {
         $ranking_item=array(
             "playerId" => $player_id,
             "displayName" => $display_name,
+            "matchesPoints" => 0,
+            "achievementsPoints" => 0,
             "totalPoints" => 0,
             "matchesPlayed" => 0,
             "matchesWon" => 0,
