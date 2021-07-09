@@ -2,6 +2,7 @@
 
 require_once '../../helper/errorHelper.php';
 require_once '../../helper/dbHelper.php';
+require_once '../../helper/profileHelper.php';
 
 function getTournamentName($tournamentId) {
     $query = 'SELECT t.tournament_name
@@ -355,7 +356,9 @@ function getCurrentMatches($roundId) {
             "p2DisplayName" => $p2_display_name,
             "player1GamesWon" => $player_1_games_won,
             "player2GamesWon" => $player_2_games_won,
-            "resultConfirmed" => boolval($result_confirmed)
+            "resultConfirmed" => boolval($result_confirmed),
+            "p1Rank" => getAccountRank($player_id_1),
+            "p2Rank" => getAccountRank($player_id_2)
         );
     
         array_push($matches, $match_item);
@@ -413,7 +416,9 @@ function getTournamentMatches($tournamentId, $roundsKeyValuePair) {
             "tradedToP2Images" => explode(";", $cards_traded_to_p2_images),
             "tradedToP1Rarities" => explode(";", $cards_traded_to_p1_rarities),
             "tradedToP2Rarities" => explode(";", $cards_traded_to_p2_rarities),
-            "resultConfirmed" => boolval($result_confirmed)
+            "resultConfirmed" => boolval($result_confirmed),
+            "p1Rank" => getAccountRank($player_id_1),
+            "p2Rank" => getAccountRank($player_id_2)
         );
     
         array_push($matches, $match_item);
@@ -478,7 +483,9 @@ function getCurrentMatchesFiltered($roundId, $accountId) {
             "tradedToP2Rarities" => explode(";", $cards_traded_to_p2_rarities),
             "resultConfirmed" => boolval($result_confirmed),
             "reporterYou" => $reporter_account_id == $accountId,
-            "winnerYou" => $won
+            "winnerYou" => $won,
+            "p1Rank" => getAccountRank($player_id_1),
+            "p2Rank" => getAccountRank($player_id_2)
         );
     
         array_push($matches, $match_item);
@@ -545,7 +552,9 @@ function getMatchesFiltered($tournamentId, $accountId, $roundsKeyValuePair) {
             "tradedToP2Rarities" => explode(";", $cards_traded_to_p2_rarities),
             "resultConfirmed" => boolval($result_confirmed),
             "reporterYou" => $reporter_account_id == $accountId,
-            "winnerYou" => $won
+            "winnerYou" => $won,
+            "p1Rank" => getAccountRank($player_id_1),
+            "p2Rank" => getAccountRank($player_id_2)
         );
     
         array_push($matches, $match_item);

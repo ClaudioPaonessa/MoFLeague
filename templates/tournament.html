@@ -81,9 +81,9 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center"
                         ng-repeat="row in outstandingMatches = (matches | filter : filterNotPlayed)">
                         <span><a ng-href="#!profile/{{row.playerId1}}"><b>{{row.p1DisplayName}}</b></a> <span
-                                ng-if="row.p1MTGArenaName">({{row.p1MTGArenaName}})</span> vs.
+                                ng-if="row.p1MTGArenaName">({{row.p1MTGArenaName}})</span> <img class="rank-badge" ng-src="/img/rank_{{row.p1Rank}}.png"> vs.
                                 <a ng-href="#!profile/{{row.playerId2}}"><b>{{row.p2DisplayName}}</b></a> <span
-                                ng-if="row.p2MTGArenaName">({{row.p2MTGArenaName}})</span></span>
+                                ng-if="row.p2MTGArenaName">({{row.p2MTGArenaName}})</span> <img class="rank-badge" ng-src="/img/rank_{{row.p2Rank}}.png"></span>
 
                         <button class="btn btn-special" ng-click="reportMatchResultModal(row)">Report Result</button>
                     </li>
@@ -107,7 +107,7 @@
                     <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in matches | filter : filterPlayedNotConfirmed">
                         <div class="d-flex w-100 justify-content-between">
                           <h5 class="mb-1">
-                            <a ng-href="#!profile/{{row.playerId1}}">{{row.p1DisplayName}}</a> vs. <a ng-href="#!profile/{{row.playerId2}}">{{row.p2DisplayName}}</a>
+                            <a ng-href="#!profile/{{row.playerId1}}">{{row.p1DisplayName}}</a> <img class="rank-badge" ng-src="/img/rank_{{row.p1Rank}}.png"> vs. <a ng-href="#!profile/{{row.playerId2}}">{{row.p2DisplayName}}</a> <img class="rank-badge" ng-src="/img/rank_{{row.p2Rank}}.png">
                           </h5>
                           <small>
                             <span class="badge bg-primary text-light">
@@ -200,7 +200,7 @@
                                 <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in value">
                                     <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">
-                                        <a ng-href="#!profile/{{row.playerId1}}">{{row.p1DisplayName}}</a> vs. <a ng-href="#!profile/{{row.playerId2}}">{{row.p2DisplayName}}</a>
+                                        <a ng-href="#!profile/{{row.playerId1}}">{{row.p1DisplayName}}</a> <img class="rank-badge" ng-src="/img/rank_{{row.p1Rank}}.png"> vs. <a ng-href="#!profile/{{row.playerId2}}">{{row.p2DisplayName}}</a> <img class="rank-badge" ng-src="/img/rank_{{row.p2Rank}}.png">
                                     </h5>
                                     <small>
                                         <span class="badge bg-primary text-light">{{row.player1GamesWon}} : {{row.player2GamesWon}}</span>

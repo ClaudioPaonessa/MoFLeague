@@ -10705,3 +10705,7 @@ img.inverted {
 
 .opacity-100 {
   opacity: 1.0; }
+
+.rank-badge {
+  width: 20px;
+}
