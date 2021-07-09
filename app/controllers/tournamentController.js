@@ -23,6 +23,8 @@ app.controller("TournamentController", function($scope, $routeParams, $http, $wi
             $scope.currentRound = response.data.currentRoundId;
             $scope.numberOfRounds = response.data.numberOfRounds;
             $scope.roundsFinished = response.data.roundsFinished;
+            $scope.receivedAchievements = response.data.receivedAchievements;
+            $scope.receivedAchievementsPoint = response.data.receivedAchievementsPoint;
         }, function ( response ) {
             if (response.status == 401) {
                 $window.location.href = '/auth/login.php';

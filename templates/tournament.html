@@ -172,47 +172,70 @@
                 Played and confirmed matches
             </div>
             <div class="card-body">
-                <div ng-repeat="(key, value) in allMatches | filter : filterPlayedAndConfirmed | groupBy: 'roundName'">
-                    <h4>{{key}}</h4>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <h2>Completed Achievements</h2>
+                        <span class="badge badge-pill badge-success mb-4" style="font-size: 12pt;">+{{receivedAchievementsPoint}} Points</span>
+                        
+                        <div ng-repeat="(key, value) in receivedAchievements | groupBy: 'difficultyName'">
+                            <h4>{{key}}</h4>
 
-                    <div class="list-group list-group-flush">
-                        <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in value">
-                            <div class="d-flex w-100 justify-content-between">
-                              <h5 class="mb-1">
-                                  <a ng-href="#!profile/{{row.playerId1}}">{{row.p1DisplayName}}</a> vs. <a ng-href="#!profile/{{row.playerId2}}">{{row.p2DisplayName}}</a>
-                              </h5>
-                              <small>
-                                <span class="badge bg-primary text-light">{{row.player1GamesWon}} : {{row.player2GamesWon}}</span>
-                                <span ng-show="row.winnerYou" class="badge rounded-pill bg-success text-light">You Won</span>
-                                <span ng-hide="row.winnerYou" class="badge rounded-pill bg-danger text-light">You Lost</span>
-                              </small>
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in value">
+                                    {{row.name}} <span class="badge badge-pill badge-success">+{{row.points}} Points</span>
+                                </div>
                             </div>
-                            <p class="mb-1 small">
-                                {{row.p1DisplayName}} receives:
+                        </div>
+                    </div>
+                </div>
 
-                                <span ng-repeat="card in row.tradedToP1 track by $index">
-                                    <a uib-popover-template="'tplTradeToP1.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary" ng-class="'badge-' + row.tradedToP1Rarities[$index]">
-                                        {{card}}
-                                    </a>
-                                </span>
-        
-                                <span ng-show="row.tradedToP1.length == 0">
-                                    -
-                                </span>
-                            </p>
-                            <p class="mb-1 small">
-                                {{row.p2DisplayName}} receives: 
+                <hr>
+                
+                <div class="row mt-4">
+                    <div class="col-xl-12">
+                        <div ng-repeat="(key, value) in allMatches | filter : filterPlayedAndConfirmed | groupBy: 'roundName'">
+                            <h4>{{key}}</h4>
 
-                                <span ng-repeat="card in row.tradedToP2 track by $index">
-                                    <a uib-popover-template="'tplTradeToP2.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary" ng-class="'badge-' + row.tradedToP2Rarities[$index]">
-                                        {{card}}
-                                    </a>
-                                </span>
-        
-                                <span ng-show="row.tradedToP2.length == 0">
-                                    -
-                                </span>
-                            </p>
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item item-special flex-column align-items-start" ng-repeat="row in value">
+                                    <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">
+                                        <a ng-href="#!profile/{{row.playerId1}}">{{row.p1DisplayName}}</a> vs. <a ng-href="#!profile/{{row.playerId2}}">{{row.p2DisplayName}}</a>
+                                    </h5>
+                                    <small>
+                                        <span class="badge bg-primary text-light">{{row.player1GamesWon}} : {{row.player2GamesWon}}</span>
+                                        <span ng-show="row.winnerYou" class="badge rounded-pill bg-success text-light">You Won</span>
+                                        <span ng-hide="row.winnerYou" class="badge rounded-pill bg-danger text-light">You Lost</span>
+                                    </small>
+                                    </div>
+                                    <p class="mb-1 small">
+                                        {{row.p1DisplayName}} receives:
+
+                                        <span ng-repeat="card in row.tradedToP1 track by $index">
+                                            <a uib-popover-template="'tplTradeToP1.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary" ng-class="'badge-' + row.tradedToP1Rarities[$index]">
+                                                {{card}}
+                                            </a>
+                                        </span>
+                
+                                        <span ng-show="row.tradedToP1.length == 0">
+                                            -
+                                        </span>
+                                    </p>
+                                    <p class="mb-1 small">
+                                        {{row.p2DisplayName}} receives: 
+
+                                        <span ng-repeat="card in row.tradedToP2 track by $index">
+                                            <a uib-popover-template="'tplTradeToP2.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary" ng-class="'badge-' + row.tradedToP2Rarities[$index]">
+                                                {{card}}
+                                            </a>
+                                        </span>
+                
+                                        <span ng-show="row.tradedToP2.length == 0">
+                                            -
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

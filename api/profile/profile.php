@@ -12,6 +12,7 @@ $accountId = getId();
 
 $profileData = getProfile($accountId);
 
+// Get last tournament ID and not use constant 1
 $lastRanking = getLiveRanking(1, $accountId, 1);
 
 $profileData["stats"] = getPlayerStats($accountId, $lastRanking);

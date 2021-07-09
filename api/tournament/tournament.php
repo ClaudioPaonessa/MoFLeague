@@ -6,6 +6,7 @@ require_once '../../auth/checkLogin.php';
 require_once '../../helper/urlIdHelper.php';
 require_once '../../helper/errorHelper.php';
 require_once '../../helper/tournamentHelper.php';
+require_once '../../helper/achievementHelper.php';
 
 $tournamentId = getId();
 
@@ -34,6 +35,9 @@ $tournamentData["tournamentMatches"] = getMatchesFiltered($tournamentId, $_SESSI
 if ($currentRoundIndex >= 0) {
     $tournamentData["currentMatches"] = getCurrentMatchesFiltered($currentRoundIndex, $_SESSION["id"]);
 }
+
+$tournamentData["receivedAchievements"] = getReceivedAchievements($tournamentId, $_SESSION["id"]);
+$tournamentData["receivedAchievementsPoint"] = getReceivedAchievementsPoints($tournamentId, $_SESSION["id"]);
 
 echo json_encode($tournamentData);
 
