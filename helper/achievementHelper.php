@@ -28,12 +28,14 @@ function getSelectableAchievements($tournamentId, $accountId) {
     }
 
     $receivedAchievements = getAddedAchievements($tournamentId, $accountId);
-
+    
     foreach ($receivedAchievements as &$ach) {
-        if (($key = array_search($ach["achievementId"], $selectableAchievements)) !== false) {
+        if (($key = array_search($ach["achievementId"], array_column($selectableAchievements, 'achievementId'))) !== false) {
             unset($selectableAchievements[$key]);
         }
     }
+
+    $selectableAchievements = array_values($selectableAchievements);
 
     return $selectableAchievements;
 }
@@ -42,6 +44,13 @@ function addAchievement($matchId, $achievementId, $accountId) {
     $query = 'INSERT INTO achievements_receivers (match_id, account_id, achievement_id) 
             VALUES (:match_id, :account_id, :achievement_id)';
     $values = [':match_id' => $matchId, ':account_id' => $accountId, ':achievement_id' => $achievementId];
+
+    executeSQL($query, $values);
+}
+
+function removeAchievement($matchId) {
+    $query = 'DELETE FROM achievements_receivers WHERE (match_id = :match_id)';
+    $values = [':match_id' => $matchId];
 
     executeSQL($query, $values);
 }
