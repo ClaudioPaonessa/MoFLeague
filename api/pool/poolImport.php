@@ -36,11 +36,13 @@ foreach ( $lines as $line ) {
         for ($i = 0; $i < $cardCount; $i++) {
             $cardId = getCardId($cardName, $setId);
             
-            if ($cardId > 0) {
-                array_push($cardIds, $cardId);
-            } else {
-                $poolImportInfo["importErrors"] .= "failed to add " . $cardName . "; ";
-                $errors = TRUE;
+            if ($cardId != -1) {
+                if ($cardId > 0) {
+                    array_push($cardIds, $cardId);
+                } else {
+                    $poolImportInfo["importErrors"] .= "failed to add " . $cardName . "; ";
+                    $errors = TRUE;
+                }
             }
         }
     }

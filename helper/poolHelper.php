@@ -379,7 +379,7 @@ function getTournamentSetId($tournamentId) {
 }
 
 function getCardId($cardName, $setId) {
-    $query = 'SELECT mc.card_id
+    $query = 'SELECT mc.card_id, mc.card_type_line
         FROM magic_cards AS mc
         WHERE (mc.magic_set_id = :set_id) AND (mc.card_name = :card_name)';
 
@@ -390,6 +390,11 @@ function getCardId($cardName, $setId) {
 
     if (is_array($row)) {
         extract($row);
+        
+        if (str_contains($card_type_line, "Basic Land")) {
+            return -1;
+        }
+        
         return $card_id;
     }
     
