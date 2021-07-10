@@ -24,7 +24,19 @@
                         <span ng-show="round.active" class="badge rounded-pill text-dark" style="background-color: #4bc48b;">Active</span>
                         
                         <div class="float-right">
-                            <div class="btn-group btn-group-sm" role="group">
+                            <small ng-hide="round.tradesNextRound" class="mr-3">Trades are instant this round</small>
+                            <small ng-show="round.tradesNextRound" class="mr-3">Trades are delayed this round</small>
+
+                            <button class="btn btn-secondary" ng-show="round.tradesNextRound" ng-click="changeTradesNextRound(round.roundId, false)">
+                                Make Trades Instant
+                            </button>
+
+                            <button class="btn btn-secondary" ng-hide="round.tradesNextRound" ng-click="changeTradesNextRound(round.roundId, true)">
+                                Make Trades Delayed
+                            </button>
+
+
+                            <div class="btn-group btn-group-sm ml-3" role="group">
                                 <button class="btn btn-secondary" ng-hide="round.completed" ng-click="changeRoundCompleted(round.roundId, true)">
                                     <i class="fas fa-check-square"></i> End round
                                 </button>
@@ -42,8 +54,8 @@
                                 </button>
                             </div>
 
-                            <span ng-show="round.rankingVisible" class="ml-3"><i class="far fa-eye"></i> Visible Live Ranking</span>
-                            <span ng-hide="round.rankingVisible" class="ml-3"><i class="far fa-eye-slash"></i> Hidden Live Ranking</span>
+                            <span ng-show="round.rankingVisible" class="ml-3"><i class="far fa-eye"></i> Ranking Visible</span>
+                            <span ng-hide="round.rankingVisible" class="ml-3"><i class="far fa-eye-slash"></i> Ranking Hidden</span>
                             <button ng-show="round.rankingVisible" class="btn-sm btn-special" ng-click="hideRoundRanking(round.roundId)">Hide</button>
                             <button ng-hide="round.rankingVisible" class="btn-sm btn-special" ng-click="displayRoundRanking(round.roundId)">Unhide</button>
                             

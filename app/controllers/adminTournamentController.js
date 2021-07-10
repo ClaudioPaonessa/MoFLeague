@@ -47,6 +47,20 @@ app.controller("AdminTournamentController", function($scope, $routeParams, $http
         });
     }
 
+    $scope.changeTradesNextRound = function(roundId, value) {
+        let completionStatus = {
+            status: value
+        };
+
+        $http.post(API_URL + '/api/admin/changeTradesNextRound.php/' + roundId, completionStatus).then( function ( response ) {
+            $scope.initTournament();
+        }, function ( response ) {
+            $scope.alertText = response.data.error;
+        }).finally(function() {
+
+        });
+    }
+
     $scope.setActiveRound = function(roundId) {
         let completionStatus = {
             roundId: roundId

@@ -77,7 +77,7 @@ function getTournamentMatchesPerRound($tournamentId) {
 }
 
 function getRounds($tournamentId, $currentRoundIndex) {
-    $query = 'SELECT tr.round_id, tr.date_start, tr.date_end, tr.completed, tr.hide_ranking
+    $query = 'SELECT tr.round_id, tr.date_start, tr.date_end, tr.completed, tr.hide_ranking, tr.trades_next_round
     FROM tournament_rounds AS tr
     WHERE (tournament_id = :tournament_id)
     ORDER BY tr.date_start ASC';
@@ -100,7 +100,8 @@ function getRounds($tournamentId, $currentRoundIndex) {
             "dateEnd" => (new DateTime($date_end, new DateTimeZone("Europe/Zurich")))->format('Y-m-d'),
             "active" => $currentRoundIndex === $round_id,
             "completed" => boolval($completed),
-            "rankingVisible" => !boolval($hide_ranking)
+            "rankingVisible" => !boolval($hide_ranking),
+            "tradesNextRound" => boolval($trades_next_round)
         );
 
         array_push($rounds, $roundItem);

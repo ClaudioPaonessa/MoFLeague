@@ -66,8 +66,6 @@ app.controller("PoolController", function($scope, $routeParams, $http, $window) 
                 }
                 
                 var manaRegex = card.cardManaCost.match(regex);
-
-                console.log(card.cardColorIdentity);
                 
                 var enrichedCard = {
                     name: card.cardName,

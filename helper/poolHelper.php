@@ -89,7 +89,7 @@ function getIncomingTrades($tournamentId, $accountId, $completed) {
                 LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
                 LEFT JOIN matches m on (ct.match_id = m.match_id)
                 LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
-                WHERE (tr.tournament_id = :tournament_id) AND (tr.completed = TRUE) AND (ct.receiver_account_id = :account_id) AND (ct.trade_confirmed = TRUE)';
+                WHERE (tr.tournament_id = :tournament_id) AND ((tr.completed = TRUE) OR (tr.trades_next_round = FALSE)) AND (ct.receiver_account_id = :account_id) AND (ct.trade_confirmed = TRUE)';
 
         $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
     } else {
@@ -141,7 +141,7 @@ function getIncomingTradesPlanned($tournamentId, $accountId) {
                 LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
                 LEFT JOIN matches m on (ct.match_id = m.match_id)
                 LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
-                WHERE (tr.tournament_id = :tournament_id) AND (tr.completed = FALSE) AND (ct.receiver_account_id = :account_id) AND (ct.trade_confirmed = TRUE)';
+                WHERE (tr.tournament_id = :tournament_id) AND ((tr.completed = FALSE) AND (tr.trades_next_round = TRUE)) AND (ct.receiver_account_id = :account_id) AND (ct.trade_confirmed = TRUE)';
 
     $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
 
@@ -200,7 +200,7 @@ function getOutgoingTrades($tournamentId, $accountId, $completed) {
             LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
             LEFT JOIN matches m on (ct.match_id = m.match_id)
             LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
-            WHERE (tr.tournament_id = :tournament_id) AND (tr.completed = TRUE) AND ((m.player_id_1 = :account_id) OR (m.player_id_2 = :account_id)) AND (ct.receiver_account_id != :account_id) AND (ct.trade_confirmed = TRUE)';
+            WHERE (tr.tournament_id = :tournament_id) AND ((tr.completed = TRUE) OR (tr.trades_next_round = FALSE)) AND ((m.player_id_1 = :account_id) OR (m.player_id_2 = :account_id)) AND (ct.receiver_account_id != :account_id) AND (ct.trade_confirmed = TRUE)';
 
         $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
     } else {
@@ -252,7 +252,7 @@ function getOutgoingTradesPlanned($tournamentId, $accountId) {
             LEFT JOIN magic_cards mc on (ct.card_id = mc.card_id)
             LEFT JOIN matches m on (ct.match_id = m.match_id)
             LEFT JOIN tournament_rounds tr on (m.tournament_round_id = tr.round_id)
-            WHERE (tr.tournament_id = :tournament_id) AND (tr.completed = FALSE) AND ((m.player_id_1 = :account_id) OR (m.player_id_2 = :account_id)) AND (ct.receiver_account_id != :account_id) AND (ct.trade_confirmed = TRUE)';
+            WHERE (tr.tournament_id = :tournament_id) AND ((tr.completed = FALSE) AND (tr.trades_next_round = TRUE)) AND ((m.player_id_1 = :account_id) OR (m.player_id_2 = :account_id)) AND (ct.receiver_account_id != :account_id) AND (ct.trade_confirmed = TRUE)';
 
     $values = [':tournament_id' => $tournamentId, ':account_id' => $accountId];
 
