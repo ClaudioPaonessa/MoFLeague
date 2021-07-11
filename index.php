@@ -30,8 +30,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <link href="https://cdn.datatables.net/searchpanes/1.2.1/css/searchPanes.dataTables.min.css" rel="stylesheet" crossorigin="anonymous" />
         <link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-csp.min.css" integrity="sha512-3mC4Q7Z/awACW7Zf0QGvaU8dEXv862RQD6kmpNXTuiUV6X/sdl1QhiiN5z9x/iNpvMFsQ+NBD3TKGrFI3vP0QA==" crossorigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap" rel="stylesheet">
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -98,7 +99,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 </main>
                 <footer class="py-4 bg-dark mt-auto">
                     <div class="container-fluid">
-                        <div class="row small align-items-center">
+                        <div class="row small align-items-center footer-special">
                             <div class="col-xl-6">
                                 <p>Copyright &copy; Mansion of Fire 2021</p>
                                 <p class="text-muted small">Portions of Mansion of Fire are unofficial Fan Content permitted under the Wizards of the Coast Fan Content Policy. 
