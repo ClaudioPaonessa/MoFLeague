@@ -10269,6 +10269,7 @@ body {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 20pt;
   border-radius: 5px;
+  background-image: url("/img/header_bg1.png");
   background-color: rgb(40, 77, 125);
 }
 
@@ -10305,6 +10306,7 @@ hr {
 
 li.list-group-item {
   background-color: #000000;
+  border-radius: 5px !important;
 }
 
 div.modal-light {
@@ -10319,22 +10321,11 @@ a {
   color: #00dbea;
 }
 
-.item-special {
-  background-color: #000000;
-  border-radius: 0px !important;
-  color: #ffffff;
-  border-bottom: 1px solid #ffffff;
-  border-top: 1px solid #ffffff;
-
-  -o-border-image: linear-gradient(90deg, #000000 2%, #ffffff 50%, #000000 98%);
-  border-image: linear-gradient(90deg,#000000 2%, #ffffff 50%, #000000 98%);
-  border-image-slice: 1;
-}
-
 a.item-special:hover {
   background-color: #474747 !important;
   color: #ffffff;
   box-shadow: 0px 0px 5px 5px #0ff;
+  border: 1px solid transparent;
 }
 
 .item-special {
@@ -10342,6 +10333,10 @@ a.item-special:hover {
   -o-border-image: linear-gradient(90deg, #000000 2%, #00dbea 50%, #000000 98%);
   border-image: linear-gradient(90deg,#000000 2%, #00dbea 50%, #000000 98%);
   border-image-slice: 1;
+
+  color: #ffffff;
+  border-radius: 5px !important;
+  background-color: #000000;
 }
 
 li.active-special {
@@ -10734,4 +10729,19 @@ footer {
 
 .sb-sidenav-dark {
   background-color: black;
+}
+
+.logout-button {
+  border:5px solid #343a40;
+  border-radius: 10px;
+}
+
+.dropdown-menu-right {
+  background-color: #343a40 !important;
+  right:-17px !important;
+}
+
+.btn-primary {
+  background-color: #1a8991 !important;
+  border-color: #1a8991 !important;
 }

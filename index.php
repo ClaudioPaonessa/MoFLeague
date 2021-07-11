@@ -49,7 +49,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" data-target="#accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div id="accountDropdown" class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item bg-danger text-white" href="/auth/logout">Logout</a>
+                        <a class="dropdown-item bg-danger text-white logout-button" href="/auth/logout">Logout</a>
                     </div>
                 </li>
             </ul>
