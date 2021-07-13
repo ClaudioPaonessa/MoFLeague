@@ -121,8 +121,10 @@
                                 pending</span>
                           </small>
                         </div>
-                        <p class="mb-1 small">
-                            {{row.p1DisplayName}} receives:
+
+                        <p class="small"><b>{{row.p1DisplayName}}:</b></p>
+                        <p class="small">
+                            Trades receiving:
                             
                             <span ng-repeat="card in row.tradedToP1 track by $index">
                                 <a uib-popover-template="'tplTradeToP1.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary" ng-class="'badge-' + row.tradedToP1Rarities[$index]">
@@ -134,8 +136,21 @@
                                 -
                             </span>
                         </p>
-                        <p class="mb-1 small">
-                            {{row.p2DisplayName}} receives: 
+                        <p class="small">
+                            Achievements:
+                            
+                            <span ng-repeat="ach in row.p1Achievements track by $index">
+                                <span class="badge badge-success">{{ach.name}} (+{{ach.points}})</span>
+                            </span>
+    
+                            <span ng-show="row.p1Achievements.length == 0">
+                                -
+                            </span>
+                        </p>
+
+                        <p class="small"><b>{{row.p2DisplayName}}:</b></p>
+                        <p class="small">
+                            Trades receiving: 
                             
                             <span ng-repeat="card in row.tradedToP2 track by $index">
                                 <a uib-popover-template="'tplTradeToP2.html'" popover-placement="bottom" popover-trigger="'mouseenter'" class="badge badge-primary" ng-class="'badge-' + row.tradedToP2Rarities[$index]">
@@ -144,6 +159,17 @@
                             </span>
     
                             <span ng-show="row.tradedToP2.length == 0">
+                                -
+                            </span>
+                        </p>
+                        <p class="small">
+                            Achievements:
+                            
+                            <span ng-repeat="ach in row.p2Achievements track by $index">
+                                <span class="badge badge-success">{{ach.name}} (+{{ach.points}})</span>
+                            </span>
+    
+                            <span ng-show="row.p2Achievements.length == 0">
                                 -
                             </span>
                         </p>

@@ -55,6 +55,38 @@ function removeAchievement($matchId) {
     executeSQL($query, $values);
 }
 
+function getPlayerAchievementsForMatch($matchId, $accountId) {
+    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.difficulty, ad.name as difficulty_name, ad.points
+    FROM achievements_receivers AS ar
+    LEFT JOIN match_results mr on (ar.match_id = mr.match_id)
+    LEFT JOIN matches m on (mr.match_id = m.match_id)
+    LEFT JOIN achievements ac on (ar.achievement_id = ac.achievement_id)
+    LEFT JOIN achievements_difficulties ad on (ac.difficulty = ad.achievements_difficultiy_id)
+    WHERE (m.match_id = :match_id) AND (ar.account_id = :account_id)';
+
+    $values = ['match_id' => $matchId, ':account_id' => $accountId];
+
+    $res = executeSQL($query, $values);
+
+    $receivedAchievements = array();
+
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+
+        $achievementItem=array(
+            "achievementId" => $achievement_id,
+            "name" => $name,
+            "description" => $description,
+            "difficultyName" => $difficulty_name,
+            "points" => $points
+        );
+
+        array_push($receivedAchievements, $achievementItem);
+    }
+
+    return $receivedAchievements;
+}
+
 function getReceivedAchievements($tournamentId, $accountId) {
     $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.difficulty, ad.name as difficulty_name, ad.points
     FROM achievements_receivers AS ar

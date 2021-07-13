@@ -3,6 +3,7 @@
 require_once '../../helper/errorHelper.php';
 require_once '../../helper/dbHelper.php';
 require_once '../../helper/profileHelper.php';
+require_once '../../helper/achievementHelper.php';
 
 function getTournamentName($tournamentId) {
     $query = 'SELECT t.tournament_name
@@ -489,7 +490,9 @@ function getCurrentMatchesFiltered($roundId, $accountId) {
             "reporterYou" => $reporter_account_id == $accountId,
             "winnerYou" => $won,
             "p1Rank" => $p1Rank,
-            "p2Rank" => $p2Rank
+            "p2Rank" => $p2Rank,
+            "p1Achievements" => getPlayerAchievementsForMatch($match_id, $player_id_1),
+            "p2Achievements" => getPlayerAchievementsForMatch($match_id, $player_id_2)
         );
     
         array_push($matches, $match_item);
