@@ -10254,12 +10254,19 @@ body {
 }
 
 .card-special > .card-body {
-  border: 2px solid #00dbea;
+  /*border: 2px solid #00dbea;
   -o-border-image: linear-gradient(0deg,#00dbea 25%,#000000);
   border-image: linear-gradient(0deg,#00dbea 25%,#000000);
-  border-image-slice: 1;
+  border-image-slice: 1;*/
   background-color: #000000;
-  border-radius: 5px;
+  padding: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 3px solid #1F324B;
+  border-top: 0px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 
 .card-special > .card-header {
@@ -10268,7 +10275,8 @@ body {
   text-align: center;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 20pt;
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   background-image: url("/img/header_bg1.png");
   background-color: rgb(40, 77, 125);
 }
