@@ -391,7 +391,7 @@ function getCardId($cardName, $setId) {
     if (is_array($row)) {
         extract($row);
         
-        if (str_contains($card_type_line, "Basic Land")) {
+        if (strpos($card_type_line, "Basic Land") !== false) {
             return -1;
         }
         
