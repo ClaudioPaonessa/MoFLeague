@@ -256,6 +256,7 @@ app.controller("PoolController", function($scope, $routeParams, $http, $window) 
 
     $scope.reimportAllowed = function() {
         $scope.reimport = true;
+        $scope.pool.cardPoolString = $scope.arenaString;
     }
 
     $scope.arenaExport = function() {
