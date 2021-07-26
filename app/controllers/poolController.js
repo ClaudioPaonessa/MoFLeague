@@ -262,7 +262,6 @@ app.controller("PoolController", function($scope, $routeParams, $http, $window) 
         $http.get(API_URL + '/api/pool/poolExport.php/' + $scope.tournamentId).then( function ( response ) {
             $scope.arenaString = response.data.arenaString;
             $scope.copyDeckToClipboard();
-            $scope.copyMessage = "Deck copied to clipboard!";
         }, function ( response ) {
             $scope.alertText = response.data.error;
         }).finally(function() {
@@ -283,15 +282,26 @@ app.controller("PoolController", function($scope, $routeParams, $http, $window) 
     }
 
     $scope.copyDeckToClipboard = function() {
-        const el = document.createElement('textarea');
-        el.value = $scope.arenaString;
-        el.setAttribute('readonly', '');
-        el.style.position = 'absolute';
-        el.style.left = '-9999px';
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
+        if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+            navigator.clipboard.writeText($scope.arenaString).then(function() {
+                $scope.copyMessage = "Deck copied to clipboard!";
+            }, function() {
+                $scope.copyMessage = "Failed to copy deck to clipboard!";
+            });
+        }
+        else {
+            const el = document.createElement('textarea');
+            el.value = $scope.arenaString;
+            el.setAttribute('readonly', '');
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            $scope.copyMessage = "Deck copied to clipboard!";
+        }
     }
 
     $scope.filterItemsRarity = {
