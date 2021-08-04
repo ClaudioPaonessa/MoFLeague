@@ -175,6 +175,7 @@ function getReceivedAchievementsFromRounds($tournamentId, $accountId, $rounds) {
     WHERE (ar.account_id = :account_id) AND (tr.tournament_id = :tournament_id) AND (tr.round_id IN (' . $in . ')) AND (mr.result_confirmed = TRUE)';
 
     $values = [':account_id' => $accountId, ':tournament_id' => $tournamentId];
+    $values = array_merge($values, $in_params);
 
     $res = executeSQL($query, $values);
 
@@ -219,6 +220,7 @@ function getReceivedAchievementsPointsFromRounds($tournamentId, $accountId, $rou
     WHERE (ar.account_id = :account_id) AND (tr.tournament_id = :tournament_id) AND (tr.round_id IN (' . $in . ')) AND (mr.result_confirmed = TRUE)';
 
     $values = [':account_id' => $accountId, ':tournament_id' => $tournamentId];
+    $values = array_merge($values, $in_params);
 
     $res = executeSQL($query, $values);
     $row = $res->fetch(PDO::FETCH_ASSOC);
