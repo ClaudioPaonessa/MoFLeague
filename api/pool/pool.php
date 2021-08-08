@@ -26,8 +26,6 @@ $cardPool["receivedCardPacks"] = getReceivedCardPacks($tournamentId, $_SESSION["
 
 $cardPool["pool"] = getCurrentCardPool($cardPool["initialPool"], $cardPool["incomingTrades"], $cardPool["outgoingTrades"], $cardPool["receivedCardPacks"]);
 
-
-
 $cardPool["shareStatus"] = getShareStatus($tournamentId, $_SESSION["id"]);
 
 echo json_encode($cardPool);

@@ -37,8 +37,8 @@ while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     array_push($participants["records"], $participantItem);
 }
 
-http_response_code(200);
-
 echo json_encode($participants);
+
+http_response_code(200);
 
 ?>

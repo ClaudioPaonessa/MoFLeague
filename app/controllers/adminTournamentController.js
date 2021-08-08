@@ -26,6 +26,7 @@ app.controller("AdminTournamentController", function($scope, $routeParams, $http
             $scope.currentRound = response.data.currentRoundId;
             $scope.numberOfRounds = response.data.numberOfRounds;
             $scope.roundsFinished = response.data.roundsFinished;
+            $scope.poolStats = response.data.poolStats;
         }, function ( response ) {
             $scope.alertText = response.data.error;
         }).finally(function() {

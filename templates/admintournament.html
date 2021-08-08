@@ -187,7 +187,7 @@
     </div>
 </div>
 
-<div class="row mb-alot">
+<div class="row">
     <div class="col-xl-12">
         <div class="card card-special mb-4">
             <div class="card-header">
@@ -222,6 +222,28 @@
                             </p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-alot">
+    <div class="col-xl-12">
+        <div class="card card-special mb-4">
+            <div class="card-header">
+                Card Pool Stats
+            </div>
+            <div class="card-body">
+                <div ng-repeat="player in poolStats">
+                    <h4>{{player.displayName}} <small>(Account ID: {{player.accountId}})</small></h4>
+
+                    <p>
+                        <small>Common:</small> {{player.commonCount}},
+                        <small>Uncommon:</small> {{player.uncommonCount}},
+                        <small>Rare:</small> {{player.rareCount}},
+                        <small>Mythic:</small> {{player.mythicCount}}
+                    </p>
                 </div>
             </div>
         </div>

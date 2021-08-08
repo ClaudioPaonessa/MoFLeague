@@ -7,6 +7,7 @@ require_once '../../auth/checkAdmin.php';
 require_once '../../helper/urlIdHelper.php';
 require_once '../../helper/errorHelper.php';
 require_once '../../helper/tournamentHelper.php';
+require_once '../../helper/poolStatsHelper.php';
 
 $tournamentId = getId();
 
@@ -36,6 +37,8 @@ $tournamentData["tournamentMatches"] = getTournamentMatches($tournamentId, $roun
 if ($currentRoundIndex >= 0) {
     $tournamentData["currentMatches"] = getCurrentMatches($currentRoundIndex);
 }
+
+$tournamentData["poolStats"] = getTournamentCardPoolStats($tournamentId);
 
 echo json_encode($tournamentData);
 

@@ -1,6 +1,5 @@
 <?php
 
-// Initialize the session
 session_start();
 
 require_once '../../auth/checkLogin.php';
