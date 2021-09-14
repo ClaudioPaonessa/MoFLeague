@@ -61,7 +61,7 @@
 
 <div class="row" ng-hide="currentRound">
     <div class="col-xl-12">
-        <h3 class="mt-4 mb-4">Already played {{roundsFinished}} rounds of {{numberOfRounds}}. Waiting for next round to start...</h3>
+        <h3 class="mt-4 mb-4">Already played {{roundsFinished}} rounds of {{numberOfRounds}}. <span ng-hide="roundsFinished == numberOfRounds">Waiting for next round to start...</span></h3>
     </div>
 </div>
 
