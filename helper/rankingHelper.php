@@ -136,8 +136,10 @@ function getRanking($accountId, $tournamentId, $query, $values, $groupSize, $rou
         
         if (is_null($rounds)) {
             $receivedAchievementsPoints = getReceivedAchievementsPoints($tournamentId, $player_id);
+            $receivedAchievements = getReceivedAchievements($tournamentId, $player_id);
         } else {
             $receivedAchievementsPoints = getReceivedAchievementsPointsFromRounds($tournamentId, $player_id, $rounds);
+            $receivedAchievements = getReceivedAchievementsFromRounds($tournamentId, $player_id, $rounds);
         }
 
         $ranking_item=array(
@@ -146,6 +148,7 @@ function getRanking($accountId, $tournamentId, $query, $values, $groupSize, $rou
             "matchesPoints" => $total_points,
             "achievementsPoints" => $receivedAchievementsPoints,
             "totalPoints" => $total_points + $receivedAchievementsPoints,
+            "receivedAchievements" => $receivedAchievements,
             "matchesPlayed" => $matches_played,
             "matchesWon" => $matches_won,
             "gamesPlayed" => $games_played,

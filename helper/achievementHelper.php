@@ -57,7 +57,7 @@ function removeAchievement($matchId) {
 }
 
 function getPlayerAchievementsForMatch($matchId, $accountId) {
-    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.shortcode, ac.difficulty, ad.name as difficulty_name, ad.points
+    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.shortcode, ac.shortcode, ac.difficulty, ad.name as difficulty_name, ad.points
     FROM achievements_receivers AS ar
     LEFT JOIN match_results mr on (ar.match_id = mr.match_id)
     LEFT JOIN matches m on (mr.match_id = m.match_id)
@@ -169,7 +169,7 @@ function getReceivedAchievementsFromRounds($tournamentId, $accountId, $rounds) {
     }
     $in = rtrim($in,","); // :id0,:id1,:id2
     
-    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.difficulty, ad.name as difficulty_name, ad.points
+    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.shortcode, ac.difficulty, ad.name as difficulty_name, ad.points
     FROM achievements_receivers AS ar
     LEFT JOIN match_results mr on (ar.match_id = mr.match_id)
     LEFT JOIN matches m on (mr.match_id = m.match_id)

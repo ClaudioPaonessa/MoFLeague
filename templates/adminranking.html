@@ -80,6 +80,7 @@
                                         <th class="align-middle">Tiebreakers <br> <small>OMP / GWP / OGP</small></th>
                                         <th class="align-middle">Matches <br> <small>Wins / Played (MWP)</small></th>
                                         <th class="align-middle">Games <br> <small>Wins / Played (GWP)</th>
+                                        <th class="align-middle">Achievements</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -96,6 +97,9 @@
                                         <td>{{row.OMP}}% / {{row.GWP}}% / {{row.OGP}}%</td>
                                         <td>{{row.matchesWon}} / {{row.matchesPlayed}} ({{row.MWP}}%)</td>
                                         <td>{{row.gamesWon}} / {{row.gamesPlayed}} ({{row.GWP}}%)</td>
+                                        <td>
+                                            <img class="mr-1" ng-repeat="achievement in row.receivedAchievements" ng-src="/img/achievements/{{achievement.shortcode}}.png" width="25px">
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -118,6 +122,7 @@
                                         <th class="align-middle">Tiebreakers <br> <small>OMP / GWP / OGP</small></th>
                                         <th class="align-middle">Matches <br> <small>Wins / Played (MWP)</small></th>
                                         <th class="align-middle">Games <br> <small>Wins / Played (GWP)</th>
+                                        <th class="align-middle">Achievements</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -134,6 +139,9 @@
                                         <td>{{row.OMP}}% / {{row.GWP}}% / {{row.OGP}}%</td>
                                         <td>{{row.matchesWon}} / {{row.matchesPlayed}} ({{row.MWP}}%)</td>
                                         <td>{{row.gamesWon}} / {{row.gamesPlayed}} ({{row.GWP}}%)</td>
+                                        <td>
+                                            <img class="mr-1" ng-repeat="achievement in row.receivedAchievements" ng-src="/img/achievements/{{achievement.shortcode}}.png" width="25px">
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
