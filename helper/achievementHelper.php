@@ -4,7 +4,7 @@ require_once '../../helper/errorHelper.php';
 require_once '../../helper/dbHelper.php';
 
 function getSelectableAchievements($tournamentId, $accountId) {
-    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.difficulty, ad.name as difficulty_name, ad.points
+    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.shortcode, ac.difficulty, ad.name as difficulty_name, ad.points
     FROM achievements AS ac
     LEFT JOIN achievements_difficulties ad on (ac.difficulty = ad.achievements_difficultiy_id)
     WHERE ac.active = TRUE';
@@ -21,7 +21,8 @@ function getSelectableAchievements($tournamentId, $accountId) {
             "name" => $name,
             "description" => $description,
             "difficultyName" => $difficulty_name,
-            "points" => $points
+            "points" => $points,
+            "shortcode" => $shortcode
         );
 
         array_push($selectableAchievements, $achievementItem);
@@ -56,7 +57,7 @@ function removeAchievement($matchId) {
 }
 
 function getPlayerAchievementsForMatch($matchId, $accountId) {
-    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.difficulty, ad.name as difficulty_name, ad.points
+    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.shortcode, ac.difficulty, ad.name as difficulty_name, ad.points
     FROM achievements_receivers AS ar
     LEFT JOIN match_results mr on (ar.match_id = mr.match_id)
     LEFT JOIN matches m on (mr.match_id = m.match_id)
@@ -78,7 +79,8 @@ function getPlayerAchievementsForMatch($matchId, $accountId) {
             "name" => $name,
             "description" => $description,
             "difficultyName" => $difficulty_name,
-            "points" => $points
+            "points" => $points,
+            "shortcode" => $shortcode
         );
 
         array_push($receivedAchievements, $achievementItem);
@@ -88,7 +90,7 @@ function getPlayerAchievementsForMatch($matchId, $accountId) {
 }
 
 function getReceivedAchievements($tournamentId, $accountId) {
-    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.difficulty, ad.name as difficulty_name, ad.points
+    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.shortcode, ac.difficulty, ad.name as difficulty_name, ad.points
     FROM achievements_receivers AS ar
     LEFT JOIN match_results mr on (ar.match_id = mr.match_id)
     LEFT JOIN matches m on (mr.match_id = m.match_id)
@@ -111,7 +113,8 @@ function getReceivedAchievements($tournamentId, $accountId) {
             "name" => $name,
             "description" => $description,
             "difficultyName" => $difficulty_name,
-            "points" => $points
+            "points" => $points,
+            "shortcode" => $shortcode
         );
 
         array_push($receivedAchievements, $achievementItem);
@@ -121,7 +124,7 @@ function getReceivedAchievements($tournamentId, $accountId) {
 }
 
 function getAddedAchievements($tournamentId, $accountId) {
-    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.difficulty, ad.name as difficulty_name, ad.points
+    $query = 'SELECT ac.achievement_id, ac.name, ac.description, ac.shortcode, ac.difficulty, ad.name as difficulty_name, ad.points
     FROM achievements_receivers AS ar
     LEFT JOIN match_results mr on (ar.match_id = mr.match_id)
     LEFT JOIN matches m on (mr.match_id = m.match_id)
@@ -144,7 +147,8 @@ function getAddedAchievements($tournamentId, $accountId) {
             "name" => $name,
             "description" => $description,
             "difficultyName" => $difficulty_name,
-            "points" => $points
+            "points" => $points,
+            "shortcode" => $shortcode
         );
 
         array_push($receivedAchievements, $achievementItem);
@@ -189,7 +193,8 @@ function getReceivedAchievementsFromRounds($tournamentId, $accountId, $rounds) {
             "name" => $name,
             "description" => $description,
             "difficultyName" => $difficulty_name,
-            "points" => $points
+            "points" => $points,
+            "shortcode" => $shortcode
         );
 
         array_push($receivedAchievements, $achievementItem);
