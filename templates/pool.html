@@ -156,6 +156,21 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-xl-12">
+                        <h2 class="mt-4">Marked Cards</h2>
+
+                        <div class="d-flex align-content-start flex-wrap">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" ng-model="filterMarked">
+                                <label class="form-check-label">
+                                    Show only marked cards
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row mt-4">
                     <div class="col-xl-4">
                         <div class="form-group">
@@ -167,7 +182,7 @@
 
                 <div class="row">
                     <div class="col-xl-12">
-                        <div ng-repeat="(key, cards) in enrichedPool | filter: rarityFilter | filter: colorIdentityFilter | filter: { name: cardQuery } | groupBy: 'cardType'">
+                        <div ng-repeat="(key, cards) in enrichedPool | filter: markedFilter | filter: rarityFilter | filter: colorIdentityFilter | filter: { name: cardQuery } | groupBy: 'cardType'">
                             <h3 class="mt-4">{{key}} ({{sum(cards, 'numberOfCards')}})</h3>
 
                             <div class="d-flex align-content-start flex-wrap">

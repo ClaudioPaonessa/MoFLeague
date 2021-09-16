@@ -312,6 +312,8 @@ app.controller("PoolController", function($scope, $routeParams, $http, $window) 
         'mythic': false
     };
 
+    $scope.filterMarked = false;
+
     $scope.itemsRarity = [
         { name: 'common', displayName: 'Common' }, 
         { name: 'uncommon', displayName: 'Uncommon' }, 
@@ -350,6 +352,10 @@ app.controller("PoolController", function($scope, $routeParams, $http, $window) 
             (card.identityG && $scope.filterItemsColorIdentity["G"]) ||
             (card.identityC && $scope.filterItemsColorIdentity["C"]);
     };
+
+    $scope.markedFilter = function(card) {
+        return !$scope.filterMarked || card.marked;
+    }
 
     $scope.toggleMarkCard = function(cardIdxSearch) {
         $scope.enrichedPool[cardIdxSearch].marked = !$scope.enrichedPool[cardIdxSearch].marked;
