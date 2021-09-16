@@ -10430,6 +10430,11 @@ img.inverted {
   border-radius: 12px !important;
 }
 
+.achievement-popover-content {
+  padding: 10px;
+  color: #ffffff;
+}
+
 .popover-double-wide {
   width: 500px !important;
 }

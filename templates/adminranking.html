@@ -98,7 +98,9 @@
                                         <td>{{row.matchesWon}} / {{row.matchesPlayed}} ({{row.MWP}}%)</td>
                                         <td>{{row.gamesWon}} / {{row.gamesPlayed}} ({{row.GWP}}%)</td>
                                         <td>
-                                            <img class="mr-1" ng-repeat="achievement in row.receivedAchievements" ng-src="/img/achievements/{{achievement.shortcode}}.png" width="25px">
+                                            <img class="mr-1" ng-repeat="achievement in row.receivedAchievements" 
+                                                ng-src="/img/achievements/{{achievement.shortcode}}.png" width="25px"
+                                                uib-popover-template="'achievementPopover.html'" popover-placement="bottom" popover-trigger="'mouseenter'">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -140,7 +142,9 @@
                                         <td>{{row.matchesWon}} / {{row.matchesPlayed}} ({{row.MWP}}%)</td>
                                         <td>{{row.gamesWon}} / {{row.gamesPlayed}} ({{row.GWP}}%)</td>
                                         <td>
-                                            <img class="mr-1" ng-repeat="achievement in row.receivedAchievements" ng-src="/img/achievements/{{achievement.shortcode}}.png" width="25px">
+                                            <img class="mr-1" ng-repeat="achievement in row.receivedAchievements" 
+                                                ng-src="/img/achievements/{{achievement.shortcode}}.png" width="25px"
+                                                uib-popover-template="'achievementPopover.html'" popover-placement="bottom" popover-trigger="'mouseenter'">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -152,3 +156,14 @@
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="achievementPopover.html">
+    <div class="achievement-popover-content">
+        <div class="row">
+            <div class="col-xl-12">
+                <h4>{{achievement.name}}</h4>
+                <p>{{achievement.description}}</p>
+            </div>
+        </div>
+    </div>
+</script>
