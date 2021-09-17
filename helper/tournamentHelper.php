@@ -451,8 +451,9 @@ function getCurrentMatchesFiltered($roundId, $accountId) {
     $values = [':tournament_round_id' => $roundId, ':player_id' => $accountId];
 
     $res = executeSQL($query, $values);
-
-    $lastRanking = getLiveRanking(1, $accountId, 1);
+    
+    // TODO: Get last tournament ID and not use constant value (currently using 2 --> S03)
+    $lastRanking = getLiveRanking(2, $accountId, 1);
     $yourRank = getRank($accountId, $lastRanking);
 
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
@@ -529,7 +530,8 @@ function getMatchesFiltered($tournamentId, $accountId, $roundsKeyValuePair) {
 
     $res = executeSQL($query, $values);
 
-    $lastRanking = getLiveRanking(1, $accountId, 1);
+    // TODO: Get last tournament ID and not use constant value (currently using 2 --> S03)
+    $lastRanking = getLiveRanking(2, $accountId, 1);
     $yourRank = getRank($accountId, $lastRanking);
 
     while ($row = $res->fetch(PDO::FETCH_ASSOC)){
