@@ -28,13 +28,13 @@ function getSelectableAchievements($tournamentId, $accountId) {
         array_push($selectableAchievements, $achievementItem);
     }
 
-    $receivedAchievements = getAddedAchievements($tournamentId, $accountId);
+    #$receivedAchievements = getAddedAchievements($tournamentId, $accountId);
     
-    foreach ($receivedAchievements as &$ach) {
-        if (($key = array_search($ach["achievementId"], array_column($selectableAchievements, 'achievementId'))) !== false) {
-            unset($selectableAchievements[$key]);
-        }
-    }
+    #foreach ($receivedAchievements as &$ach) {
+    #    if (($key = array_search($ach["achievementId"], array_column($selectableAchievements, 'achievementId'))) !== false) {
+    #        unset($selectableAchievements[$key]);
+    #    }
+    #}
 
     $selectableAchievements = array_values($selectableAchievements);
 
